@@ -12,6 +12,5 @@ const std::string wyjscie = "log.csv";
 int main ()
 {
   Eksperyment glowny(wyjscie);
-
   return 0;
 }

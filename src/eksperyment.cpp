@@ -4,6 +4,7 @@
 #include <fstream>
 
 #include "eksperyment.hh"
+#include "czas.hh"
 
 using namespace std;
 
@@ -93,11 +94,29 @@ bool Eksperyment::WczytajJedenPlik(string nazwa, TabLiczb& tab)
 
   if (tab.size() == rozm)
     return true;
-  else
+  else {
     cerr << "Błędna ilość liczb w pliku " << nazwa << "!\n";
+    return false;}
 }
 
 float Eksperyment::WielokrotnyPomiar(unsigned nr)
 {
+  unsigned ile = Zadania[nr].IleRazy;
+  float wynik = 0.0;
+  timespec przed, po;
 
+  for (unsigned i = 0; i < ile; i++) {
+    if(!WczytajPliki(nr)) 
+      return -1.0;
+    przed = Teraz();
+    Wejscie.RazyDwa();
+    po = Teraz();
+    if(!(Wejscie == Wzor))
+      return -1.0;
+    wynik += RoznicaCzasu(przed, po);
+  }
+
+  wynik /= ile;
+
+  return wynik;
 }

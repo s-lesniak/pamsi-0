@@ -7,9 +7,9 @@ __start__: pamsi-0
 obj:
 	mkdir obj
 
-pamsi-0: obj/main.o obj/eksperyment.o obj/czas.o
+pamsi-0: obj/main.o obj/eksperyment.o obj/czas.o obj/tabliczb.o
 	g++ ${LDFLAGS} -o pamsi-0 obj/main.o obj/eksperyment.o \
-obj/czas.o
+obj/czas.o obj/tabliczb.o
 
 obj/main.o: src/main.cpp
 	g++ ${CPPFLAGS} -o obj/main.o src/main.cpp
@@ -20,3 +20,6 @@ inc/wynikbadania.hh inc/zrodlo.hh src/eksperyment.cpp
 
 obj/czas.o: inc/czas.hh src/czas.cpp
 	g++ ${CPPFLAGS} -o obj/czas.o src/czas.cpp
+
+obj/tabliczb.o: inc/tabliczb.hh src/tabliczb.cpp
+	g++ ${CPPFLAGS} -o obj/tabliczb.o src/tabliczb.cpp
