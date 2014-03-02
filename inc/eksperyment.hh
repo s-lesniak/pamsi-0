@@ -7,6 +7,10 @@
 #include <string>
 #include <vector>
 
+#include "tabliczb.hh"
+#include "wynikbadania.hh"
+#include "zrodlo.hh"
+
 using namespace std;
 
 /*!
@@ -33,12 +37,25 @@ public:
   Eksperyment(string PlikWyj);
 
   /*!
+   * @brief Wczytanie danych z plików
+   *
+   * Funkcja sczytuje dane z plików do tablic Wejscie i Wzor. To, które
+   * pliki wczytać, jest zdeterminowane liczbą podaną jako argument - 
+   * ma ona odpowiadać pewnemu elementowi tablicy Zadania.
+   *
+   * @param[in] nr - indeks wektora Zadania, któremu mają odpowiadać
+   * wczytywane pliki
+   * @retval true - wczytywanie zakończone sukcesem
+   * @retval false - błąd odczytu */
+  bool WczytajPliki (unsigned nr);
+
+  /*!
    * @brief Spis "zadań" do wykonania przez program 
    *
    * "Zadanie" jest zapisane jako struktura typu [Zrodlo](@ref Zrodlo),
    * z nazwami dwóch plików (wejściowego i wzorcowego) oraz liczbą
    * powtórzeń badania. */
-  vector<Zrodlo> Tablica;
+  vector<Zrodlo> Zadania;
 
   /*!
    * @brief Spis wyników badań
@@ -55,7 +72,27 @@ public:
   string NazwaWyjscia;
 
 private:
+  /*!
+   * @brief Przetwarzane liczby
+   *
+   * Tablica na liczby, które program ma przetworzyć. */
+  TabLiczb Wejscie;
 
-}; 
+  /*!
+   * @brief Liczby wzorcowe
+   *
+   * Tablica na liczby, które zostaną porównane ze wzorcowymi. */
+  TabLiczb Wzor;
+
+  /*!
+   * @brief Tworzy listę zadań
+   *
+   * Pyta użytkownika o ilość badań oraz nazwy plików wejściowych oraz
+   * zapisuje uzyskane dane. Sprawdza możliwość otwarcia plików o nazwach
+   * podanych przez użytkownika. 
+   * @retval true - poprawne dzialanie
+   * @retval false - wprowadzono jakąś niewłaściwą wartość */
+  bool SpiszZadania();
+};
 
 #endif
