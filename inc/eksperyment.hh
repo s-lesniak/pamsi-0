@@ -14,6 +14,15 @@
 using namespace std;
 
 /*!
+ * @brief Sprawdza możliwość otwarcia pliku
+ *
+ * Przy stwierdzeniu niemożliwości pokazuje na cerr komunikat
+ *
+ * \retval true - plik daje się otworzyć
+ * \retval false - pliku nie da się otworzyć */
+bool SprawdzNazwe(string nazwa);
+
+/*!
  * @brief Główna klasa programu, modeluje całość badanie zbioru liczb
  *
  * Klasa obsługuje badanie czasu, w jakim dokona się jakaś akcja na 
@@ -93,6 +102,17 @@ private:
    * @retval true - poprawne dzialanie
    * @retval false - wprowadzono jakąś niewłaściwą wartość */
   bool SpiszZadania();
+
+  /*!
+   * @brief Zapisuje do tablicy dane z jednego pliku
+   *
+   * Plik musi być zgodny ze schematem z opisu struktury [Zrodlo](@ref Zrodlo)
+   * @param[in] nazwa - nazwa pliku
+   * @param[out] tab - tablica do której są wczytane dane 
+   * @retval true - wczytanie zakończone sukcesem
+   * @retval false - błąd we wczytaniu pliku (nie-liczba) lub niezgodność
+   * ze schematem */
+  bool WczytajJedenPlik(string nazwa, TabLiczb& tab);
 };
 
 #endif

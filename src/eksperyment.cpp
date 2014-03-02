@@ -12,7 +12,7 @@ bool SprawdzNazwe(string nazwa)
   ifstream str(nazwa.c_str());
 
   if (!(str.is_open())) {
-    cerr << "Pliku " << nazwa << "nie udało się otworzyć" << endl;
+    cerr << "Pliku " << nazwa << " nie udało się otworzyć\n";
     return false;
   }
   else
@@ -32,7 +32,7 @@ bool Eksperyment::WczytajPliki (unsigned nr)
 
 bool Eksperyment::SpiszZadania ()
 {
-  unsigned n, k;
+  unsigned n;
   cout << "Podaj liczbę plików wejściowych: ";
   cin >> n;
   if (cin.fail()) {
@@ -55,4 +55,28 @@ bool Eksperyment::SpiszZadania ()
       return false;
     }
   }
+  return true;
+}
+
+bool WczytajJedenPlik(string nazwa, TabLiczb& tab)
+{
+  ifstream strum(nazwa.c_str());
+
+  unsigned rozm;
+  if (!(strum >> num)) {
+    cerr << "Błąd w linii 1 pliku " << nazwa << "!\n";
+    return false;
+  }
+  tab.resize(0);
+
+  int num;
+  if (!(strum >> num)) {
+    cerr << "Brak liczb w pliku " << nazwa << "!\n";
+    return false;
+  }
+  while (strum.good()) {
+    tab.push_back(num);
+    strum >> num;
+  }
+  return true;
 }
