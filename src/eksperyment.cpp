@@ -23,12 +23,20 @@ Eksperyment::Eksperyment(string PlikWyj): NazwaWyjscia(PlikWyj)
 {
   if (!SpiszZadania())
     return;
+
+
 }
 
 bool Eksperyment::WczytajPliki (unsigned nr)
 {
-  return true;
+  if (WczytajJedenPlik(Zadania[nr].PlikWejsciowy, Wejscie)) {
+      if (WczytajJedenPlik(Zadania[nr].PlikWzorcowy, Wzor))
+	return true;
+      else return false;
+    }
+  else return false;
 }
+   
 
 bool Eksperyment::SpiszZadania ()
 {
@@ -58,12 +66,12 @@ bool Eksperyment::SpiszZadania ()
   return true;
 }
 
-bool WczytajJedenPlik(string nazwa, TabLiczb& tab)
+bool Eksperyment::WczytajJedenPlik(string nazwa, TabLiczb& tab)
 {
   ifstream strum(nazwa.c_str());
 
   unsigned rozm;
-  if (!(strum >> num)) {
+  if (!(strum >> rozm)) {
     cerr << "Błąd w linii 1 pliku " << nazwa << "!\n";
     return false;
   }
@@ -76,7 +84,20 @@ bool WczytajJedenPlik(string nazwa, TabLiczb& tab)
   }
   while (strum.good()) {
     tab.push_back(num);
-    strum >> num;
+    if (!(strum >> num)) {
+      cerr << "Błąd w linii " << tab.size() << " w pliku " << nazwa
+	   << "!\n";
+      return false;
+    }
   }
-  return true;
+
+  if (tab.size() == rozm)
+    return true;
+  else
+    cerr << "Błędna ilość liczb w pliku " << nazwa << "!\n";
+}
+
+float Eksperyment::WielokrotnyPomiar(unsigned nr)
+{
+
 }

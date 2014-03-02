@@ -113,6 +113,20 @@ private:
    * @retval false - błąd we wczytaniu pliku (nie-liczba) lub niezgodność
    * ze schematem */
   bool WczytajJedenPlik(string nazwa, TabLiczb& tab);
+
+  /*!
+   * @brief Dokonuje wielokrotnego pomiaru
+   *
+   * Funkcja dokonuje wielokrotnego wywołania funkcji Wejscie.RazyDwa()
+   * i mierzy czas jej wykonania. Następnie zostaje dokonane porównanie
+   * wyniku z tablicą Wzor. Ilość pomiarów jest brana z pola IleRazy
+   * odpowiedniego elementu Zadania.
+   *
+   * @param[in] nr - numer indeksu w polu Zadania, z którego wzięta 
+   * zostanie liczba pomiarów
+   * @retval -1.0 - dla niezgodności ze wzorcem 
+   * @return średni czas pomiaru. */
+  float WielokrotnyPomiar(unsigned nr);
 };
 
 #endif
