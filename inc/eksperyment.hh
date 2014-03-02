@@ -53,6 +53,9 @@ public:
    * W pliku o tej nazwie zapisane zostaną zbiorczo informacje o badaniu,
    * tak jak w wektorze [Wyniki](@ref Wyniki) */
   string NazwaWyjscia;
+
+private:
+
 }; 
 
 #endif
