@@ -32,6 +32,15 @@ struct Zrodlo {
    *
    * Liczby z pliku o tej nazwie zostaną porównane z przetworzonymi
    * liczbami z pierwszego pliku. */
+  string PlikWzorcowy;
+
+  /*!
+   * @brief Ilość powtórzeń badania
+   *
+   * Tę ilość razy zostanie wykonane badanie na zadanym zbiorze liczb.
+   * Co za tym idzie, jest to też liczba danych, z której zostanie 
+   * wyliczona wartość średnia. */
+  unsigned IleRazy;
 };
 
 #endif
