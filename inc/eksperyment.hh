@@ -127,6 +127,14 @@ private:
    * @retval -1.0 - dla niezgodności ze wzorcem 
    * @return średni czas pomiaru. */
   float WielokrotnyPomiar(unsigned nr);
+
+  /*!
+   * @brief Zapisuje wyniki w pliku CSV
+   *
+   * Funkcja tworzy plik o zadanej w polu NazwaWyjscia nazwie i zapisuje\
+   * w nim dane z pola Wyniki rozdzielone przecinkami. Pierwszy wiersz
+   * zajmują nazwy kolumn. */
+  void Zapisz();
 };
 
 #endif

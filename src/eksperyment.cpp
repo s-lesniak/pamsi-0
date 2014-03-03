@@ -24,8 +24,13 @@ Eksperyment::Eksperyment(string PlikWyj): NazwaWyjscia(PlikWyj)
 {
   if (!SpiszZadania())
     return;
-
-
+  
+  for (unsigned int i = 0; i < Zadania.size(); i++) {
+    float sr = WielokrotnyPomiar(i);    
+    WynikBadania elem = {Wejscie.size(), Zadania[i].IleRazy, sr};
+    Wyniki.push_back(elem);
+  }
+  Zapisz();
 }
 
 bool Eksperyment::WczytajPliki (unsigned nr)
@@ -85,7 +90,7 @@ bool Eksperyment::WczytajJedenPlik(string nazwa, TabLiczb& tab)
   }
   while (strum.good()) {
     tab.push_back(num);
-    if (!(strum >> num)) {
+    if (!(strum >> num) && !strum.eof()) {
       cerr << "Błąd w linii " << tab.size() << " w pliku " << nazwa
 	   << "!\n";
       return false;
@@ -96,7 +101,8 @@ bool Eksperyment::WczytajJedenPlik(string nazwa, TabLiczb& tab)
     return true;
   else {
     cerr << "Błędna ilość liczb w pliku " << nazwa << "!\n";
-    return false;}
+    return false;
+  }
 }
 
 float Eksperyment::WielokrotnyPomiar(unsigned nr)
@@ -119,4 +125,17 @@ float Eksperyment::WielokrotnyPomiar(unsigned nr)
   wynik /= ile;
 
   return wynik;
+}
+
+void Eksperyment::Zapisz()
+{
+  ofstream str;
+  str.open(NazwaWyjscia.c_str());
+  str << "Ilość liczb,Ilość próbek,Średni czas\n";
+  for (unsigned i = 0; i < Wyniki.size(); i++) {
+    str << Wyniki[i].IloscLiczb << ',' << Wyniki[i].IloscDzialan
+	<< ',' << Wyniki[i].SredniCzas << '\n';
+  }
+
+  str.close();
 }
