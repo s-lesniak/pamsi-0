@@ -65,6 +65,16 @@ public:
    * @return referencja do połączonej tablicy */
   TabLiczb& operator + (const TabLiczb& zrodlo);
 
+  /*!
+   * @brief Przypisuje jedną tablicę drugiej
+   *
+   * Wielkość wektora "roboczego" zostanie zmieniona, by dostosować
+   * do wektora źródłowego, następnie element po elemencie zostanie
+   * dokonane przepisanie danych.
+   *
+   * @param[in] zrodlo - wektor, z którego dokonana zostanie kopia */
+  TabLiczb& operator = (const TabLiczb& zrodlo);
+
 private:
   /*!
    * @brief Odwraca kolejność wybranych elementów tablicy

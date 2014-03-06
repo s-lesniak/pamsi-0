@@ -63,9 +63,20 @@ bool TabLiczb::OdwrocKolejnosc(unsigned i, unsigned j)
 TabLiczb& TabLiczb::operator + (const TabLiczb &zrodlo)
 { DodajElementy(*this, zrodlo); return *this; }
 
+TabLiczb& TabLiczb::operator = (const TabLiczb& zrodlo)
+{
+  resize(zrodlo.size());
+
+  for (unsigned i = 0; i < size(); i++) {
+    at(i) = zrodlo[i];
+  }
+  return *this;
+}
+
 void DodajElementy (TabLiczb& zrodlo1, const TabLiczb& zrodlo2)
 {
   for (unsigned i = 0; i < zrodlo2.size(); i++) {
     zrodlo1.push_back(zrodlo2[i]);
   }
 }
+
