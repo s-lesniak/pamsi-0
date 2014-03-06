@@ -42,6 +42,22 @@ public:
    * @retval true - prawidłowe wykonanie funkcji
    * @retval false - błąd wywołania indeks poza zasięgiem */
   bool ZamienElementy(unsigned i, unsigned j);
+  
+  /*!
+   * @brief Odwraca kolejność wszystkich elementów tablicy
+   *
+   * Zmienia tablicę tak, by wyglądał jakby czytany od końca */
+  void OdwrocKolejnosc();
+
+private:
+  /*!
+   * @brief Odwraca kolejność wybranych elementów tablicy
+   *
+   * @param[in] i, j - skrajne indeksy odwracanego fragmentu tablicy
+   * @retval true - prawidłowe wywołanie funkcji
+   * @retval false - błąd wywołania (indeks poza zasięgiem, zła ich
+   * kolejność) */
+  bool OdwrocKolejnosc(unsigned i, unsigned j);
 }; 
 
 #endif

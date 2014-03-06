@@ -41,3 +41,21 @@ bool TabLiczb::ZamienElementy(unsigned i, unsigned j)
 
   return true;
 }
+
+void TabLiczb::OdwrocKolejnosc()
+{
+  OdwrocKolejnosc(0, size() - 1);
+}
+
+bool TabLiczb::OdwrocKolejnosc(unsigned i, unsigned j)
+{
+  if (i > size() || j > size () || i > j) {
+    cerr << "Nieprawidłowy indeks przy odwracaniu tablicy";
+    return false;
+  }
+
+  for (unsigned a = 0; a <= (i+j)/2 ; a++) {
+    ZamienElementy(i+a, j-a);
+  }
+  return true;
+}
