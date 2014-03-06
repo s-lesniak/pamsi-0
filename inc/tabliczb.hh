@@ -49,6 +49,12 @@ public:
    * Zmienia tablicę tak, by wyglądał jakby czytany od końca */
   void OdwrocKolejnosc();
 
+  /*!
+   * @brief Dodaje nowy element na koniec tablicy
+   *
+   * @param[in] elem - element do dodania */
+  void DodajElement (int elem) { push_back(elem); }
+
 private:
   /*!
    * @brief Odwraca kolejność wybranych elementów tablicy
