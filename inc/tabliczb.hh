@@ -33,6 +33,15 @@ public:
    *
    * Mnoży każdy z elementów tablicy razy dwa. */
   void RazyDwa();
+
+  /*!
+   * @brief Zamienia dwa elementy tablicy 
+   * 
+   * @param[in] i, j - indeksy zamienianych elementów liczone od zera.
+   * Ich kolejność nie gra roli.
+   * @retval true - prawidłowe wykonanie funkcji
+   * @retval false - błąd wywołania indeks poza zasięgiem */
+  bool ZamienElementy(unsigned i, unsigned j);
 }; 
 
 #endif
