@@ -55,6 +55,16 @@ public:
    * @param[in] elem - element do dodania */
   void DodajElement (int elem) { push_back(elem); }
 
+  /*!
+   * @brief Łączy z drugą tablicą
+   *
+   * W wynikowej tablicy będą najpierw elementy pierwszej, potem
+   * drugiej (podanej za argument) tablicy.
+   *
+   * @param[in] zrodlo - tablca, z której dodane zostaną dane 
+   * @return referencja do połączonej tablicy */
+  TabLiczb& operator + (const TabLiczb& zrodlo);
+
 private:
   /*!
    * @brief Odwraca kolejność wybranych elementów tablicy
@@ -66,4 +76,14 @@ private:
   bool OdwrocKolejnosc(unsigned i, unsigned j);
 }; 
 
+/*!
+ * @brief Łączy dwie tablice
+ *
+ * W wynikowej tablicy będą najpierw elementy pierwszej, potem
+ * drugiej (podanej za argument) tablicy.
+ *
+ * @param[in, out] zrodlo1 - tablica, do której dodane zostaną 
+ * elementy
+ * @param[in] zrodlo2 - tablica bedaca zrodlem nowych danych */
+void DodajElementy (TabLiczb& zrodlo1, const TabLiczb& zrodlo2);
 #endif
