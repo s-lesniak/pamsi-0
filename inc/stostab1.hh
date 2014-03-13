@@ -15,10 +15,15 @@ class StosTab1 {
 public:
 
   /*!
+   * @brief Inicjalizacja pustego stosu */
+  StosTab1();
+
+  /*!
    * @brief Kładzie liczbę na stos
    *
    * Zwiększa rozmiar tablicy o jeden, a na wolnym elemencie kładzie
-   * nową liczbę */
+   * nową liczbę 
+   * @param[in] i - liczba do położenia na stosie */
   void push(int i);
 
   /*!
@@ -37,5 +42,9 @@ public:
   unsigned size();
 
 private:
-
+  /*!
+   * @brief Wskaźnik na implementującą tablicę */
+  int* Tablica;
 };
+
+#endif
