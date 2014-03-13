@@ -8,7 +8,7 @@ obj:
 	mkdir obj
 
 pamsi-0: obj/main.o obj/eksperyment.o obj/czas.o obj/tabliczb.o \
-obj/stostab1.o
+obj/stostab.o
 	g++ ${LDFLAGS} -o pamsi-0 obj/main.o obj/eksperyment.o \
 obj/czas.o obj/tabliczb.o obj/stostab.o
 
