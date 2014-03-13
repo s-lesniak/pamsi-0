@@ -42,7 +42,7 @@ public:
    * @retval true - prawidłowe wykonanie funkcji
    * @retval false - błąd wywołania indeks poza zasięgiem */
   bool ZamienElementy(unsigned i, unsigned j);
-  
+   
   /*!
    * @brief Odwraca kolejność wszystkich elementów tablicy
    *
