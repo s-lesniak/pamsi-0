@@ -20,8 +20,11 @@ bool SprawdzNazwe(string nazwa)
     return true;
 }
 
-Eksperyment::Eksperyment(string PlikWyj): NazwaWyjscia(PlikWyj)
+Eksperyment::Eksperyment(string PlikWyj, TrybPracy tryb = Podwajanie):
+  NazwaWyjscia(PlikWyj), Wejscie(tryb), Wzor(tryb)
 {
+  //Wejscie(tryb); Wzor(tryb);
+
   if (!SpiszZadania())
     return;
   
@@ -72,7 +75,7 @@ bool Eksperyment::SpiszZadania ()
   return true;
 }
 
-bool Eksperyment::WczytajJedenPlik(string nazwa, TabLiczb& tab)
+bool Eksperyment::WczytajJedenPlik(string nazwa, StosTab& tab)
 {
   ifstream strum(nazwa.c_str());
 
@@ -81,15 +84,14 @@ bool Eksperyment::WczytajJedenPlik(string nazwa, TabLiczb& tab)
     cerr << "Błąd w linii 1 pliku " << nazwa << "!\n";
     return false;
   }
-  tab.resize(0);
-
+  
   int num;
   if (!(strum >> num)) {
     cerr << "Brak liczb w pliku " << nazwa << "!\n";
     return false;
   }
   while (strum.good()) {
-    tab.push_back(num);
+    tab.push(num);
     if (!(strum >> num) && !strum.eof()) {
       cerr << "Błąd w linii " << tab.size() << " w pliku " << nazwa
 	   << "!\n";

@@ -37,7 +37,7 @@ public:
    * inna wartość dla wersji podwajającej
    * @warning Argument konstruktora NIE jest pierwszą liczbą na stosie!
    */
-  StosTab(int i);
+  StosTab(TrybPracy tryb);
 
   /*!
    * @brief Kładzie liczbę na stos

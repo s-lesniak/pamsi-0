@@ -6,9 +6,9 @@
 
 #include "stostab.hh"
 
-StosTab::StosTab(int i = 0): Tablica(NULL), Rozmiar(0), Ilosc(0)
+StosTab::StosTab(TrybPracy tryb): Tablica(NULL), Rozmiar(0), Ilosc(0),
+				  Tryb(tryb)
 {
-  Tryb = i ? Podwajanie : CoJeden;
   if (Tryb)
     cout << "Tryb podwajania" << endl;
   else
@@ -43,8 +43,6 @@ void StosTab::push_co1 (int i)
   delete[] Tablica;
 
   Tablica = nowa;
-
-  //cout << "Ilosc = " << Ilosc << ", Rozmiar = " << Rozmiar << endl;
 }
 
 void StosTab::push_po2 (int i)
@@ -61,8 +59,6 @@ void StosTab::push_po2 (int i)
   }
   else 
     Tablica[Ilosc++] = i;
-
-  //cout << "Ilosc = " << Ilosc << ", Rozmiar = " << Rozmiar << endl;
 }
 
 int StosTab::pop_co1 ()

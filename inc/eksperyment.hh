@@ -10,6 +10,7 @@
 #include "tabliczb.hh"
 #include "wynikbadania.hh"
 #include "zrodlo.hh"
+#include "stostab.hh"
 
 using namespace std;
 
@@ -37,13 +38,14 @@ bool SprawdzNazwe(string nazwa);
  * o [nazwie](@ref wyjscie) ustalonej w kodzie programu. */
 class Eksperyment {
 public:
+
   /*!
    * @brief Konstruktor
    *
    * Konstruktor zrealizowany tak, by jego uruchomienie było jedynym
    * koniecznym wywołaniem w funkcji main.
    * @param[in] PlikWyj - nazwa pliku wyjściowego programu */
-  Eksperyment(string PlikWyj);
+  Eksperyment(string PlikWyj, TrybPracy tryb);
 
   /*!
    * @brief Wczytanie danych z plików
@@ -85,13 +87,17 @@ private:
    * @brief Przetwarzane liczby
    *
    * Tablica na liczby, które program ma przetworzyć. */
-  TabLiczb Wejscie;
+  StosTab Wejscie;
 
   /*!
    * @brief Liczby wzorcowe
    *
    * Tablica na liczby, które zostaną porównane ze wzorcowymi. */
-  TabLiczb Wzor;
+  StosTab Wzor;
+
+  /*!
+   * @brief określa tryb pracy stosów wewnątrz klasy */
+  TrybPracy Tryb;
 
   /*!
    * @brief Tworzy listę zadań
@@ -108,11 +114,11 @@ private:
    *
    * Plik musi być zgodny ze schematem z opisu struktury [Zrodlo](@ref Zrodlo)
    * @param[in] nazwa - nazwa pliku
-   * @param[out] tab - tablica do której są wczytane dane 
+   * @param[out] tab - stos, do którego są wczytane dane 
    * @retval true - wczytanie zakończone sukcesem
    * @retval false - błąd we wczytaniu pliku (nie-liczba) lub niezgodność
    * ze schematem */
-  bool WczytajJedenPlik(string nazwa, TabLiczb& tab);
+  bool WczytajJedenPlik(string nazwa, StosTab& tab);
 
   /*!
    * @brief Dokonuje wielokrotnego pomiaru
