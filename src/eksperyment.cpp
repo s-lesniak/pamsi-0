@@ -21,10 +21,8 @@ bool SprawdzNazwe(string nazwa)
 }
 
 Eksperyment::Eksperyment(string PlikWyj, TrybPracy tryb = Podwajanie):
-  NazwaWyjscia(PlikWyj), Wejscie(tryb), Wzor(tryb)
+  NazwaWyjscia(PlikWyj), Wejscie(tryb)
 {
-  //Wejscie(tryb); Wzor(tryb);
-
   if (!SpiszZadania())
     return;
   
@@ -38,12 +36,10 @@ Eksperyment::Eksperyment(string PlikWyj, TrybPracy tryb = Podwajanie):
 
 bool Eksperyment::WczytajPliki (unsigned nr)
 {
-  if (WczytajJedenPlik(Zadania[nr].PlikWejsciowy, Wejscie)) {
-      if (WczytajJedenPlik(Zadania[nr].PlikWzorcowy, Wzor))
-	return true;
-      else return false;
-    }
-  else return false;
+  if (WczytajJedenPlik(Zadania[nr].PlikWejsciowy, Wejscie))
+    return true;
+  else 
+    return false;
 }
    
 
@@ -62,9 +58,6 @@ bool Eksperyment::SpiszZadania ()
     cout << "Podaj plik źródłowy nr " << (i+1) << ": "; 
     if (!(cin >> Zadania[i].PlikWejsciowy)) return false;
     if (!SprawdzNazwe(Zadania[i].PlikWejsciowy)) return false;
-    cout << "Podaj plik wzorcowy nr " << (i+1) << ": ";
-    if (!(cin >> Zadania[i].PlikWzorcowy)) return false;
-    if (!SprawdzNazwe(Zadania[i].PlikWzorcowy)) return false;
     cout << "Ilość badań pliku nr " << (i+1) << ": ";
     cin >> Zadania[i].IleRazy;
     if (cin.fail()) {

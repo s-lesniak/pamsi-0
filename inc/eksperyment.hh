@@ -48,14 +48,14 @@ public:
   Eksperyment(string PlikWyj, TrybPracy tryb);
 
   /*!
-   * @brief Wczytanie danych z plików
+   * @brief Wczytanie danych z pliku
    *
-   * Funkcja sczytuje dane z plików do tablic Wejscie i Wzor. To, które
-   * pliki wczytać, jest zdeterminowane liczbą podaną jako argument - 
-   * ma ona odpowiadać pewnemu elementowi tablicy Zadania.
+   * Funkcja sczytuje dane z plików do stosu Wejscie. To, które pliki
+   * wczytać, jest zdeterminowane liczbą podaną jako argument - ma ona 
+   * odpowiadać pewnemu elementowi tablicy Zadania.
    *
-   * @param[in] nr - indeks wektora Zadania, któremu mają odpowiadać
-   * wczytywane pliki
+   * @param[in] nr - indeks wektora Zadania, któremu ma odpowiadać
+   * wczytywany plik
    * @retval true - wczytywanie zakończone sukcesem
    * @retval false - błąd odczytu */
   bool WczytajPliki (unsigned nr);
@@ -88,12 +88,6 @@ private:
    *
    * Tablica na liczby, które program ma przetworzyć. */
   StosTab Wejscie;
-
-  /*!
-   * @brief Liczby wzorcowe
-   *
-   * Tablica na liczby, które zostaną porównane ze wzorcowymi. */
-  StosTab Wzor;
 
   /*!
    * @brief określa tryb pracy stosów wewnątrz klasy */
