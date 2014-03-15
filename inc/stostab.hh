@@ -34,7 +34,9 @@ public:
    *
    * @param[in] i - decyduje o trybie pracy stosu (p. opis klasy):
    * 0 dla wersji powiększającej o jeden
-   * inna wartość dla wersji podwajającej */
+   * inna wartość dla wersji podwajającej
+   * @warning Argument konstruktora NIE jest pierwszą liczbą na stosie!
+   */
   StosTab(int i);
 
   /*!
@@ -87,27 +89,28 @@ private:
   /*!
    * @brief Zdejmowanie ze stosu w trybie CoJeden
    * @return wartość zdjętego elementu */
-  int pop_co1(int i);
+  int pop_co1();
 
   /*!
    * @brief Zdejmowanie ze stosu w trybie Podwajanie
    * @return wartość zdjętego elementu */
-  int pop_po2(int i);
+  int pop_po2();
 
-  /*!
-   * @brief Kopiowanie określonej ilości elementów tablicy
-   *
-   * Pewna ilość początkowych elementów jednej tablicy zostanie
-   * przepisana do drugiej. Niezauważone zostanie przekroczenie zakresów
-   * tablic.
-   * @param[in] zrodlo - wskaźnik do tablicy, z której kopiowane zostaną
-   * elementy
-   * @param[out] cel - wskaźnik do tablicy, w której znajdą się 
-   * skopiowane elementy
-   * @param[in] n - ilość elementów tablicy, jakie mają być skopiowane.
-   * Jeżeli jest większe od rozmiaru tablicy, funkcja może dać 
-   * nieprzewidziane wyniki */
-  void KopiujTab(int * zrodlo, int * cel, unsigned n);
 };
+
+/*!
+ * @brief Kopiowanie określonej ilości elementów tablicy
+ *
+ * Pewna ilość początkowych elementów jednej tablicy zostanie
+ * przepisana do drugiej. Niezauważone zostanie przekroczenie zakresów
+ * tablic.
+ * @param[in] zrodlo - wskaźnik do tablicy, z której kopiowane zostaną
+ * elementy
+ * @param[out] cel - wskaźnik do tablicy, w której znajdą się 
+ * skopiowane elementy. Musi mieć już konieczny dla kopiowania rozmiar.
+ * @param[in] n - ilość elementów tablicy, jakie mają być skopiowane.
+ * Jeżeli jest większe od rozmiaru tablicy, funkcja może dać 
+ * nieprzewidziane wyniki */
+void KopiujTab(int * zrodlo, int * cel, unsigned n);
 
 #endif

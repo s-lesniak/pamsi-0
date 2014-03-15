@@ -27,3 +27,6 @@ obj/tabliczb.o: inc/tabliczb.hh src/tabliczb.cpp
 
 obj/stostab.o: inc/stostab.hh src/stostab.cpp
 	g++ ${CPPFLAGS} -o obj/stostab.o src/stostab.cpp
+
+clean:
+	rm obj/*.o
