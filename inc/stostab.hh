@@ -59,6 +59,13 @@ public:
    * @brief Zwraca ilość elementów na stosie */
   unsigned size() { return Ilosc; }
 
+  /*!
+   * @brief Niszczy całą zawartość stosu 
+   *
+   * Zwalnia pamięć zajmowaną przez dotychczasową tablicę ze stosem
+   * i tworzy w jej miejsce nowy wskaźnik na NULL. */
+  void Reset();
+
 private:
   /*!
    * @brief Wskaźnik na implementującą tablicę */
@@ -95,7 +102,6 @@ private:
    * @brief Zdejmowanie ze stosu w trybie Podwajanie
    * @return wartość zdjętego elementu */
   int pop_po2();
-
 };
 
 /*!

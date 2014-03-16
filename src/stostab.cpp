@@ -9,10 +9,10 @@
 StosTab::StosTab(TrybPracy tryb): Tablica(NULL), Rozmiar(0), Ilosc(0),
 				  Tryb(tryb)
 {
-  if (Tryb)
-    cout << "Tryb podwajania" << endl;
-  else
-    cout << "Tryb cojeden" << endl;
+  // if (Tryb)
+  //   cout << "Tryb podwajania" << endl;
+  // else
+  //   cout << "Tryb cojeden" << endl;
 }
 
 void StosTab::push(int i)
@@ -86,6 +86,15 @@ int StosTab::pop_po2 ()
   Ilosc--;
 
   return wartosc;
+}
+
+void StosTab::Reset()
+{
+  delete[] Tablica;
+
+  Tablica = NULL;
+
+  Rozmiar = Ilosc = 0;
 }
 
 void KopiujTab (int* zrodlo, int* cel, unsigned n)

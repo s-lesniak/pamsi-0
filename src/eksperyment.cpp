@@ -83,6 +83,7 @@ bool Eksperyment::WczytajJedenPlik(string nazwa, StosTab& tab)
     cerr << "Brak liczb w pliku " << nazwa << "!\n";
     return false;
   }
+
   while (strum.good()) {
     tab.push(num);
     if (!(strum >> num) && !strum.eof()) {
@@ -95,7 +96,8 @@ bool Eksperyment::WczytajJedenPlik(string nazwa, StosTab& tab)
   if (tab.size() == rozm)
     return true;
   else {
-    cerr << "Błędna ilość liczb w pliku " << nazwa << "!\n";
+    cerr << "Błędna ilość liczb w pliku " << nazwa << "!\n"
+	 << rozm << " zamiast " << tab.size() << endl;
     return false;
   }
 }
@@ -107,14 +109,12 @@ float Eksperyment::WielokrotnyPomiar(unsigned nr)
   timespec przed, po;
 
   for (unsigned i = 0; i < ile; i++) {
-    if(!WczytajPliki(nr)) 
-      return -1.0;
     przed = Teraz();
-    Wejscie.RazyDwa();
-    po = Teraz();
-    if(!(Wejscie == Wzor))
+    if(!WczytajJedenPlik(Zadania[nr].PlikWejsciowy, Wejscie)) 
       return -1.0;
+    po = Teraz();
     wynik += RoznicaCzasu(przed, po);
+    Wejscie.Reset();
   }
 
   wynik /= ile;
