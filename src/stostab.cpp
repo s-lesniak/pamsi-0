@@ -102,3 +102,22 @@ void KopiujTab (int* zrodlo, int* cel, unsigned n)
   for (unsigned i = 0; i < n; i++)
     cel[i] = zrodlo[i];
 }
+
+TrybPracy JakiTryb()
+{
+  char wyb;
+  cout << "Wybierz tryb pracy programu (0 - realokacja tablicy \"co "
+       << "jeden\", 1 - tryb oszczędny z alokacją pamięci na zapas)\n";
+  cin >> wyb;
+  
+  while (1)
+    switch (wyb) {
+    case '0':
+      return CoJeden;
+    case '1':
+      return Podwajanie;
+    default:
+      cout << "Zły wybór, powtórz go: ";
+      cin >> wyb;
+    }
+}

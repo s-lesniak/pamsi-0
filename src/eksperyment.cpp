@@ -109,12 +109,12 @@ float Eksperyment::WielokrotnyPomiar(unsigned nr)
   timespec przed, po;
 
   for (unsigned i = 0; i < ile; i++) {
+    Wejscie.Reset();
     przed = Teraz();
     if(!WczytajJedenPlik(Zadania[nr].PlikWejsciowy, Wejscie)) 
       return -1.0;
     po = Teraz();
     wynik += RoznicaCzasu(przed, po);
-    Wejscie.Reset();
   }
 
   wynik /= ile;

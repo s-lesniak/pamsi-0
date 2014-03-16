@@ -119,4 +119,12 @@ private:
  * nieprzewidziane wyniki */
 void KopiujTab(int * zrodlo, int * cel, unsigned n);
 
+/*!
+ * @brief Pyta użytkownika o tryb pracy eksperymentu
+ *
+ * Na standardowe wyjście wypisuje zapytanie o to, w jakim [trybie] 
+ * (@ref TrybPracy) ma pracować program 
+ * @return zadany przez użytkownika [TrybPracy] */
+TrybPracy JakiTryb();
+
 #endif

@@ -131,7 +131,7 @@ private:
   /*!
    * @brief Zapisuje wyniki w pliku CSV
    *
-   * Funkcja tworzy plik o zadanej w polu NazwaWyjscia nazwie i zapisuje\
+   * Funkcja tworzy plik o zadanej w polu NazwaWyjscia nazwie i zapisuje
    * w nim dane z pola Wyniki rozdzielone przecinkami. Pierwszy wiersz
    * zajmują nazwy kolumn. */
   void Zapisz();
