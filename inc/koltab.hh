@@ -16,7 +16,7 @@ public:
 
   /*!
    * @brief Inicjalizacja pustej kolejki */
-  KolTab();
+  KolTab(): Tablica(NULL), Rozmiar(0), Ilosc(0), Roznica(0) {}
 
   /*!
    * @brief Kładzie liczbę na kolejkę
@@ -37,6 +37,17 @@ public:
   /*!
    * @brief Zwraca ilość elementów w kolejce */
   unsigned size() { return Ilosc; }
+
+  /*!
+   * @brief Oblicza wskaźnik do pierwszego elementu właściwej kolejki
+   *
+   * Funkcja uwzględnia fakt, że pierwsze wartości tablicy mogą nie być
+   * wartościami będącymi w kolejce i z użyciem pola [Ilosc](@ref Ilosc)
+   * znajduje początek "użytecznej" części tablicy
+   *
+   * @return wskaźnik do elementu tablicy, który jest pierwszą pozycją w
+   * kolejce */
+  int* Poczatek() { return Tablica + Roznica; }
 
 private:
   /*!
