@@ -8,9 +8,9 @@ obj:
 	mkdir obj
 
 pamsi-0: obj/main.o obj/eksperyment.o obj/czas.o obj/tabliczb.o \
-obj/stostab.o
+obj/stostab.o obj/koltab.o
 	g++ ${LDFLAGS} -o pamsi-0 obj/main.o obj/eksperyment.o \
-obj/czas.o obj/tabliczb.o obj/stostab.o
+obj/czas.o obj/tabliczb.o obj/stostab.o obj/koltab.o
 
 obj/main.o: src/main.cpp
 	g++ ${CPPFLAGS} -o obj/main.o src/main.cpp
@@ -27,6 +27,9 @@ obj/tabliczb.o: inc/tabliczb.hh src/tabliczb.cpp
 
 obj/stostab.o: inc/stostab.hh src/stostab.cpp
 	g++ ${CPPFLAGS} -o obj/stostab.o src/stostab.cpp
+
+obj/koltab.o: inc/koltab.hh src/koltab.cpp
+	g++ ${CPPFLAGS} -o obj/koltab.o src/koltab.cpp
 
 clean:
 	rm obj/*.o
