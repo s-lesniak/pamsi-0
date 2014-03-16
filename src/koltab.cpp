@@ -4,13 +4,14 @@
 #include <cstdlib>
 
 #include "koltab.hh"
+#include "stostab.hh" // KopiujTab()
 
 using namespace std;
 
 void KolTab::push(int i)
 {
   if (Ilosc + Roznica == Rozmiar) {
-    int * nowa new int[Rozmiar? Rozmiar * 2 : 1];
+    int * nowa = new int[Rozmiar? Rozmiar * 2 : 1];
     KopiujTab(Poczatek(), nowa, Ilosc);
     nowa[Ilosc] = i;
 
