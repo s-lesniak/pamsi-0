@@ -5,7 +5,6 @@
 #define STOSLIST_HH
 
 #include <cstdlib>
-#include <iostream>
 
 #include "elemlisty.hh"
 
@@ -50,13 +49,6 @@ private:
   /*!
    * @brief Ilość elementów na stosie */
   unsigned Ilosc;
-
-  /*!
-   * @brief Szuka ostatniego elementu listy
-   *
-   * Funkcja szuka rekurencyjnie ostatniego elementu listy.
-   * @return wskaźnik znalezionego elementu */
-  // ElemListy* ostatni();
 };
 
 #endif
