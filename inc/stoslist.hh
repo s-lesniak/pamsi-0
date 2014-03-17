@@ -4,6 +4,9 @@
 #ifndef STOSLIST_HH
 #define STOSLIST_HH
 
+#include <cstdlib>
+#include <iostream>
+
 #include "elemlisty.hh"
 
 using namespace std;
@@ -15,7 +18,7 @@ public:
   
   /*!
    * @brief Inicjalizacja pustego stosu */
-  StosList();
+  StosList(): Glowa(NULL), Ilosc(0) {}
 
   /*!
    * @brief Kładzie liczbę na stos
@@ -31,7 +34,7 @@ public:
    * @brief Informuje użytkownika o zajętości stosu 
    * @retval true - dla pustego stosu (braku elementów)
    * @retval false - dla niepustego stosu */
-  bool is_empty() { return Glowa; }
+  bool is_empty() { return !Ilosc; }
 
   /*!
    * @brief Zwraca ilość elementów na stosie */
@@ -39,7 +42,7 @@ public:
 
 private:
   /*!
-   * @brief Głowa listy
+   * @brief Początek listy
    *
    * Wskaźnik na pierwszy element stosu */
   ElemListy* Glowa;
@@ -47,6 +50,13 @@ private:
   /*!
    * @brief Ilość elementów na stosie */
   unsigned Ilosc;
+
+  /*!
+   * @brief Szuka ostatniego elementu listy
+   *
+   * Funkcja szuka rekurencyjnie ostatniego elementu listy.
+   * @return wskaźnik znalezionego elementu */
+  // ElemListy* ostatni();
 };
 
 #endif
