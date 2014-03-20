@@ -60,6 +60,58 @@ bool TabLiczb::OdwrocKolejnosc(unsigned i, unsigned j)
   return true;
 }
 
+void TabLiczb::MergeSort()
+{
+  if (size() > 1) {
+    TabLiczb pierwsza, druga; // połówki sortowanej tablicy
+  
+    Podziel(pierwsza, druga);
+
+    pierwsza.MergeSort();
+    druga.MergeSort();
+
+    *this = ZlaczSort(pierwsza, druga);
+    return;
+  }
+  else {
+    return;
+  }
+}
+
+void TabLiczb::Podziel (TabLiczb &pierwsza, TabLiczb &druga)
+{
+  unsigned srodek = size() / 2;
+  pierwsza.resize(srodek);
+  druga.resize(size() - srodek);
+  cout << "Podziel() start\n";
+  for (unsigned i = 0; i < pierwsza.size(); i++) 
+    pierwsza[i] = at(i);
+
+  for (unsigned i = 0; i < druga.size(); i++)
+    druga[i] = at(srodek + i);
+  Wypisz(pierwsza);
+  cout << "\n\n";
+  Wypisz(druga);
+}
+
+TabLiczb ZlaczSort (const TabLiczb &pierwsza, const TabLiczb &druga)
+{
+  TabLiczb wynik;
+  wynik.resize(pierwsza.size() + druga.size());
+  unsigned j = 0, k = 0; // do indeksowania tablic wejściowych
+
+  for (unsigned i = 0; i < wynik.size(); i++) {
+    
+    if (pierwsza[j] > druga[k]) {
+      wynik[i] = pierwsza[j++];
+    }
+    else
+      wynik[i] = druga[k++];
+    
+  }
+  return wynik;
+}
+
 TabLiczb& TabLiczb::operator + (const TabLiczb &zrodlo)
 { DodajElementy(*this, zrodlo); return *this; }
 
@@ -80,3 +132,10 @@ void DodajElementy (TabLiczb& zrodlo1, const TabLiczb& zrodlo2)
   }
 }
 
+void Wypisz(TabLiczb &tab)
+{
+  for (unsigned i = 0; i < tab.size(); i++)
+    cout << tab[i] << ' ';
+
+  cout << endl;
+}
