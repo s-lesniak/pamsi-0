@@ -101,19 +101,19 @@ public:
    * @param[out] pierwsza, druga - tablice, w których znajdą się 
    * połówki tablicy wyjściowej */
   void Podziel(TabLiczb &pierwsza, TabLiczb &druga);
-
-  /*!
-   * @brief Łączy posortowane tablice w posortowaną tablicę
-   *
-   * Funkcja "wplata" elementy drugiej tablicy w pierwszą tak, by
-   * utworzyć posortowaną (malejąco) całość.
-   * Działanie funkcji zastosowanej do nieposortowanych tablic jest
-   * nieokreślone.
-   *
-   * @param[in] pierwsza, druga - tablice źródłowe
-   * @return scalona tablica */
-  TabLiczb& Zlacz(const TabLiczb &pierwsza, const TabLiczb &druga);
 }; 
+
+/*!
+ * @brief Łączy posortowane tablice w posortowaną tablicę
+ *
+ * Funkcja "wplata" elementy drugiej tablicy w pierwszą tak, by
+ * utworzyć posortowaną (malejąco) całość.
+ * Działanie funkcji zastosowanej do nieposortowanych tablic jest
+ * nieokreślone.
+ *
+ * @param[in] pierwsza, druga - tablice źródłowe
+ * @return scalona tablica */
+TabLiczb ZlaczSort(const TabLiczb &pierwsza, const TabLiczb &druga);
 
 /*!
  * @brief Łączy dwie tablice
