@@ -5,6 +5,7 @@
 #include <iostream>
 
 #include "eksperyment.hh"
+#include "tabliczb.hh"
 
 using namespace std;
 
