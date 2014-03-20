@@ -115,10 +115,12 @@ float Eksperyment::WielokrotnyPomiar(unsigned nr)
     if(!WczytajPliki(nr)) 
       return -1.0;
     przed = Teraz();
-    //Wejscie.RazyDwa();
+    Wejscie.MergeSort();
     po = Teraz();
-    if(!(Wejscie == Wzor))
+    if(!(Wejscie == Wzor)) {
+      cerr << "niezgodność ze wzorem" << endl;
       return -1.0;
+    }
     wynik += RoznicaCzasu(przed, po);
   }
 

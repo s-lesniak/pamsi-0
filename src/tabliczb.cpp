@@ -73,7 +73,9 @@ void TabLiczb::MergeSort()
     *this = ZlaczSort(pierwsza, druga);
     return;
   }
-  else return;
+  else {
+    return;
+  }
 }
 
 void TabLiczb::Podziel (TabLiczb &pierwsza, TabLiczb &druga)
@@ -81,12 +83,15 @@ void TabLiczb::Podziel (TabLiczb &pierwsza, TabLiczb &druga)
   unsigned srodek = size() / 2;
   pierwsza.resize(srodek);
   druga.resize(size() - srodek);
-
-  for (unsigned i = 0; i < pierwsza.size(); i++)
+  cout << "Podziel() start\n";
+  for (unsigned i = 0; i < pierwsza.size(); i++) 
     pierwsza[i] = at(i);
 
   for (unsigned i = 0; i < druga.size(); i++)
     druga[i] = at(srodek + i);
+  Wypisz(pierwsza);
+  cout << "\n\n";
+  Wypisz(druga);
 }
 
 TabLiczb ZlaczSort (const TabLiczb &pierwsza, const TabLiczb &druga)
@@ -102,8 +107,7 @@ TabLiczb ZlaczSort (const TabLiczb &pierwsza, const TabLiczb &druga)
     }
     else
       wynik[i] = druga[k++];
-
-    cout << wynik[i] << endl;
+    
   }
   return wynik;
 }
@@ -128,3 +132,10 @@ void DodajElementy (TabLiczb& zrodlo1, const TabLiczb& zrodlo2)
   }
 }
 
+void Wypisz(TabLiczb &tab)
+{
+  for (unsigned i = 0; i < tab.size(); i++)
+    cout << tab[i] << ' ';
+
+  cout << endl;
+}

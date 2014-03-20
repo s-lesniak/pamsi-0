@@ -125,4 +125,8 @@ TabLiczb ZlaczSort(const TabLiczb &pierwsza, const TabLiczb &druga);
  * elementy
  * @param[in] zrodlo2 - tablica bedaca zrodlem nowych danych */
 void DodajElementy (TabLiczb& zrodlo1, const TabLiczb& zrodlo2);
+
+/*!
+ * @brief Drukuja na cout zawartosc tablicy */
+void Wypisz(TabLiczb &tab);
 #endif
