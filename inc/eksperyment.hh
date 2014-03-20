@@ -10,7 +10,6 @@
 #include "tabliczb.hh"
 #include "wynikbadania.hh"
 #include "zrodlo.hh"
-#include "stostab.hh"
 
 using namespace std;
 
@@ -38,24 +37,23 @@ bool SprawdzNazwe(string nazwa);
  * o [nazwie](@ref wyjscie) ustalonej w kodzie programu. */
 class Eksperyment {
 public:
-
   /*!
    * @brief Konstruktor
    *
    * Konstruktor zrealizowany tak, by jego uruchomienie było jedynym
    * koniecznym wywołaniem w funkcji main.
    * @param[in] PlikWyj - nazwa pliku wyjściowego programu */
-  Eksperyment(string PlikWyj, TrybPracy tryb);
+  Eksperyment(string PlikWyj);
 
   /*!
-   * @brief Wczytanie danych z pliku
+   * @brief Wczytanie danych z plików
    *
-   * Funkcja sczytuje dane z plików do stosu Wejscie. To, które pliki
-   * wczytać, jest zdeterminowane liczbą podaną jako argument - ma ona 
-   * odpowiadać pewnemu elementowi tablicy Zadania.
+   * Funkcja sczytuje dane z plików do tablic Wejscie i Wzor. To, które
+   * pliki wczytać, jest zdeterminowane liczbą podaną jako argument - 
+   * ma ona odpowiadać pewnemu elementowi tablicy Zadania.
    *
-   * @param[in] nr - indeks wektora Zadania, któremu ma odpowiadać
-   * wczytywany plik
+   * @param[in] nr - indeks wektora Zadania, któremu mają odpowiadać
+   * wczytywane pliki
    * @retval true - wczytywanie zakończone sukcesem
    * @retval false - błąd odczytu */
   bool WczytajPliki (unsigned nr);
@@ -87,11 +85,13 @@ private:
    * @brief Przetwarzane liczby
    *
    * Tablica na liczby, które program ma przetworzyć. */
-  StosTab Wejscie;
+  TabLiczb Wejscie;
 
   /*!
-   * @brief określa tryb pracy stosów wewnątrz klasy */
-  TrybPracy Tryb;
+   * @brief Liczby wzorcowe
+   *
+   * Tablica na liczby, które zostaną porównane ze wzorcowymi. */
+  TabLiczb Wzor;
 
   /*!
    * @brief Tworzy listę zadań
@@ -108,11 +108,11 @@ private:
    *
    * Plik musi być zgodny ze schematem z opisu struktury [Zrodlo](@ref Zrodlo)
    * @param[in] nazwa - nazwa pliku
-   * @param[out] tab - stos, do którego są wczytane dane 
+   * @param[out] tab - tablica do której są wczytane dane 
    * @retval true - wczytanie zakończone sukcesem
    * @retval false - błąd we wczytaniu pliku (nie-liczba) lub niezgodność
    * ze schematem */
-  bool WczytajJedenPlik(string nazwa, StosTab& tab);
+  bool WczytajJedenPlik(string nazwa, TabLiczb& tab);
 
   /*!
    * @brief Dokonuje wielokrotnego pomiaru
@@ -131,7 +131,7 @@ private:
   /*!
    * @brief Zapisuje wyniki w pliku CSV
    *
-   * Funkcja tworzy plik o zadanej w polu NazwaWyjscia nazwie i zapisuje
+   * Funkcja tworzy plik o zadanej w polu NazwaWyjscia nazwie i zapisuje\
    * w nim dane z pola Wyniki rozdzielone przecinkami. Pierwszy wiersz
    * zajmują nazwy kolumn. */
   void Zapisz();

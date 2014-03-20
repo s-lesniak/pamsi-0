@@ -20,8 +20,7 @@ bool SprawdzNazwe(string nazwa)
     return true;
 }
 
-Eksperyment::Eksperyment(string PlikWyj, TrybPracy tryb = Podwajanie):
-  NazwaWyjscia(PlikWyj), Wejscie(tryb)
+Eksperyment::Eksperyment(string PlikWyj): NazwaWyjscia(PlikWyj)
 {
   if (!SpiszZadania())
     return;
@@ -36,10 +35,12 @@ Eksperyment::Eksperyment(string PlikWyj, TrybPracy tryb = Podwajanie):
 
 bool Eksperyment::WczytajPliki (unsigned nr)
 {
-  if (WczytajJedenPlik(Zadania[nr].PlikWejsciowy, Wejscie))
-    return true;
-  else 
-    return false;
+  if (WczytajJedenPlik(Zadania[nr].PlikWejsciowy, Wejscie)) {
+      if (WczytajJedenPlik(Zadania[nr].PlikWzorcowy, Wzor))
+	return true;
+      else return false;
+    }
+  else return false;
 }
    
 
@@ -58,6 +59,9 @@ bool Eksperyment::SpiszZadania ()
     cout << "Podaj plik źródłowy nr " << (i+1) << ": "; 
     if (!(cin >> Zadania[i].PlikWejsciowy)) return false;
     if (!SprawdzNazwe(Zadania[i].PlikWejsciowy)) return false;
+    cout << "Podaj plik wzorcowy nr " << (i+1) << ": ";
+    if (!(cin >> Zadania[i].PlikWzorcowy)) return false;
+    if (!SprawdzNazwe(Zadania[i].PlikWzorcowy)) return false;
     cout << "Ilość badań pliku nr " << (i+1) << ": ";
     cin >> Zadania[i].IleRazy;
     if (cin.fail()) {
@@ -68,7 +72,7 @@ bool Eksperyment::SpiszZadania ()
   return true;
 }
 
-bool Eksperyment::WczytajJedenPlik(string nazwa, StosTab& tab)
+bool Eksperyment::WczytajJedenPlik(string nazwa, TabLiczb& tab)
 {
   ifstream strum(nazwa.c_str());
 
@@ -77,15 +81,15 @@ bool Eksperyment::WczytajJedenPlik(string nazwa, StosTab& tab)
     cerr << "Błąd w linii 1 pliku " << nazwa << "!\n";
     return false;
   }
-  
+  tab.resize(0);
+
   int num;
   if (!(strum >> num)) {
     cerr << "Brak liczb w pliku " << nazwa << "!\n";
     return false;
   }
-
   while (strum.good()) {
-    tab.push(num);
+    tab.push_back(num);
     if (!(strum >> num) && !strum.eof()) {
       cerr << "Błąd w linii " << tab.size() << " w pliku " << nazwa
 	   << "!\n";
@@ -96,8 +100,7 @@ bool Eksperyment::WczytajJedenPlik(string nazwa, StosTab& tab)
   if (tab.size() == rozm)
     return true;
   else {
-    cerr << "Błędna ilość liczb w pliku " << nazwa << "!\n"
-	 << rozm << " zamiast " << tab.size() << endl;
+    cerr << "Błędna ilość liczb w pliku " << nazwa << "!\n";
     return false;
   }
 }
@@ -109,11 +112,13 @@ float Eksperyment::WielokrotnyPomiar(unsigned nr)
   timespec przed, po;
 
   for (unsigned i = 0; i < ile; i++) {
-    Wejscie.Reset();
-    przed = Teraz();
-    if(!WczytajJedenPlik(Zadania[nr].PlikWejsciowy, Wejscie)) 
+    if(!WczytajPliki(nr)) 
       return -1.0;
+    przed = Teraz();
+    Wejscie.RazyDwa();
     po = Teraz();
+    if(!(Wejscie == Wzor))
+      return -1.0;
     wynik += RoznicaCzasu(przed, po);
   }
 

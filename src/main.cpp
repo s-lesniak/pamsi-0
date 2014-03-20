@@ -10,20 +10,11 @@ using namespace std;
 
 /*!
  * \brief Nazwa pliku z wynikami badań */
-const string wyjscie1 = "co1.csv";
-const string wyjscie2 = "po2.csv";
+const string wyjscie = "log.csv";
  
 int main ()
 {
-  try {
-    if (JakiTryb() == CoJeden)
-      Eksperyment glowny(wyjscie1, CoJeden);
-    else
-      Eksperyment glowny(wyjscie2, Podwajanie);
-  }
-  catch (exception &ex) {
-    cerr << ex.what() << endl;
-  }
-
+  Eksperyment glowny(wyjscie);
+ 
   return 0;
 }
