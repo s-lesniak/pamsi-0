@@ -60,6 +60,41 @@ bool TabLiczb::OdwrocKolejnosc(unsigned i, unsigned j)
   return true;
 }
 
+void TabLiczb::MergeSort()
+{
+  if (size() > 1) {
+    TabLiczb pierwsza, druga; // połówki sortowanej tablicy
+  
+    Podziel(pierwsza, druga);
+
+    pierwsza.MergeSort();
+    druga.MergeSort();
+
+    *this = Zlacz(pierwsza, druga);
+    return;
+  }
+  else return;
+}
+
+void TabLiczb::Podziel (TabLiczb &pierwsza, TabLiczb &druga)
+{
+  unsigned srodek = size() / 2;
+  pierwsza.resize(srodek);
+  druga.resize(size() - srodek);
+
+  for (int i = 0; i < pierwsza.size(); i++)
+    pierwsza[i] = at(i);
+
+  for (int i = 0; i < druga.size(); i++)
+    druga[i] = at(srodek + i);
+}
+
+TabLiczb& TabLiczb::Zlacz (const TabLiczb &pierwsza, 
+			   const TabLiczb &druga)
+{
+
+}
+
 TabLiczb& TabLiczb::operator + (const TabLiczb &zrodlo)
 { DodajElementy(*this, zrodlo); return *this; }
 

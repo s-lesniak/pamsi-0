@@ -75,6 +75,10 @@ public:
    * @param[in] zrodlo - wektor, z którego dokonana zostanie kopia */
   TabLiczb& operator = (const TabLiczb& zrodlo);
 
+  /*!
+   * @brief Sortuje malejąco tablicę algorytmem scalania */
+  void MergeSort();
+
 private:
   /*!
    * @brief Odwraca kolejność wybranych elementów tablicy
@@ -84,6 +88,31 @@ private:
    * @retval false - błąd wywołania (indeks poza zasięgiem, zła ich
    * kolejność) */
   bool OdwrocKolejnosc(unsigned i, unsigned j);
+public:
+  /*!
+   * @brief Dzieli tablicę na dwie możliwie różne części
+   *
+   * Usuwa zawartość zadanych w parametrze tablic. Do pierwszej z nich
+   * kopiuje około połowę pierwszych elementów tablicy, a do drugiej -
+   * pozostałe z nich.
+   * W przypadku tablicy o nieparzystym rozmiarze podział zostanie
+   * dokonany, tak, że druga tablica będzie większa o jeden.
+   *
+   * @param[out] pierwsza, druga - tablice, w których znajdą się 
+   * połówki tablicy wyjściowej */
+  void Podziel(TabLiczb &pierwsza, TabLiczb &druga);
+
+  /*!
+   * @brief Łączy posortowane tablice w posortowaną tablicę
+   *
+   * Funkcja "wplata" elementy drugiej tablicy w pierwszą tak, by
+   * utworzyć posortowaną (malejąco) całość.
+   * Działanie funkcji zastosowanej do nieposortowanych tablic jest
+   * nieokreślone.
+   *
+   * @param[in] pierwsza, druga - tablice źródłowe
+   * @return scalona tablica */
+  TabLiczb& Zlacz(const TabLiczb &pierwsza, const TabLiczb &druga);
 }; 
 
 /*!

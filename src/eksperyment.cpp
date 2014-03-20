@@ -115,7 +115,7 @@ float Eksperyment::WielokrotnyPomiar(unsigned nr)
     if(!WczytajPliki(nr)) 
       return -1.0;
     przed = Teraz();
-    Wejscie.RazyDwa();
+    //Wejscie.RazyDwa();
     po = Teraz();
     if(!(Wejscie == Wzor))
       return -1.0;
