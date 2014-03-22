@@ -127,6 +127,6 @@ TabLiczb ZlaczSort(const TabLiczb &pierwsza, const TabLiczb &druga);
 void DodajElementy (TabLiczb& zrodlo1, const TabLiczb& zrodlo2);
 
 /*!
- * @brief Drukuja na cout zawartosc tablicy */
-void Wypisz(TabLiczb &tab);
+ * @brief Wypisuje na strumień zawartość tablicy */
+ostream& operator << (ostream &str, const TabLiczb &tab);
 #endif
