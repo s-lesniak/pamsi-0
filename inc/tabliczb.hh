@@ -76,20 +76,20 @@ public:
   TabLiczb& operator = (const TabLiczb& zrodlo);
 
   /*!
-   * @brief Sortuje malejąco tablicę algorytmem scalania */
+   * @brief Sortuje rosnąco tablicę algorytmem scalania */
   void MergeSort();
 
   /*!
-   * @brief Sortuje malejąco całą tablicę algorytmem quicksort */
+   * @brief Sortuje rosnąco całą tablicę algorytmem quicksort */
   void QuickSort();
 
   /*!
-   * @brief Sortuje malejąco tablicę algorytmem kopcowym */
+   * @brief Sortuje rosnąco tablicę algorytmem kopcowym */
   void HeapSort();
 
 private:
   /*!
-   * @brief Sortuje malejąco fragment tablicy algorytmem quicksort 
+   * @brief Sortuje rosnąco fragment tablicy algorytmem quicksort 
    *
    * @param[in] pocz, kon - krańcowe indeksy sortowanego fragmentu
    * tablicy. Ich kolejność jest istotna. (pocz <= kon) */
@@ -125,6 +125,14 @@ private:
    * @param i, j - indeksy elementów do zamienienia */
   void Zamien (unsigned i, unsigned j)
   { int tmp = (*this)[i]; (*this)[i] = (*this)[j]; (*this)[j] = tmp; }
+
+  /*!
+   * @brief Tworzy z tablicy kopiec binarny
+   *
+   * Przetworzenie odbywa się "od dołu"
+  /*!
+   * @brief */
+  void PoprawKopiec (unsigned i, unsigned j);
 }; 
 
 /*!

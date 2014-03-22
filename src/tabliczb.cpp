@@ -84,11 +84,13 @@ void TabLiczb::QuickSort()
 
 void TabLiczb::HeapSort()
 {
-  //ZrobKopiec();
+  ZrobKopiec();
 
   unsigned koniec = size() - 1;
 
   while(koniec) {
+    Zamien(0, koniec);
+    PoprawKopiec(0, --koniec);
   }
 }
 
@@ -98,9 +100,9 @@ void TabLiczb::QuickSort(unsigned pocz, unsigned kon)
   int x = (*this)[(i+j) / 2];
  
   do {
-    while ((*this)[i] > x)
+    while ((*this)[i] < x)
       i++;
-    while ((*this)[j] < x)
+    while ((*this)[j] > x)
       j--;
     if (i <= j) 
       Zamien(i++, j--);
@@ -136,7 +138,7 @@ TabLiczb ZlaczSort (const TabLiczb &pierwsza, const TabLiczb &druga)
 
   for (unsigned i = 0; i < wynik.size(); i++) {
     
-    if ((j < pierwsza.size()) && (pierwsza[j] > druga[k])) {
+    if ((j < pierwsza.size()) && (pierwsza[j] < druga[k])) {
       wynik[i] = pierwsza[j++];
     }
     else
