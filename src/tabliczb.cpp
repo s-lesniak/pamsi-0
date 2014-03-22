@@ -82,6 +82,16 @@ void TabLiczb::MergeSort()
 void TabLiczb::QuickSort()
 { QuickSort(0, size() - 1); }
 
+void TabLiczb::HeapSort()
+{
+  //ZrobKopiec();
+
+  unsigned koniec = size() - 1;
+
+  while(koniec) {
+  }
+}
+
 void TabLiczb::QuickSort(unsigned pocz, unsigned kon)
 {
   unsigned i = pocz, j = kon;
@@ -92,11 +102,8 @@ void TabLiczb::QuickSort(unsigned pocz, unsigned kon)
       i++;
     while ((*this)[j] < x)
       j--;
-    if (i <= j) {
-      int tmp = (*this)[i];
-      (*this)[i++] = (*this)[j];
-      (*this)[j--] = tmp;
-    }
+    if (i <= j) 
+      Zamien(i++, j--);
   } while (i+1 <= j+1); /* powiększenie porównywanych liczb zapobiega
 			   problemom z przepełnieniem zakresu */
   

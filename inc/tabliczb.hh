@@ -83,6 +83,10 @@ public:
    * @brief Sortuje malejąco całą tablicę algorytmem quicksort */
   void QuickSort();
 
+  /*!
+   * @brief Sortuje malejąco tablicę algorytmem kopcowym */
+  void HeapSort();
+
 private:
   /*!
    * @brief Sortuje malejąco fragment tablicy algorytmem quicksort 
@@ -112,6 +116,15 @@ private:
    * @param[out] pierwsza, druga - tablice, w których znajdą się 
    * połówki tablicy wyjściowej */
   void Podziel(TabLiczb &pierwsza, TabLiczb &druga);
+
+  /*!
+   * @brief Zamienia dwa elementy o zadanych indeksach
+   *
+   * Nie jest sprawdzana sensowność indeksów; ich kolejność nie gra
+   * roli.
+   * @param i, j - indeksy elementów do zamienienia */
+  void Zamien (unsigned i, unsigned j)
+  { int tmp = (*this)[i]; (*this)[i] = (*this)[j]; (*this)[j] = tmp; }
 }; 
 
 /*!
