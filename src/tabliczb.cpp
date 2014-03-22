@@ -82,9 +82,27 @@ void TabLiczb::MergeSort()
 void TabLiczb::QuickSort()
 { QuickSort(0, size() - 1); }
 
-void TabLiczb::QuickSort(unsigned i, unsigned j)
+void TabLiczb::QuickSort(unsigned pocz, unsigned kon)
 {
+  unsigned i = pocz, j = kon;
+  int x = (*this)[(i+j) / 2];
 
+  do {
+    while ((*this)[i] > x)
+      i++;
+    while ((*this)[j] < x)
+      j--;
+    if (i <= j) {
+      int tmp = (*this)[i];
+      (*this)[i++] = (*this)[j];
+      (*this)[j--] = tmp;
+    }
+  } while (i <= j);
+
+  if (pocz < j)
+    QuickSort(pocz, j);
+  if (i > kon)
+    QuickSort(i, kon);
 }
 void TabLiczb::Podziel (TabLiczb &pierwsza, TabLiczb &druga)
 {

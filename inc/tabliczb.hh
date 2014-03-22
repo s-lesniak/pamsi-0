@@ -89,7 +89,7 @@ private:
    *
    * @param[in] pocz, kon - krańcowe indeksy sortowanego fragmentu
    * tablicy. Ich kolejność jest istotna. (pocz <= kon) */
-  void QuickSort(unsigned pocz = 0, unsigned kon = size());
+  void QuickSort(unsigned pocz, unsigned kon);
 
   /*!
    * @brief Odwraca kolejność wybranych elementów tablicy
