@@ -79,6 +79,13 @@ void TabLiczb::MergeSort()
   }
 }
 
+void TabLiczb::QuickSort()
+{ QuickSort(0, size() - 1); }
+
+void TabLiczb::QuickSort(unsigned i, unsigned j)
+{
+
+}
 void TabLiczb::Podziel (TabLiczb &pierwsza, TabLiczb &druga)
 {
   unsigned srodek = size() / 2;
@@ -103,14 +110,14 @@ TabLiczb ZlaczSort (const TabLiczb &pierwsza, const TabLiczb &druga)
 
   for (unsigned i = 0; i < wynik.size(); i++) {
     
-    if (j >= pierwsza.size() || pierwsza[j] > druga[k]) {
+    if ((j < pierwsza.size()) && (pierwsza[j] > druga[k])) {
       wynik[i] = pierwsza[j++];
     }
     else
       wynik[i] = druga[k++];
     
   }
-  
+  cout << "Po złączeniu dostałem: " << wynik;
   return wynik;
 }
 

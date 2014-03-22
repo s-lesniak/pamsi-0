@@ -79,7 +79,18 @@ public:
    * @brief Sortuje malejąco tablicę algorytmem scalania */
   void MergeSort();
 
+  /*!
+   * @brief Sortuje malejąco całą tablicę algorytmem quicksort */
+  void QuickSort();
+
 private:
+  /*!
+   * @brief Sortuje malejąco fragment tablicy algorytmem quicksort 
+   *
+   * @param[in] pocz, kon - krańcowe indeksy sortowanego fragmentu
+   * tablicy. Ich kolejność jest istotna. (pocz <= kon) */
+  void QuickSort(unsigned pocz = 0, unsigned kon = size());
+
   /*!
    * @brief Odwraca kolejność wybranych elementów tablicy
    *
@@ -88,7 +99,7 @@ private:
    * @retval false - błąd wywołania (indeks poza zasięgiem, zła ich
    * kolejność) */
   bool OdwrocKolejnosc(unsigned i, unsigned j);
-public:
+
   /*!
    * @brief Dzieli tablicę na dwie możliwie różne części
    *
