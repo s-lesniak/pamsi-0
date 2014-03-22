@@ -79,42 +79,6 @@ void TabLiczb::MergeSort()
   }
 }
 
-void TabLiczb::QuickSort()
-{ QuickSort(0, size() - 1); }
-
-void TabLiczb::HeapSort()
-{
-  ZrobKopiec();
-
-  unsigned koniec = size() - 1;
-
-  while(koniec) {
-    Zamien(0, koniec);
-    PoprawKopiec(0, --koniec);
-  }
-}
-
-void TabLiczb::QuickSort(unsigned pocz, unsigned kon)
-{
-  unsigned i = pocz, j = kon;
-  int x = (*this)[(i+j) / 2];
- 
-  do {
-    while ((*this)[i] < x)
-      i++;
-    while ((*this)[j] > x)
-      j--;
-    if (i <= j) 
-      Zamien(i++, j--);
-  } while (i+1 <= j+1); /* powiększenie porównywanych liczb zapobiega
-			   problemom z przepełnieniem zakresu */
-  
-  if (pocz+1 < j+1) // jw.
-    QuickSort(pocz, j);
-  if (i < kon)
-    QuickSort(i, kon);
-}
-
 void TabLiczb::Podziel (TabLiczb &pierwsza, TabLiczb &druga)
 {
   unsigned srodek = size() / 2;
@@ -146,6 +110,59 @@ TabLiczb ZlaczSort (const TabLiczb &pierwsza, const TabLiczb &druga)
     
   }
   return wynik;
+}
+
+void TabLiczb::QuickSort()
+{ QuickSort(0, size() - 1); }
+
+void TabLiczb::QuickSort(unsigned pocz, unsigned kon)
+{
+  unsigned i = pocz, j = kon;
+  int x = (*this)[(i+j) / 2];
+ 
+  do {
+    while ((*this)[i] < x)
+      i++;
+    while ((*this)[j] > x)
+      j--;
+    if (i <= j) 
+      Zamien(i++, j--);
+  } while (i+1 <= j+1); /* powiększenie porównywanych liczb zapobiega
+			   problemom z przepełnieniem zakresu */
+  
+  if (pocz+1 < j+1) // jw.
+    QuickSort(pocz, j);
+  if (i < kon)
+    QuickSort(i, kon);
+}
+
+void TabLiczb::HeapSort()
+{
+  ZrobKopiec();
+
+  unsigned koniec = size() - 1;
+
+  while(koniec) {
+    Zamien(0, koniec);
+    PoprawKopiec(0, --koniec);
+  }
+}
+
+void TabLiczb::ZrobKopiec()
+{
+  unsigned start = size() / 2 - 1;
+
+  while (start)
+    PoprawKopiec(start--, size() - 1);
+}
+
+void TabLiczb::PoprawKopiec(unsigned i, unsigned j)
+{
+  unsigned szczyt = i;
+
+  while (szczyt * 2 + 1 <= j) {
+
+  }
 }
 
 TabLiczb& TabLiczb::operator + (const TabLiczb &zrodlo)

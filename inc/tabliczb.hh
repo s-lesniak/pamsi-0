@@ -129,9 +129,17 @@ private:
   /*!
    * @brief Tworzy z tablicy kopiec binarny
    *
-   * Przetworzenie odbywa się "od dołu"
+   * Kopiec zostanie utworzony w taki sposób, że na jego szczycie
+   * znajdzie się największa liczba */
+  void ZrobKopiec();
+
   /*!
-   * @brief */
+   * @brief Uaktualnia strukturę tabeli jako kopca
+   *
+   * Modyfikuje ustawienie elementów tabeli tak, by spełniały one, w
+   * danym zakresie, definicję kopca.
+   * @param[in] i, j - granice indeksów, w których ma dochodzić do 
+   * korekcji */
   void PoprawKopiec (unsigned i, unsigned j);
 }; 
 
