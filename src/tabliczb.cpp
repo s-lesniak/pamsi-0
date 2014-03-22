@@ -86,7 +86,7 @@ void TabLiczb::QuickSort(unsigned pocz, unsigned kon)
 {
   unsigned i = pocz, j = kon;
   int x = (*this)[(i+j) / 2];
-
+ 
   do {
     while ((*this)[i] > x)
       i++;
@@ -97,13 +97,15 @@ void TabLiczb::QuickSort(unsigned pocz, unsigned kon)
       (*this)[i++] = (*this)[j];
       (*this)[j--] = tmp;
     }
-  } while (i <= j);
-
-  if (pocz < j)
+  } while (i+1 <= j+1); /* powiększenie porównywanych liczb zapobiega
+			   problemom z przepełnieniem zakresu */
+  
+  if (pocz+1 < j+1) // jw.
     QuickSort(pocz, j);
-  if (i > kon)
+  if (i < kon)
     QuickSort(i, kon);
 }
+
 void TabLiczb::Podziel (TabLiczb &pierwsza, TabLiczb &druga)
 {
   unsigned srodek = size() / 2;
@@ -121,7 +123,6 @@ void TabLiczb::Podziel (TabLiczb &pierwsza, TabLiczb &druga)
 TabLiczb ZlaczSort (const TabLiczb &pierwsza, const TabLiczb &druga)
 {
   TabLiczb wynik;
-  cout << "Złączam: \n" << pierwsza << "oraz\n" << druga;
 
   wynik.resize(pierwsza.size() + druga.size());
   unsigned j = 0, k = 0; // do indeksowania tablic wejściowych
@@ -135,7 +136,6 @@ TabLiczb ZlaczSort (const TabLiczb &pierwsza, const TabLiczb &druga)
       wynik[i] = druga[k++];
     
   }
-  cout << "Po złączeniu dostałem: " << wynik;
   return wynik;
 }
 
