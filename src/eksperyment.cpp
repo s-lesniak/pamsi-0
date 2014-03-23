@@ -115,7 +115,7 @@ float Eksperyment::WielokrotnyPomiar(unsigned nr)
     if(!WczytajPliki(nr)) 
       return -1.0;
     przed = Teraz();
-    Wejscie.QuickSort();
+    Wejscie.HeapSort();
     po = Teraz();
     if(!(Wejscie == Wzor)) {
       cerr << "niezgodność ze wzorem" << endl;

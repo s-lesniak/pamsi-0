@@ -85,7 +85,7 @@ public:
 
   /*!
    * @brief Sortuje rosnąco tablicę algorytmem kopcowym */
-  void HeapSort();
+  //void HeapSort();
 
 private:
   /*!
@@ -125,13 +125,13 @@ private:
    * @param i, j - indeksy elementów do zamienienia */
   void Zamien (unsigned i, unsigned j)
   { int tmp = (*this)[i]; (*this)[i] = (*this)[j]; (*this)[j] = tmp; }
-
+  
   /*!
    * @brief Tworzy z tablicy kopiec binarny
    *
    * Kopiec zostanie utworzony w taki sposób, że na jego szczycie
    * znajdzie się największa liczba */
-  void ZrobKopiec();
+  //void ZrobKopiec();
 
   /*!
    * @brief Uaktualnia strukturę tabeli jako kopca
@@ -140,7 +140,7 @@ private:
    * danym zakresie, definicję kopca.
    * @param[in] i, j - granice indeksów, w których ma dochodzić do 
    * korekcji */
-  void PoprawKopiec (unsigned i, unsigned j);
+  //void PoprawKopiec (unsigned i, unsigned j);
 }; 
 
 /*!

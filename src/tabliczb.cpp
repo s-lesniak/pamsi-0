@@ -102,7 +102,8 @@ TabLiczb ZlaczSort (const TabLiczb &pierwsza, const TabLiczb &druga)
 
   for (unsigned i = 0; i < wynik.size(); i++) {
     
-    if ((j < pierwsza.size()) && (pierwsza[j] < druga[k])) {
+    if (((j < pierwsza.size()) && (pierwsza[j] < druga[k]))
+	|| (k >= druga.size())) {
       wynik[i] = pierwsza[j++];
     }
     else
@@ -136,34 +137,48 @@ void TabLiczb::QuickSort(unsigned pocz, unsigned kon)
     QuickSort(i, kon);
 }
 
-void TabLiczb::HeapSort()
-{
-  ZrobKopiec();
+/* IMPLEMENTACJA HEAPSORT ZAKOMENTOWANA JAKO NIEDZIAŁAJĄCA */
+// void TabLiczb::HeapSort()
+// {
+//   ZrobKopiec();
 
-  unsigned koniec = size() - 1;
+//   unsigned koniec = size() - 1;
 
-  while(koniec) {
-    Zamien(0, koniec);
-    PoprawKopiec(0, --koniec);
-  }
-}
+//   while(koniec) {
+//     Zamien(0, koniec);
+//     PoprawKopiec(0, --koniec);
+//   }
+// }
 
-void TabLiczb::ZrobKopiec()
-{
-  unsigned start = size() / 2 - 1;
+// void TabLiczb::ZrobKopiec()
+// {
+//   unsigned start = (size() - 2) / 2;
 
-  while (start)
-    PoprawKopiec(start--, size() - 1);
-}
+//   while (start >= 0)
+//     PoprawKopiec(start--, size() - 1);
+// }
 
-void TabLiczb::PoprawKopiec(unsigned i, unsigned j)
-{
-  unsigned szczyt = i;
+// void TabLiczb::PoprawKopiec(unsigned i, unsigned j)
+// {
+//   unsigned szczyt = i;
 
-  while (szczyt * 2 + 1 <= j) {
+//   while (szczyt * 2 + 1 <= j) {
+//     unsigned ldziecko = szczyt * 2 + 1;
+//     unsigned zam = szczyt;
 
-  }
-}
+//     if ((*this)[zam] < (*this)[ldziecko]) {
+//       cerr << 'a';
+//       zam = ldziecko; }
+//     if ((ldziecko+1 <= j) && ((*this)[zam] < (*this)[ldziecko+1])) {
+//       cerr << 'b';
+//       zam = ldziecko + 1; }
+//     if (zam != szczyt) {
+//       cerr << 'c';
+//       Zamien(szczyt, zam);
+//       szczyt = zam;
+//     }
+//   }
+// }
 
 TabLiczb& TabLiczb::operator + (const TabLiczb &zrodlo)
 { DodajElementy(*this, zrodlo); return *this; }
