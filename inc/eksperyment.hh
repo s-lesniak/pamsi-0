@@ -49,6 +49,14 @@ public:
   Eksperyment(string PlikWyj, bool flaga);
 
   /*!
+   * @brief Flaga optymalizacji 
+   *
+   * Przy ustawieniu na false sortowanie quicksort odbędzie się w bez 
+   * optymalizacji (tj. stały element pivot)
+   * Przy ustawieniu na true element pivot będzie wybrany losowo */
+  bool Optymalizacja;
+
+  /*!
    * @brief Wczytanie danych z plików
    *
    * Funkcja sczytuje dane z plików do tablic Wejscie i Wzor. To, które
@@ -82,14 +90,6 @@ public:
    * W pliku o tej nazwie zapisane zostaną zbiorczo informacje o badaniu,
    * tak jak w wektorze [Wyniki](@ref Wyniki) */
   string NazwaWyjscia;
-
-  /*!
-   * @brief Flaga optymalizacji 
-   *
-   * Przy ustawieniu na false sortowanie quicksort odbędzie się w bez 
-   * optymalizacji (tj. stały element pivot)
-   * Przy ustawieniu na true element pivot będzie wybrany losowo */
-  bool Optymalizacja;
 
 private:
   /*!
