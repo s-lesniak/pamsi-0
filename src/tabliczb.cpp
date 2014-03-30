@@ -119,7 +119,7 @@ void TabLiczb::QuickSort()
 void TabLiczb::QuickSort(unsigned pocz, unsigned kon)
 {
   unsigned i = pocz, j = kon;
-  int x = (*this)[(i+j) / 2];
+  int x = (*this)[Optymalizacja ? LosujPivot(pocz, kon) : 0];
  
   do {
     while ((*this)[i] < x)
@@ -135,6 +135,11 @@ void TabLiczb::QuickSort(unsigned pocz, unsigned kon)
     QuickSort(pocz, j);
   if (i < kon)
     QuickSort(i, kon);
+}
+
+unsigned LosujPivot(unsigned pocz, unsigned kon)
+{
+
 }
 
 /* IMPLEMENTACJA HEAPSORT ZAKOMENTOWANA JAKO NIEDZIAŁAJĄCA */

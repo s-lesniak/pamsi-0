@@ -5,6 +5,7 @@
 #define TABLICZB_HH
 
 #include <vector>
+#include <cstdlib>
 
 using namespace std;
 
@@ -89,11 +90,32 @@ public:
 
 private:
   /*!
+   * @brief Flaga optymalizacji 
+   *
+   * Przy ustawieniu na false sortowanie quicksort odbędzie się w bez 
+   * optymalizacji (tj. stały element pivot)
+   * Przy ustawieniu na true element pivot będzie wybrany losowo */
+  bool Optymalizacja;
+
+  /*!
    * @brief Sortuje rosnąco fragment tablicy algorytmem quicksort 
    *
    * @param[in] pocz, kon - krańcowe indeksy sortowanego fragmentu
    * tablicy. Ich kolejność jest istotna. (pocz <= kon) */
   void QuickSort(unsigned pocz, unsigned kon);
+
+  /*!
+   * @brief Losuje parametr pivot sortowania
+   *
+   * Losuje liczbę z zadanego parametrami zakresu. Otrzymany wynik
+   * ma w zamierzeniu być użyty jako element środkowy (pivot) sortowania
+   * algorytmem quicksort
+   *
+   * @param[in] pocz, kon - krańcowe indeksy sortowanego fragmentu. Ich
+   * kolejność jest istotna.
+   * @return losowa liczba z podanego zakresu */
+  unsigned LosujPivot (unsigned pocz, unsigned kon)
+  { srand(time(NULL)); return (pocz + rand() % (kon - pocz + 1)); }
 
   /*!
    * @brief Odwraca kolejność wybranych elementów tablicy
