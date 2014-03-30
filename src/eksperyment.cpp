@@ -142,3 +142,21 @@ void Eksperyment::Zapisz()
 
   str.close();
 }
+
+bool Zapytaj()
+{
+  cout << "Czy chcesz sortować z optymalizacją? (t/n) "
+  char c;
+  while(1) {
+    cin >> c;
+    switch(c) {
+    case 't': 
+    case 'T':
+      return true;
+    case 'n':
+    case 'N':
+      return false;
+    default:
+      break;
+    }
+}

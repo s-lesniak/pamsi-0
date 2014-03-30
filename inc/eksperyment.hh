@@ -148,4 +148,13 @@ private:
   void Zapisz();
 };
 
+/*!
+ * @brief Pyta o tryb sortowania
+ *
+ * Poprzez strumienie cout/cin pyta użytkownika, czy chce sortować z
+ * optymalizacją, czy bez
+ *
+ * @retval true - dla wybrania sortowania z optymalizacją
+ * @retval false - dla wybrania sortowania bez optymalizacji */
+bool Zapytaj();
 #endif

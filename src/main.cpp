@@ -15,7 +15,13 @@ const string wyjscie = "log.csv";
  
 int main ()
 {
-  Eksperyment glowny(wyjscie);
- 
+  try {
+    bool optym = Zapytaj();
+    Eksperyment glowny(wyjscie, optym);
+  }
+  catch (exception &e) {
+    cout << e.what() << endl;
+  }
+
   return 0;
 }
