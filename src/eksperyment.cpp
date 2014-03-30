@@ -20,7 +20,8 @@ bool SprawdzNazwe(string nazwa)
     return true;
 }
 
-Eksperyment::Eksperyment(string PlikWyj): NazwaWyjscia(PlikWyj)
+Eksperyment::Eksperyment(string PlikWyj, bool flaga): 
+  NazwaWyjscia(PlikWyj), Optymalizacja(flaga)
 {
   if (!SpiszZadania())
     return;
@@ -115,7 +116,7 @@ float Eksperyment::WielokrotnyPomiar(unsigned nr)
     if(!WczytajPliki(nr)) 
       return -1.0;
     przed = Teraz();
-    Wejscie.HeapSort();
+    Wejscie.QuickSort(Optymalizacja);
     po = Teraz();
     if(!(Wejscie == Wzor)) {
       cerr << "niezgodność ze wzorem" << endl;

@@ -42,8 +42,19 @@ public:
    *
    * Konstruktor zrealizowany tak, by jego uruchomienie było jedynym
    * koniecznym wywołaniem w funkcji main.
-   * @param[in] PlikWyj - nazwa pliku wyjściowego programu */
-  Eksperyment(string PlikWyj);
+   *
+   * @param[in] PlikWyj - nazwa pliku wyjściowego programu 
+   * @param[in] flaga - określa, czy sortowani w eksperymencie ma być
+   * zoptymalizowane */
+  Eksperyment(string PlikWyj, bool flaga);
+
+  /*!
+   * @brief Flaga optymalizacji 
+   *
+   * Przy ustawieniu na false sortowanie quicksort odbędzie się w bez 
+   * optymalizacji (tj. stały element pivot)
+   * Przy ustawieniu na true element pivot będzie wybrany losowo */
+  bool Optymalizacja;
 
   /*!
    * @brief Wczytanie danych z plików

@@ -19,8 +19,8 @@ public:
   /*!
    * @brief Porównuje dwie tablice liczb
    *
-   * Sprawdza, czy dwie tablice mają tę samą długość oraz czy odpowiadające
-   * sobie wzajemnie ich elementy są sobie równe
+   * Sprawdza, czy dwie tablice mają tę samą długość oraz czy 
+   * odpowiadające sobie wzajemnie ich elementy są sobie równe
    *
    * @param[in] druga - tablica, z którą dokonane zostanie porównanie
    * @retval true - gdy wszystkie odpowiadające sobie pary liczb są sobie
@@ -81,8 +81,14 @@ public:
   void MergeSort();
 
   /*!
-   * @brief Sortuje rosnąco całą tablicę algorytmem quicksort */
-  void QuickSort();
+   * @brief Sortuje rosnąco całą tablicę algorytmem quicksort 
+   *
+   * Funkcja pozwala na wybranie (poprzez parametr), czy sortować ze
+   * stałym, czy losowym elementem pivot
+   *
+   * @param[in] optym - określa, czy korzystać z optymalizacji w
+   * sortowaniu */
+  void QuickSort(bool optym = true);
 
   /*!
    * @brief Sortuje rosnąco tablicę algorytmem kopcowym */
@@ -90,19 +96,16 @@ public:
 
 private:
   /*!
-   * @brief Flaga optymalizacji 
-   *
-   * Przy ustawieniu na false sortowanie quicksort odbędzie się w bez 
-   * optymalizacji (tj. stały element pivot)
-   * Przy ustawieniu na true element pivot będzie wybrany losowo */
-  bool Optymalizacja;
-
-  /*!
    * @brief Sortuje rosnąco fragment tablicy algorytmem quicksort 
    *
+   * Funkcja pozwala na wybranie (poprzez parametr), czy sortować ze
+   * stałym, czy losowym elementem pivot
+   *
+   * @param[in] optym - określa, czy korzystać z optymalizacji w
+   * sortowaniu
    * @param[in] pocz, kon - krańcowe indeksy sortowanego fragmentu
    * tablicy. Ich kolejność jest istotna. (pocz <= kon) */
-  void QuickSort(unsigned pocz, unsigned kon);
+  void QuickSort(unsigned pocz, unsigned kon, bool optym = true);
 
   /*!
    * @brief Losuje parametr pivot sortowania

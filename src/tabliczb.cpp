@@ -113,13 +113,13 @@ TabLiczb ZlaczSort (const TabLiczb &pierwsza, const TabLiczb &druga)
   return wynik;
 }
 
-void TabLiczb::QuickSort()
-{ QuickSort(0, size() - 1); }
+void TabLiczb::QuickSort(bool optym = true)
+{ QuickSort(0, size() - 1, optym); }
 
-void TabLiczb::QuickSort(unsigned pocz, unsigned kon)
+void TabLiczb::QuickSort(unsigned pocz, unsigned kon, bool optym = true)
 {
   unsigned i = pocz, j = kon;
-  int x = (*this)[Optymalizacja ? LosujPivot(pocz, kon) : 0];
+  int x = (*this)[optym ? LosujPivot(pocz, kon) : 0];
  
   do {
     while ((*this)[i] < x)
