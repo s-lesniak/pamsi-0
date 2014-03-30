@@ -25,7 +25,7 @@ Eksperyment::Eksperyment(string PlikWyj, bool flaga):
 {
   if (!SpiszZadania())
     return;
-  
+
   for (unsigned int i = 0; i < Zadania.size(); i++) {
     float sr = WielokrotnyPomiar(i);    
     WynikBadania elem = {Wejscie.size(), Zadania[i].IleRazy, sr};
@@ -145,7 +145,7 @@ void Eksperyment::Zapisz()
 
 bool Zapytaj()
 {
-  cout << "Czy chcesz sortować z optymalizacją? (t/n) "
+  cout << "Czy chcesz sortować z optymalizacją? (t/n) ";
   char c;
   while(1) {
     cin >> c;
@@ -159,4 +159,6 @@ bool Zapytaj()
     default:
       break;
     }
+  }
+  return false;
 }
