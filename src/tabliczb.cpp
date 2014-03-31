@@ -113,14 +113,14 @@ TabLiczb ZlaczSort (const TabLiczb &pierwsza, const TabLiczb &druga)
   return wynik;
 }
 
-void TabLiczb::QuickSort(bool optym = true)
+void TabLiczb::QuickSort(bool optym)
 { QuickSort(0, size() - 1, optym); }
 
-void TabLiczb::QuickSort(unsigned pocz, unsigned kon, bool optym = true)
+void TabLiczb::QuickSort(unsigned pocz, unsigned kon, bool optym)
 {
   unsigned i = pocz, j = kon;
-  int x = (*this)[optym ? LosujPivot(pocz, kon) : 0];
- 
+  int x = (*this)[optym ? LosujPivot(pocz, kon) : pocz];
+  //cout << i << ' ' << j << endl;
   do {
     while ((*this)[i] < x)
       i++;
@@ -132,14 +132,9 @@ void TabLiczb::QuickSort(unsigned pocz, unsigned kon, bool optym = true)
 			   problemom z przepełnieniem zakresu */
   
   if (pocz+1 < j+1) // jw.
-    QuickSort(pocz, j);
+    QuickSort(pocz, j, optym);
   if (i < kon)
-    QuickSort(i, kon);
-}
-
-unsigned LosujPivot(unsigned pocz, unsigned kon)
-{
-
+    QuickSort(i, kon, optym);
 }
 
 /* IMPLEMENTACJA HEAPSORT ZAKOMENTOWANA JAKO NIEDZIAŁAJĄCA */

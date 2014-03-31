@@ -88,7 +88,7 @@ public:
    *
    * @param[in] optym - określa, czy korzystać z optymalizacji w
    * sortowaniu */
-  void QuickSort(bool optym = true);
+  void QuickSort(bool optym);
 
   /*!
    * @brief Sortuje rosnąco tablicę algorytmem kopcowym */
@@ -106,7 +106,7 @@ private:
    * @param[in] pocz, kon - krańcowe indeksy sortowanego fragmentu
    * tablicy. Ich kolejność jest istotna. (pocz <= kon) */
   void QuickSort(unsigned pocz, unsigned kon, bool optym = true);
-
+ 
   /*!
    * @brief Losuje parametr pivot sortowania
    *
