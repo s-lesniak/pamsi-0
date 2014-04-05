@@ -17,6 +17,19 @@
 template <class TypKlucza, class TypWartosci>
 struct Para{
 
+  /*!
+   * Konstruktor ustawiający klucz pary, wartość pozostaje nieokreślona
+   */
+  Para(TypKlucza& k): Klucz(k) {}
+ 
+  /*!
+   * Stały element pary, według niego będzie posortowana tablica
+   * asocjacyjna */
+  const TypKlucza Klucz;
+
+  /*!
+   * Zmienny element pary */
+  TypWartosci Wart;
 };
 
 #endif

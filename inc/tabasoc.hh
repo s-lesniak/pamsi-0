@@ -72,24 +72,81 @@ public:
   TypWartosci& Pobierz(TypKlucza k);
 
   /*!
+   * @brief Daje dostęp do wartości lub tworzy nowy klucz
+   *
+   * Sprawdza, czy w tablicy istnieje już klucz zadany w parametrze.
+   * Jeśli tak, zwraca referencję do odpowiadającego mu klucza. W
+   * przeciwnym wypadku tworzony jest nowy klucz (zapisanie w tablicy
+   * oraz wstawienie odpowiedniego numeru do listy Indeks), a referencja
+   * do nowoutworzonej wartości jest również zwracana.
+   *
+   * @warning Klucz zostanie stworzony także bez przypisania mu żadnej
+   * wartości.
+   * @param[in] k - klucz, który ma być znaleziony lub stworzony */
+  TypWartosci& operator [] (const TypKlucza &k);
+
+  /*!
+   * @brief Daje dostęp do wartości według pozycji w tablicy
+   *
+   * W przypadku, gdy parametr jest mniejszy od wielkości tablicy,
+   * funkcja zwraca referencję do wartości tablicy asocjacyjnej, która
+   * odpowiada zadanej liczbie.
+   * W przeciwnym wypadku rzuca wyjątek @verbatim end_of_range
+   * @endverbatim.
+   *
+   * @param[in] i - liczony od zera indeks tablicy, z którego ma być
+   * pobrana wartośc
+   * @return referencja do zadanej wartości */
+  TypWartosci& operator [] (unsigned i);
+
+  /*!
    * @return Liczba elementów tablicy */
-  unsigned IleElementow();
+  unsigned IleElementow() const { return size(); }
 
   /*!
    * @brief Sprawdza pustość tablicy 
    * @retval true - pusta tablica
    * @retval false - niepusta tablica */
-  bool CzyPusta() { return !IleElementow(); }
-
-
+  bool CzyPusta() const { return !IleElementow(); }
 
 private:
 
   /*!
    * @brief Informuje o kolejności danych w tablicy.
    *
-   * Ze względu na ograniczenia związane z implementacją tablic C.D.N.*/
+   * Ze względu na ograniczenia związane z implementacją tablic istnieje
+   * konieczność stworzenia struktury informującej, jak wygląda 
+   * uporządkowana wersja tablicy. W tym celu stworzony został indeks,
+   * w którym numery elementów tablicy są ułożone tak, by pozwalały na
+   * proste odtworzenie posortowanej rosnąco tablicy.
+   * Dla przykładu, gdy w poniższa lista zawierać będzie elementy:
+   * @verbatim 4 0 1 3 2 @endverbatim , to piąty (czwarty, licząc od
+   * zera) element tablicy jest pierwszy w kolejności, następnie 
+   * pierwszy, drugi itd. */
   list<unsigned> Indeks;
+
+  /*!
+   * @brief Znajduje tablicowy numer elementu o zadanym kluczu.
+   *
+   * Funkcja dokonuje przeszukania binarnego tablicy (z pomocą listy
+   * Indeks, która zawiera informacje o porządku elementów). Jeżeli
+   * klucz nie zostanie odnaleziony, wyrzucony zostaje wyjątek @verbatim
+   * out_of_range @endverbatim .
+   *
+   * @param[in] k - klucz, który ma zostać odnaleziony
+   * @return numer, pod którym w tablicy znajduje się żądany klucz */
+  unsigned Znajdz(const TypKlucza &k) const;
+
+  /*!
+   * @brief Tworzy nowy element tablicy
+   *
+   * Dodaje do tablicy parę z kluczem zadanym przez argument, oraz pustą
+   * wartością. Informacja o nowym kluczu zostaje umieszczona w 
+   * odpowiednim miejscu listy Indeks.
+   *
+   * @param[in] k - klucz, który ma zostać wstawiony
+   * @return referencja do wartości odpowiadającej nowemu kluczowi */
+  TypWartosci& WstawKlucz(const TypKlucza &k);
 };
 
 #endif

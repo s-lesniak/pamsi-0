@@ -116,7 +116,6 @@ float Eksperyment::WielokrotnyPomiar(unsigned nr)
     if(!WczytajPliki(nr)) 
       return -1.0;
     przed = Teraz();
-    
     Wejscie.QuickSort(Optymalizacja);
     po = Teraz();
     if(!(Wejscie == Wzor)) {
