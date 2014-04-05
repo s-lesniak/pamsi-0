@@ -12,7 +12,7 @@
  * jest stały (klucza i wartości). 
  *
  * @tparam TypKlucza - typ danych, jakiego będą klucze. Musi mieć
- * zrealizowany operator >
+ * zrealizowany operatory <= i ==.
  * @tparam TypWartosci - typ danych, jakiego będą wartości. */
 template <class TypKlucza, class TypWartosci>
 struct Para{

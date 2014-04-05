@@ -95,13 +95,13 @@ public:
    * @endverbatim.
    *
    * @param[in] i - liczony od zera indeks tablicy, z którego ma być
-   * pobrana wartośc
+   * pobrana wartość
    * @return referencja do zadanej wartości */
   TypWartosci& operator [] (unsigned i);
 
   /*!
    * @return Liczba elementów tablicy */
-  unsigned IleElementow() const { return size(); }
+  unsigned IleElementow() const { return Rozmiar; }
 
   /*!
    * @brief Sprawdza pustość tablicy 
@@ -112,6 +112,11 @@ public:
 private:
 
   /*!
+   * Określa rozmiar tablicy (użycie bibliotecznej funkcji size() jest
+   * niemożliwe dla szablonów) */
+  unsigned Rozmiar;
+
+  /*!
    * @brief Informuje o kolejności danych w tablicy.
    *
    * Ze względu na ograniczenia związane z implementacją tablic istnieje
@@ -119,6 +124,7 @@ private:
    * uporządkowana wersja tablicy. W tym celu stworzony został indeks,
    * w którym numery elementów tablicy są ułożone tak, by pozwalały na
    * proste odtworzenie posortowanej rosnąco tablicy.
+   *
    * Dla przykładu, gdy w poniższa lista zawierać będzie elementy:
    * @verbatim 4 0 1 3 2 @endverbatim , to piąty (czwarty, licząc od
    * zera) element tablicy jest pierwszy w kolejności, następnie 
@@ -147,6 +153,17 @@ private:
    * @param[in] k - klucz, który ma zostać wstawiony
    * @return referencja do wartości odpowiadającej nowemu kluczowi */
   TypWartosci& WstawKlucz(const TypKlucza &k);
+
+  /*!
+   * @brief Szuka właściwego miejsca w Indeksie
+   *
+   * Porównuje klucz z innymi kluczami w tablicy i określa, jakie jest
+   * jego byłoby jego miejsce w posortowanej tablicy. Funkcja jest
+   * zaimplementowana algorytmem podobnym do przeszukiwania binarnego.
+   * @param[in] k - klucz, któremu szukamy miejsce
+   * @return numer, pod którym w indeksie znajdzie się żądany klucz */
+  unsigned ZnajdzMiejsce(const TypKlucza &k) const;
+
 };
 
 #endif
