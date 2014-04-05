@@ -27,10 +27,12 @@ using namespace std;
  * ludzie["Bravo"] -> "Johnny" \endverbatim
  *
  * @tparam TypKlucza - typ danych, jakiego będą klucze. Musi mieć
- * zrealizowany operator >
+ * zrealizowany operator >. Tym typem \b nie powinna być liczba
+ * (zwłaszcza typu \verbatim int \endverbatim). Spowoduje to zaburzenia
+ * przy odwoływaniu się do wartości poprzez ich indeks.
  * @tparam TypWartosci - typ danych, jakiego będą wartości. */
 template <class TypKlucza, class TypWartosci>
-class TabAsoc: vector<Para<TypKlucza, TypWartosci> > {
+class TabAsoc: public vector<Para<TypKlucza, TypWartosci> > {
 public:
 
   /*!
@@ -78,8 +80,15 @@ public:
    * @retval true - pusta tablica
    * @retval false - niepusta tablica */
   bool CzyPusta() { return !IleElementow(); }
+
+
+
 private:
 
+  /*!
+   * @brief Informuje o kolejności danych w tablicy.
+   *
+   * Ze względu na ograniczenia związane z implementacją tablic C.D.N.*/
   list<unsigned> Indeks;
 };
 
