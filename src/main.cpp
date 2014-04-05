@@ -4,24 +4,13 @@
 #include <string>
 #include <iostream>
 
-#include "eksperyment.hh"
-#include "tabliczb.hh"
+#include "tabasoc.hh"
 
 using namespace std;
-
-/*!
- * \brief Nazwa pliku z wynikami badań */
-const string wyjscie = "log.csv";
  
 int main ()
 {
-  try {
-    bool optym = Zapytaj();
-    Eksperyment glowny(wyjscie, optym);
-  }
-  catch (exception &e) {
-    cout << e.what() << endl;
-  }
+  TabAsoc<string, double> jakas_tam;
 
   return 0;
 }

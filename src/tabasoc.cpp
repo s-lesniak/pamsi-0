@@ -27,9 +27,15 @@ TypWartosci& TabAsoc<TypKlucza, TypWartosci>::operator []
 
 template <class TypKlucza, class TypWartosci>
 unsigned TabAsoc<TypKlucza, TypWartosci>::Znajdz 
-(const TypKlucza&) const
+(const TypKlucza &k) const
 {
+  unsigned l = 0, p = Rozmiar, sr;
 
+  while (l <= p) {
+    sr = (l+p) / 2;
+    if ((*this)[sr] == k)
+      return sr;
+  }
 }
 
 template <class TypKlucza, class TypWartosci>
@@ -50,7 +56,6 @@ unsigned TabAsoc<TypKlucza, TypWartosci>::ZnajdzMiejsce
 (const TypKlucza &k) const
 {
   unsigned l = 0, p = Rozmiar, sr;
-  list<unsigned>::iterator it;
 
   while (l <= p) {
     sr = (l+p) / 2;
@@ -63,6 +68,6 @@ unsigned TabAsoc<TypKlucza, TypWartosci>::ZnajdzMiejsce
     else
       p = sr;
   }
-  cerr << "Tutaj nie powinniśmy dojść\n";
+  cerr << "Tutaj nie powinniśmy byli dojść\n";
   return 0;
 }

@@ -11,3 +11,15 @@
 *.lai
 *.la
 *.a
+
+# pliki tekstowe i inne związane z przygotowywaniem sprawozdania
+*.txt
+*.csv
+*.aux
+*.dvi
+*.kilepr
+*.log
+*.tex.backup
+*.ods
+*.out
+*.dia
