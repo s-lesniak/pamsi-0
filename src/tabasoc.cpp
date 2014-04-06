@@ -14,7 +14,7 @@ TypWartosci& TabAsoc<TypKlucza, TypWartosci>::operator []
 {
   try {
     unsigned gdzie = Znajdz(k);
-    return PodNumerem(gdzie);
+    return PodNumerem(PodIndeksem(gdzie));
   }
   catch (const out_of_range& ex) {
     return WstawKlucz(k);
