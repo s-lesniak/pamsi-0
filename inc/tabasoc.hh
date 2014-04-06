@@ -170,6 +170,15 @@ private:
    * @return numer, pod którym w indeksie znajdzie się żądany klucz */
   unsigned ZnajdzMiejsce(const TypKlucza &k) const;
 
+  /*!
+   * @brief Mając numer w indeksie, odszukuje numer w nieposortowanej
+   * tablicy
+   *
+   * Funkcja szuka i zwraca liczbę, która znajduje się pod zadanym
+   * elementem listy. Należy ją interpretować jako sposób przejścia z
+   * indeksu nieposortowanej tablicy do indeksu hipotetycznej,
+   * posortowanej tablicy. */
+  unsigned PodIndeksem (unsigned k) const;
 };
 
 #endif
