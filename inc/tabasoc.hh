@@ -38,17 +38,6 @@ public:
   TabAsoc(): Rozmiar(0) { }
 
   /*!
-   * @brief Zmienia wartość klucza lub dodaje klucz z wartością
-   *
-   * Funkcja sprawdza, czy zadany klucz znajduje się już w tablicy.
-   * Jeżeli tak, przypisuje mu zadaną w parametrze wartość. W przeciwnym
-   * wypadku tworzony jest nowy klucz wraz z przypisaną mu wartością.
-   *
-   * @param[in] k - modyfikowany/dodawany klucz
-   * @param[in] v - przypisywana kluczowi wartość */
-  void Zmien(const TypKlucza& k, const TypWartosci& v);
-
-  /*!
    * @brief Usuwa z tablicy zadany klucz z odpowiadającą mu wartością.
    *
    * Z tablicy zostaje usunięty element zawierający podany klucz.
@@ -61,18 +50,6 @@ public:
    * @retval false - w przypadku nieznalezienia klucza (funkcja wówczas
    * nie robi nic) */
   bool Usun(const TypKlucza& k);
-
-  /*!
-   * @brief Daje dostęp do wartości zadanego klucza
-   *
-   * Wyszukuje zadany w parametrze klucz i zwraca referencję do niego.
-   * Jeżeli szukany klucz nie istnieje, jest on tworzony.
-   *
-   * @param[in] k - klucz odpowiadający żądanemu elementowi lub 
-   * nowotworzony 
-   * @return referencja do wartosci odpowiadającej kluczowi. */
-  TypWartosci& Pobierz(TypKlucza k);
-
   /*!
    * @brief Daje dostęp do wartości lub tworzy nowy klucz
    *
