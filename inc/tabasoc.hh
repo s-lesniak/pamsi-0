@@ -111,6 +111,15 @@ public:
    * @retval false - niepusta tablica */
   bool CzyPusta() const { return !IleElementow(); }
 
+  /*!
+   * @brief Wyświetla uporządkowaną wersję tablicy
+   *
+   * Wykorzystując odpowiednio zapisy w Indeksie, funkcja wypisuje
+   * tablicę tak, jakby wyglądało po jej posortowaniu według wartości
+   * kluczy
+   * @param[in, out] str - strumień, na który mają być wypisane dane */
+  void WyswietlWPorzadku (ostream &str = cout);
+
 private:
 
   /*!

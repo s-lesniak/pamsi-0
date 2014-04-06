@@ -35,7 +35,6 @@ template <class TypKlucza, class TypWartosci>
 unsigned TabAsoc<TypKlucza, TypWartosci>::Znajdz 
 (const TypKlucza &k) const
 {
-  cerr << "Funkcja Znajdz() - " << k << endl;
   if (!Rozmiar)
     throw out_of_range("nieee");
 
@@ -43,8 +42,7 @@ unsigned TabAsoc<TypKlucza, TypWartosci>::Znajdz
   
   while (l <= p) {
     sr = (l+p) / 2;
-    cerr << "l = " << l << ", p = " << p << ", sr = " << sr
-	 << "\t" << Tab[PodIndeksem(sr)].Klucz << " =?= " << k << endl;
+    
     if ((Tab[PodIndeksem(sr)]).Klucz == k)
       return sr;
     if ((Tab[PodIndeksem(sr)]).Klucz < k)
@@ -52,7 +50,7 @@ unsigned TabAsoc<TypKlucza, TypWartosci>::Znajdz
     else
       p = sr - 1;
   }
-  cerr << "l = " << l << ", p = " << p << endl;
+  
   throw out_of_range("buu");
 }
 
@@ -60,7 +58,6 @@ template <class TypKlucza, class TypWartosci>
 TypWartosci& TabAsoc<TypKlucza, TypWartosci>::WstawKlucz
 (const TypKlucza &k)
 {
-  cerr << "Funkcja WstawKlucz() - " << k << endl;
   Para<TypKlucza, TypWartosci> nowa(k);
   
   // znajdujemy iterator odpowiadający miejscu wstawienia nowego 
@@ -83,13 +80,10 @@ template <class TypKlucza, class TypWartosci>
 unsigned TabAsoc<TypKlucza, TypWartosci>::ZnajdzMiejsce
 (const TypKlucza &k) const
 {
-  cerr << "Funkcja ZnajdzMiejsce() - " << k << endl;
   int l = 0, p = Rozmiar, sr;
   
   while (l <= p) {
     sr = (l+p) / 2;
-    cerr << "l = " << l << ", p = " << p << ", sr = " << sr
-	 << "\t" << Tab[PodIndeksem(sr)].Klucz << " =?= " << k << endl;
           
     if ((Tab[PodIndeksem(sr)].Klucz) <= k) {
       if (sr+1 == Rozmiar)
@@ -104,7 +98,6 @@ unsigned TabAsoc<TypKlucza, TypWartosci>::ZnajdzMiejsce
     else
       p = sr-1;
   }
-  cerr << "Tutaj nie powinniśmy byli dojść\n";
   return 0;
 }
 
@@ -119,6 +112,22 @@ unsigned TabAsoc<TypKlucza, TypWartosci>::PodIndeksem
   return *it;
 }
 
+template <typename TypKlucza, typename TypWartosci>
+void TabAsoc<TypKlucza, TypWartosci>::WyswietlWPorzadku
+(ostream &str)
+{
+  str.width(25);
+  str << left << "KLUCZ" << "WARTOŚĆ";
+  for (int i = 0; i < Rozmiar; i++) {
+    str << '\n';
+    str.width(25);
+    str << left << Tab[PodIndeksem(i)].Klucz
+	<< Tab[PodIndeksem(i)].Wart;
+  }
+  str << endl;
+}
+
 #include <string>
 
 template class TabAsoc<string, double>;
+template class TabAsoc<string, string>;
