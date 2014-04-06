@@ -8,34 +8,50 @@
 
 using namespace std;
 
-template <class TypKlucza, class TypWartosci>
+template <typename TypKlucza, typename TypWartosci>
 TypWartosci& TabAsoc<TypKlucza, TypWartosci>::operator [] 
 (const TypKlucza &k)
 {
-  TypWartosci& wynik;
-
   try {
     unsigned gdzie = Znajdz(k);
-    wynik = (*this)[gdzie].Wart;
+    return PodNumerem(gdzie);
   }
   catch (const out_of_range& ex) {
-    wynik = WstawKlucz(k);
+    return WstawKlucz(k);
   }
+}
 
-  return wynik;
+template <class TypKlucza, class TypWartosci>
+TypWartosci& TabAsoc<TypKlucza, TypWartosci>::PodNumerem (unsigned i)
+{
+  if (i >= Rozmiar)
+    throw out_of_range ("bla");
+
+  Para<TypKlucza, TypWartosci>& wynik = Tab[i];
+  return wynik.Wart;
 }
 
 template <class TypKlucza, class TypWartosci>
 unsigned TabAsoc<TypKlucza, TypWartosci>::Znajdz 
 (const TypKlucza &k) const
 {
-  unsigned l = 0, p = Rozmiar, sr;
 
-  while (l <= p) {
+  if (!Rozmiar)
+    throw out_of_range("nieee");
+
+  unsigned l = 0, p = Rozmiar, sr;
+  
+  while (l < p) {
     sr = (l+p) / 2;
-    if ((*this)[sr] == k)
+    //cerr << l << ' ' << p << ' ' << sr << endl; 
+    if ((Tab[sr]).Klucz == k)
       return sr;
+    if ((Tab[sr]).Klucz < k)
+      l = sr + 1;
+    else
+      p = sr - 1;
   }
+  throw out_of_range("buu");
 }
 
 template <class TypKlucza, class TypWartosci>
@@ -44,11 +60,18 @@ TypWartosci& TabAsoc<TypKlucza, TypWartosci>::WstawKlucz
 {
   Para<TypKlucza, TypWartosci> nowa(k);
   
-  Indeks.insert(Indeks.begin() + ZnajdzMiejsce(k), Rozmiar++);
+  // znajdujemy iterator odpowiadający miejscu wstawienia nowego 
+  // elementu
+  list<unsigned>::iterator it = Indeks.begin();
+  if (Rozmiar)
+    for (unsigned i = 0; i < ZnajdzMiejsce(k); i++)
+      it++;
+  
+  Indeks.insert(it, Rozmiar++);
 
-  push_back(nowa);
+  Tab.push_back(nowa);
 
-  return nowa.Wartosc;
+  return Tab.back().Wart;
 }
 
 template <class TypKlucza, class TypWartosci>
@@ -56,14 +79,19 @@ unsigned TabAsoc<TypKlucza, TypWartosci>::ZnajdzMiejsce
 (const TypKlucza &k) const
 {
   unsigned l = 0, p = Rozmiar, sr;
-
+  
   while (l <= p) {
     sr = (l+p) / 2;
-    if ((*this)[sr] <= k) {
-      if (k <= (*this)[sr+1])
-	return sr+1;
-      else
-	l = sr+1;
+    
+    if ((Tab[sr].Klucz) <= k) {
+      if (sr+1 == Rozmiar)
+	return sr;
+      else {
+	if (k <= (Tab[sr+1].Klucz))
+	  return sr+1;
+	else
+	  l = sr+1;
+      }
     }
     else
       p = sr;
@@ -71,3 +99,7 @@ unsigned TabAsoc<TypKlucza, TypWartosci>::ZnajdzMiejsce
   cerr << "Tutaj nie powinniśmy byli dojść\n";
   return 0;
 }
+
+#include <string>
+
+template class TabAsoc<string, double>;

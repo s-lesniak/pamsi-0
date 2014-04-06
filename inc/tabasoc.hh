@@ -31,9 +31,11 @@ using namespace std;
  * (zwłaszcza typu \verbatim int \endverbatim). Spowoduje to zaburzenia
  * przy odwoływaniu się do wartości poprzez ich indeks.
  * @tparam TypWartosci - typ danych, jakiego będą wartości. */
-template <class TypKlucza, class TypWartosci>
-class TabAsoc: public vector<Para<TypKlucza, TypWartosci> > {
+template <typename TypKlucza, typename TypWartosci>
+class TabAsoc {
 public:
+
+  TabAsoc(): Rozmiar(0) { }
 
   /*!
    * @brief Zmienia wartość klucza lub dodaje klucz z wartością
@@ -97,7 +99,7 @@ public:
    * @param[in] i - liczony od zera indeks tablicy, z którego ma być
    * pobrana wartość
    * @return referencja do zadanej wartości */
-  TypWartosci& operator [] (unsigned i);
+  TypWartosci& PodNumerem (unsigned i);
 
   /*!
    * @return Liczba elementów tablicy */
@@ -130,6 +132,10 @@ private:
    * zera) element tablicy jest pierwszy w kolejności, następnie 
    * pierwszy, drugi itd. */
   list<unsigned> Indeks;
+
+  /*!
+   * @brief Właściwa tablica asocjacyjna */
+  vector<Para<TypKlucza, TypWartosci> > Tab;
 
   /*!
    * @brief Znajduje tablicowy numer elementu o zadanym kluczu.
