@@ -37,7 +37,7 @@ public:
    * \param[in] elem - element do wstawienia */
   void Dodaj(const T& elem);
 
-  private:
+  //private:
 
   /*! \brief Korzeń drzewa */
   ElemDrzewa<T> Korzen;

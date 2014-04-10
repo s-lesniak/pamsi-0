@@ -11,6 +11,8 @@
  * \brief Pojedynczy element drzewa binarnego */
 template <typename T> struct ElemDrzewa {
 
+  ElemDrzewa(): elem((T) NULL), ldziecko(NULL), pdziecko(NULL) {}
+
   ElemDrzewa(T start): elem(start), ldziecko(NULL), pdziecko(NULL) {}
 
   ~ElemDrzewa() { delete ldziecko, delete pdziecko; }
