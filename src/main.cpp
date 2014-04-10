@@ -4,11 +4,14 @@
 #include <string>
 #include <iostream>
 
-#include "tabasoc.hh"
+#include "tadrzewo.hh"
+#include "drzewo.hh"
 
 using namespace std;
  
 int main ()
 {
+  
+
   return 0;
 }

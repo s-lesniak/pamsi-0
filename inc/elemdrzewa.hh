@@ -13,14 +13,20 @@ template <typename T> struct ElemDrzewa {
 
   ElemDrzewa(T start): elem(start), ldziecko(NULL), pdziecko(NULL) {}
 
-  /*!
-   * \brief Właściwa wartość elementu */
+  ~ElemDrzewa() { delete ldziecko, delete pdziecko; }
+
+  /*! \brief Właściwa wartość elementu */
   T elem;
 
   /*!
    * \brief Wskaźniki do dzieci elementu */
   ElemDrzewa<T> *ldziecko;
   ElemDrzewa<T> *pdziecko;
+
+  /*!
+   * \brief Porównuje wartości przechowywane przez elementy */
+  bool operator <= (const ElemDrzewa<T> &drugi)
+  { return elem <= drugi.elem; }
 };
 
 #endif
