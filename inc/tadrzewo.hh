@@ -7,6 +7,8 @@
 
 #include <list>
 
+#include "drzewo.hh"
+#include "para.hh"
 #include "tabasoc.hh"
 
 using namespace std;
@@ -20,6 +22,19 @@ using namespace std;
  */
 template <typename TypKlucza, typename TypWartosci>
 class TADrzewo: public TabAsoc {
+
+public:
+bool Usun(const TypKlucza& k);
+
+TypWartosci& operator [] (const TypKlucza &k);
+
+private:
+
+  /*!
+   * @brief Drzewo binarne implementujące właściwą tablicę */
+  Drzewo<Para<TypKlucza, TypWartosci> > Tab;
+  
+  TypWartosci& WstawKlucz(const TypKlucza &k);
 
 };
 
