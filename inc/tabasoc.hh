@@ -66,6 +66,20 @@ public:
   TypWartosci& operator [] (const TypKlucza &k);
 
   /*!
+   * @brief Daje dostęp do wartości według pozycji w tablicy
+   *
+   * W przypadku, gdy parametr jest mniejszy od wielkości tablicy,
+   * funkcja zwraca referencję do wartości tablicy asocjacyjnej, która
+   * odpowiada zadanej liczbie.
+   * W przeciwnym wypadku rzuca wyjątek @verbatim end_of_range
+   * @endverbatim.
+   *
+   * @param[in] i - liczony od zera indeks tablicy, z którego ma być
+   * pobrana wartość
+   * @return referencja do zadanej wartości */
+  TypWartosci& PodNumerem (unsigned i);
+
+  /*!
    * @return Liczba elementów tablicy */
   unsigned IleElementow() const { return Rozmiar; }
 
