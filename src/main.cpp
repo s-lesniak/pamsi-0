@@ -37,10 +37,6 @@ int main ()
   slownik.WyswietlWPorzadku();
   stale.WyswietlWPorzadku();
 
-  cout << "Same wartości, w kolejności wpisywania:" ;
-  for (unsigned i = 0; i < slownik.IleElementow(); i++)
-    cout << '\n' << slownik.PodNumerem(i);
-
   cout << endl;
   return 0;
 }

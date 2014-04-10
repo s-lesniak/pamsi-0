@@ -102,17 +102,6 @@ unsigned TabAsoc<TypKlucza, TypWartosci>::ZnajdzMiejsce
 }
 
 template <typename TypKlucza, typename TypWartosci>
-unsigned TabAsoc<TypKlucza, TypWartosci>::PodIndeksem
-(unsigned k) const
-{
-  list<unsigned>::const_iterator it = Indeks.begin();
-  for (unsigned i = 0; i < k; i++)
-    it++;
-
-  return *it;
-}
-
-template <typename TypKlucza, typename TypWartosci>
 void TabAsoc<TypKlucza, TypWartosci>::WyswietlWPorzadku
 (ostream &str)
 {
