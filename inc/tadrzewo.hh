@@ -21,7 +21,7 @@ using namespace std;
  * patrz szablon \ref TabAsoc (po którym niniejszy szablon dziedziczy). 
  */
 template <typename TypKlucza, typename TypWartosci>
-class TADrzewo: public TabAsoc {
+class TADrzewo: public TabAsoc<TypKlucza, TypWartosci> {
 
 public:
 bool Usun(const TypKlucza& k);

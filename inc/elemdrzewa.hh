@@ -5,9 +5,13 @@
 #ifndef ELEMDRZEWA_HH
 #define ELEMDRZEWA_HH
 
+#include <cstdlib>
+
 /*!
  * \brief Pojedynczy element drzewa binarnego */
 template <typename T> struct ElemDrzewa {
+
+  ElemDrzewa(T start): elem(start), ldziecko(NULL), pdziecko(NULL) {}
 
   /*!
    * \brief Właściwa wartość elementu */
