@@ -3,19 +3,23 @@
 
 #include <string>
 #include <iostream>
+#include <cstdlib>
 
 #include "tadrzewo.hh"
 #include "drzewo.hh"
+#include "elemdrzewa.hh"
 
 using namespace std;
  
 int main ()
 {
-  Drzewo<int> przykl(8);
+  Drzewo<int> A(0);
 
-  przykl.Dodaj(2);
+  for (int i = 0; i < 50; i++)
+	  A.Dodaj(rand()%50);
+  cout << "Elementy odczytywane idąc od góry, skręcając w lewą stronę: "
+		  << endl;
+  A.Korzen.Wypisz(cout);
 
-  cout << "korzeń: " << przykl.Korzen.elem << endl;
-  // cout << "lewe dziecko: " << przykl.Korzen.pdziecko->elem << endl;
   return 0;
 }
