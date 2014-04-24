@@ -4,6 +4,8 @@
 #include "elemdrzewa.hh"
 #include "drzewo.hh"
 
+using namespace std;
+
 template <typename T>
 void Drzewo<T>::Dodaj (const T& elem)
 {
@@ -38,4 +40,9 @@ void Drzewo<T>::Dodaj (const T& elem)
   }
 }
 
+#include <string>
+
+#include "para.hh"
+
 template class Drzewo<int>;
+template class Drzewo<Para<string, int> >;

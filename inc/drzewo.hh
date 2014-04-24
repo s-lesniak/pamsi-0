@@ -16,9 +16,18 @@ using namespace std;
  * Jest obudowany typowym dla drzew interfejsem.
  *
  * \tparam T - typ danych, jakie ma przechowywać drzewo. Musi umieć
- * porównywać dwa egzemplarze swojego typu operatorem <=. */
+ * porównywać dwa egzemplarze swojego typu operatorem <=, wypisywać się
+ * do strumienia (operatorem <<) i konwertować się do zera. */
 template <typename T> class Drzewo {
 public:
+
+	/*!
+	 * \brief Konstruuje puste drzewo
+	 *
+	 * Korzeń drzewa zostanie zinicjalizowany wartością zerową lub za pomocą
+	 * domyślnego konstruktora klasy.
+	 */
+	Drzewo() { Korzen = T(); }
 
   /*!
    * \brief Konstruuje jednoelementowe drzewo.

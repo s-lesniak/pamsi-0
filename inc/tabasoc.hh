@@ -79,7 +79,7 @@ public:
 
   /*!
    * @brief Wyświetla uporządkowaną wersję tablicy
-   *
+   *hh
    * Wykorzystując odpowiednio zapisy w Indeksie, funkcja wypisuje
    * tablicę tak, jakby wyglądało po jej posortowaniu według wartości
    * kluczy.

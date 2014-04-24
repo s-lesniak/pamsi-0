@@ -5,21 +5,20 @@
 #include <iostream>
 #include <cstdlib>
 
-#include "tadrzewo.hh"
-#include "drzewo.hh"
-#include "elemdrzewa.hh"
+#include "graf.hh"
+#include "macierz.hh"
 
 using namespace std;
  
 int main ()
 {
-  Drzewo<int> A(0);
+	Macierz<double> przykl(8);
 
-  for (int i = 0; i < 50; i++)
-	  A.Dodaj(rand()%50);
-  cout << "Elementy odczytywane idąc od góry, skręcając w lewą stronę: "
-		  << endl;
-  A.Korzen.Wypisz(cout);
+	przykl(2, 3) = 9.3;
+	cout << przykl(2,3) << endl;
 
-  return 0;
+	przykl.Usun(2);
+	cout << przykl(2,3);
+
+	return 0;
 }

@@ -160,4 +160,5 @@ bool Zapytaj()
       break;
     }
   }
+  return false;
 }

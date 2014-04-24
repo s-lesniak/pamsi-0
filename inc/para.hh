@@ -5,6 +5,10 @@
 #ifndef PARA_HH
 #define PARA_HH
 
+#include <ostream>
+
+using namespace std;
+
 /*!
  * @brief Pojedynczy element tablicy asocjacyjnej
  *
@@ -21,6 +25,11 @@ struct Para {
    * Konstruktor ustawiający klucz pary, wartość pozostaje nieokreślona
    */
   Para(const TypKlucza& k): Klucz(k) {}
+
+  /*!
+   * Konstruktor ustawiający klucz na zero lub wg konstruktora domyślnego
+   */
+  Para() { Klucz = TypKlucza(); }
  
   /*!
    * Stały element pary, według niego będzie posortowana tablica
@@ -30,6 +39,32 @@ struct Para {
   /*!
    * Zmienny element pary */
   TypWartosci Wart;
+
+  /*!
+   * Porównanie kluczów w dwóch parach.
+   *
+   * \param[in] druga - druga para do porównania.
+   */
+  bool operator <= (const Para<TypKlucza, TypWartosci> &druga)
+		  { return Klucz <= druga.Klucz; }
+  bool operator == (const Para<TypKlucza, TypWartosci> &druga)
+		  { return Klucz == druga.Klucz; }
+
 };
+
+/*!
+ * Wypisanie elementów pary na strumień. Najpierw klucz, potem wartość,
+ * przedzielone tabulacjami.
+ *
+ * \param[in, out] str - strumień wyjściowy
+ * \param[in] para - para, którą mamy wypisać
+ */
+template <typename TypKlucza, typename TypWartosci>
+ostream& operator << (ostream& str,
+		const Para<TypKlucza, TypWartosci> &para)
+{
+	str << para.Klucz << '\t' << para.Wartosc;
+	return str;
+}
 
 #endif
