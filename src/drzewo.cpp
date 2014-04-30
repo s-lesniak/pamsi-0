@@ -9,6 +9,12 @@ using namespace std;
 template <typename T>
 void Drzewo<T>::Dodaj (const T& elem)
 {
+	if (puste) {
+		Korzen = elem;
+		puste = false;
+		return;
+	}
+
   ElemDrzewa<T> *nowy = new ElemDrzewa<T>;
 
   nowy->elem = elem;
@@ -46,3 +52,4 @@ void Drzewo<T>::Dodaj (const T& elem)
 
 template class Drzewo<int>;
 template class Drzewo<Para<string, int> >;
+template class Drzewo<Para<string, string> >;

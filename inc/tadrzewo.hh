@@ -9,7 +9,6 @@
 
 #include "drzewo.hh"
 #include "para.hh"
-#include "tabasoc.hh"
 
 using namespace std;
 
@@ -35,7 +34,7 @@ public:
 
 	  bool CzyPusta() const { return !IleElementow(); }
 
-private:
+//private:
 
   /*!
    * @brief Drzewo binarne implementujące właściwą tablicę */

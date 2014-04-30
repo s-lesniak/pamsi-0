@@ -5,20 +5,15 @@
 #include <iostream>
 #include <cstdlib>
 
-#include "graf.hh"
-#include "macierz.hh"
+#include "tadrzewo.hh"
 
 using namespace std;
  
 int main ()
 {
-	Macierz<double> przykl(8);
-
-	przykl(2, 3) = 9.3;
-	cout << przykl(2,3) << endl;
-
-	przykl.Usun(2);
-	cout << przykl(2,3);
+	TADrzewo<string, int> slownik;
+	slownik["haha"] = 2;
+	cout << slownik["haha"];
 
 	return 0;
 }

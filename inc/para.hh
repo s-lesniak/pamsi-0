@@ -63,7 +63,7 @@ template <typename TypKlucza, typename TypWartosci>
 ostream& operator << (ostream& str,
 		const Para<TypKlucza, TypWartosci> &para)
 {
-	str << para.Klucz << '\t' << para.Wartosc;
+	str << para.Klucz << '\t' << para.Wart;
 	return str;
 }
 

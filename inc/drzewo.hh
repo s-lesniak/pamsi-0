@@ -27,14 +27,14 @@ public:
 	 * Korzeń drzewa zostanie zinicjalizowany wartością zerową lub za pomocą
 	 * domyślnego konstruktora klasy.
 	 */
-	Drzewo() { Korzen = T(); }
+	Drzewo(): puste(true) { Korzen = T(); }
 
   /*!
    * \brief Konstruuje jednoelementowe drzewo.
    *
    * \param[in] start - pierwszy element drzewa, który zostanie
    * postawiony na pozycji korzenia */
-  Drzewo(T start): Korzen(start) {}
+  Drzewo(T start): Korzen(start), puste(false) {}
 
   /*!
    * \brief Wstawia element do drzewa.
@@ -46,10 +46,19 @@ public:
    * \param[in] elem - element do wstawienia */
   void Dodaj(const T& elem);
 
-  //private:
-
   /*! \brief Korzeń drzewa */
   ElemDrzewa<T> Korzen;
+
+
+private:
+
+
+  /*! \brief Flaga pustości drzewa
+   *
+   * Powinna być ustawiona na true, gdy drzewo jest puste, a na false,
+   * gdy zawiera jakąś wartość.
+   */
+  bool puste;
 };
 
 #endif
