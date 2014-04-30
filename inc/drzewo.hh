@@ -3,7 +3,7 @@
 #ifndef DRZEWO_HH
 #define DRZEWO_HH
 
-#include <cstdlib>
+#include <iostream>
 
 #include "elemdrzewa.hh"
 
@@ -40,18 +40,29 @@ public:
    * \brief Wstawia element do drzewa.
    *
    * Zadanemu elementowi znajduje miejsce w drzewie (tak, że zawsze lewe
-   * dziecko jest mniejsze/równe od ojca, a prawe - większe od 
-   * niego), a następnie wstawia tam jego kopię.
+   * dziecko jest mniejsze od ojca, a prawe - większe od
+   * niego), a następnie wstawia tam jego kopię. Jeśli element do
+   * wstawienia znajduje się już w drzewie, funkcja nie wstawia go
+   * ponownie.
    *
-   * \param[in] elem - element do wstawienia */
-  void Dodaj(const T& elem);
+   * \param[in] elem - element do wstawienia
+   * \return wskaźnik na już wstawiony element */
+  T* Dodaj(const T& elem);
+
+  /*!
+   * \brief Usuwa element z drzewa
+   *
+   * Wyszukuje zadany element, usuwa go z drzewa i przesuwa pozostałe
+   * elementy tak, by struktura zachowywała charakter drzewa binarnego.
+   *
+   * @param elem - element do usunięcia
+   */
+  void Usun(const T& elem);
 
   /*! \brief Korzeń drzewa */
   ElemDrzewa<T> Korzen;
 
-
 private:
-
 
   /*! \brief Flaga pustości drzewa
    *
@@ -59,6 +70,18 @@ private:
    * gdy zawiera jakąś wartość.
    */
   bool puste;
+
+  /*!
+   * \brief Znajduje element drzewa
+   *
+   * Funkcja przeszukuje drzewo pod kątem zadanego wzorca i zwraca
+   * wskaźnik na znaleziony element lub NULL.
+   *
+   * @param elem - wartość, której szukamy w drzewie
+   * @return wskaźnik na znaleziony element
+   * \retval NULL - elementu nie znaleziono
+   */
+  ElemDrzewa<T> Znajdz(const T& elem);
 };
 
 #endif

@@ -9,23 +9,12 @@ template <typename TypKlucza, typename TypWartosci>
 TypWartosci& TADrzewo<TypKlucza, TypWartosci>::operator []
 (const TypKlucza &k)
 {
-	if (!Rozmiar++) {
-		Tab.Dodaj(Para<TypKlucza, TypWartosci> (k));
-		return Tab.Korzen.elem.Wart;
-	}
-
-	ElemDrzewa<Para<TypKlucza, TypWartosci> > *i = &(Tab.Korzen);
-
-	while (1) {
-		if (k == (i->elem).Klucz) {
+	Para<TypKlucza, TypWartosci> *cel =
 			Tab.Dodaj(Para<TypKlucza, TypWartosci> (k));
-			return i->elem.Wart;
-		}
 
-		i = (k <= (i->elem).Klucz) ? i->ldziecko : i->pdziecko;
-	}
+	Rozmiar++;
 
-	throw logic_error ("a");
+	return cel->Wart;
 }
 
 #include <string>

@@ -7,12 +7,12 @@
 using namespace std;
 
 template <typename T>
-void Drzewo<T>::Dodaj (const T& elem)
+T* Drzewo<T>::Dodaj (const T& elem)
 {
 	if (puste) {
 		Korzen = elem;
 		puste = false;
-		return;
+		return &(Korzen.elem);
 	}
 
   ElemDrzewa<T> *nowy = new ElemDrzewa<T>;
@@ -25,14 +25,16 @@ void Drzewo<T>::Dodaj (const T& elem)
   i = &Korzen;
 
   while(1)
-	//  i = (*nowy <= *i) ? i->ldziecko : i->pdziecko;
   {
 	  if (nowy->elem <= i->elem) {
+		  if (nowy->elem == i->elem) {
+			  return &(i->elem);
+		  }
 		  if (i->ldziecko)
 			  i = i->ldziecko;
 		  else {
 			  i->ldziecko = nowy;
-			  break;
+			  return &(i->ldziecko->elem);
 		  }
 	  }
 	  else {
@@ -40,10 +42,17 @@ void Drzewo<T>::Dodaj (const T& elem)
 			  i = i->pdziecko;
 		  else {
 			  i->pdziecko = nowy;
-			  break;
+			  return &(i->pdziecko->elem);
 		  }
 	  }
   }
+}
+
+template <typename T>
+void Drzewo<T>::Usun(const T& elem)
+{
+
+
 }
 
 #include <string>

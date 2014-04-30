@@ -30,17 +30,15 @@ public:
 
 	TypWartosci& operator [] (const TypKlucza &k);
 
-	  unsigned IleElementow() const { return Rozmiar; }
+	unsigned IleElementow() const { return Rozmiar; }
 
-	  bool CzyPusta() const { return !IleElementow(); }
+	bool CzyPusta() const { return !IleElementow(); }
 
-//private:
+private:
 
   /*!
    * @brief Drzewo binarne implementujące właściwą tablicę */
   Drzewo<Para<TypKlucza, TypWartosci> > Tab;
-  
-  TypWartosci& WstawKlucz(const TypKlucza &k);
 
   unsigned Rozmiar;
 };
