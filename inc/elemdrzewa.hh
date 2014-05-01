@@ -14,11 +14,12 @@ using namespace std;
  * \brief Pojedynczy element drzewa binarnego */
 template <typename T> struct ElemDrzewa {
 
-  ElemDrzewa(): elem(), ldziecko(NULL), pdziecko(NULL) {}
+  ElemDrzewa(): elem(), ldziecko(NULL), pdziecko(NULL), ojciec(NULL) {}
 
-  ElemDrzewa(T start): elem(start), ldziecko(NULL), pdziecko(NULL) {}
+  ElemDrzewa(T start): elem(start), ldziecko(NULL), pdziecko(NULL),
+		  ojciec(NULL) {}
 
-  ~ElemDrzewa() { delete ldziecko, delete pdziecko; }
+  ~ElemDrzewa() { }
 
   /*! \brief Właściwa wartość elementu */
   T elem;
@@ -29,9 +30,9 @@ template <typename T> struct ElemDrzewa {
   ElemDrzewa<T> *pdziecko;
 
   /*!
-   * \brief Porównuje wartości przechowywane przez elementy */
-  //bool operator <= (const ElemDrzewa<T> &drugi)
-  //{ return elem <= drugi.elem; }
+   * \brief Wskaźnik na ojca węzła
+   */
+  ElemDrzewa<T> *ojciec;
 
   /*!
    * \brief Przypisuje elementowi zadaną wartość

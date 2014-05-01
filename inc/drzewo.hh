@@ -27,14 +27,15 @@ public:
 	 * Korzeń drzewa zostanie zinicjalizowany wartością zerową lub za pomocą
 	 * domyślnego konstruktora klasy.
 	 */
-	Drzewo(): puste(true) { Korzen = T(); }
+	Drzewo(): Korzen(NULL), puste(true) { }
 
   /*!
    * \brief Konstruuje jednoelementowe drzewo.
    *
    * \param[in] start - pierwszy element drzewa, który zostanie
    * postawiony na pozycji korzenia */
-  Drzewo(T start): Korzen(start), puste(false) {}
+  Drzewo(T start): puste(false)
+  { Korzen = new ElemDrzewa<T>; Korzen->elem = start; }
 
   /*!
    * \brief Wstawia element do drzewa.
@@ -60,7 +61,7 @@ public:
   void Usun(const T& elem);
 
   /*! \brief Korzeń drzewa */
-  ElemDrzewa<T> Korzen;
+  ElemDrzewa<T>* Korzen;
 
 private:
 
@@ -75,13 +76,15 @@ private:
    * \brief Znajduje element drzewa
    *
    * Funkcja przeszukuje drzewo pod kątem zadanego wzorca i zwraca
-   * wskaźnik na znaleziony element lub NULL.
+   * wskaźnik na ojca znalezionego elementu lub NULL.
    *
    * @param elem - wartość, której szukamy w drzewie
-   * @return wskaźnik na znaleziony element
+   * @return wskaźnik zadany elementu
    * \retval NULL - elementu nie znaleziono
    */
-  ElemDrzewa<T> Znajdz(const T& elem);
+  ElemDrzewa<T>* Znajdz(const T& elem);
+
+
 };
 
 #endif
