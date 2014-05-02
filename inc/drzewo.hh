@@ -63,7 +63,7 @@ public:
   /*! \brief Korzeń drzewa */
   ElemDrzewa<T>* Korzen;
 
-private:
+//private:
 
   /*! \brief Flaga pustości drzewa
    *
@@ -84,7 +84,19 @@ private:
    */
   ElemDrzewa<T>* Znajdz(const T& elem);
 
-
+  /*!
+   * \brief Znajduje następny w kolejności element drzewa
+   *
+   * Funkcja próbuje iść od zadanego węzła raz w prawo, a następnie
+   * maksymalnie w lewo. Tak znaleziony węzeł będzie najmniejszym spośród
+   * większych od węzła źródłowego.
+   *
+   * @param zr - węzeł drzewa, od którego funkcja rozpocznie poszukiwanie
+   * @return wskaźnik na następny w kolejności węzeł
+   * \retval NULL - nie istnieje prawe dziecko węzła \verbatim zr
+   * \endverbatim .
+   */
+  ElemDrzewa<T>* Nast (ElemDrzewa<T>* zr);
 };
 
 #endif

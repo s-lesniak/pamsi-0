@@ -56,55 +56,9 @@ T* Drzewo<T>::Dodaj (const T& elem)
 template <typename T>
 void Drzewo<T>::Usun(const T& elem)
 {
-	ElemDrzewa<T>* ojciec = Znajdz(elem);
-	if(!ojciec) {
-		if ((Korzen->elem) == elem) {
-			// usuwamy korzeń
-			Korzen = ElemDrzewa<T>();
-		}
-		else
-			throw out_of_range("nie ma");
-	}
-
-	bool dziecko_po_lewej; /* flaga wskazująca, po której stronie
-	 	 	 	 	 	 	* ojca znajduje się usuwany element */
-	ElemDrzewa<T>* cel;
-
-	if (ojciec->ldziecko->elem == elem) {
-		cel = ojciec->ldziecko;
-		dziecko_po_lewej = true;
-	}
-	else {
-		cel = ojciec->pdziecko;
-		dziecko_po_lewej = false;
-	}
-
-	bool l = cel->ldziecko, p = cel->pdziecko;
-
-	if (!(l && p)) {
-		delete cel;
-		if(dziecko_po_lewej)
-			ojciec->ldziecko = NULL;
-		else
-			ojciec->pdziecko = NULL;
-		return;
-	}
-	if (!l)	{
-		if(dziecko_po_lewej)
-			ojciec->ldziecko = cel->ldziecko;
-		else
-			ojciec->pdziecko = cel->ldziecko;
-		delete cel;
-		return;
-	}
-	if (!p) {
-		if(dziecko_po_lewej)
-			ojciec->ldziecko = cel->pdziecko;
-		else
-			ojciec->pdziecko = cel->ldziecko;
-		delete cel;
-		return;
-	}
+	ElemDrzewa<T> *cel = Znajdz(elem);
+	ElemDrzewa<T> *nast = Nast(cel);
+	//...
 }
 
 template <typename T>
@@ -134,6 +88,19 @@ ElemDrzewa<T>* Drzewo<T>::Znajdz (const T& elem)
 				  return NULL;
 		  }
 	  }
+}
+
+template <typename T>
+ElemDrzewa<T>* Drzewo<T>::Nast(ElemDrzewa<T> *zr)
+{
+	if(!(zr->pdziecko))
+		return NULL;
+
+	ElemDrzewa<T> *wynik = zr->pdziecko;
+	while (wynik->ldziecko)
+		wynik = wynik->ldziecko;
+
+	return wynik;
 }
 
 #include <string>
