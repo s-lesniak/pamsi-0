@@ -11,15 +11,15 @@ using namespace std;
  
 int main ()
 {
-	srand(time(NULL));
+	Drzewo<int> drzewo;
+	drzewo.Dodaj(4);
+	drzewo.Dodaj(1);
+	drzewo.Dodaj(54);
+	cout << drzewo;
 
-	for (int i = 0; i < 20; i++) {
-		Drzewo<int> drzewko;
-		for (int i = 0; i < 10; i++)
-			drzewko.Dodaj(rand()%4800);
+	drzewo.Usun(1);
 
-		cout << drzewko.Korzen->elem << ' ';
-		cout << (drzewko.Nast(drzewko.Korzen))->elem << endl;
-	}
+	cout << drzewo;
+
 	return 0;
 }

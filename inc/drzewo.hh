@@ -63,7 +63,7 @@ public:
   /*! \brief Korzeń drzewa */
   ElemDrzewa<T>* Korzen;
 
-//private:
+private:
 
   /*! \brief Flaga pustości drzewa
    *
@@ -97,6 +97,42 @@ public:
    * \endverbatim .
    */
   ElemDrzewa<T>* Nast (ElemDrzewa<T>* zr);
+
+  /*!
+   * Wypisuje fragment drzewa na strumień, w porządku in-order.
+   *
+   * @param str - strumień na, który ma być wypisane fragment drzewa.
+   * @param drz - wskaźnik na element, od którego funkcja ma rozpocząć
+   * wypisywanie
+   * @return referencja do strumienia wyjściowego
+   */
+  ostream& Wypisz (ostream & str, ElemDrzewa<T> *drz) const
+  {
+	  if (drz->ldziecko)
+		  Wypisz(str, drz->ldziecko);
+	  str << drz->elem << ' ';
+	  if (drz->pdziecko)
+		  Wypisz(str, drz->pdziecko);
+
+	  return str;
+  }
+
+public:
+  /*!
+   * Wypisuje na strumień całe drzewo, w porządku in-order.
+   * Wypis zostaje zwieńczony znakiem nowej linii.
+   *
+   * @param str - strumień wyjściowy
+   * @param drz - drzewo do wypisania
+   * @return referencja do strumienia wyjściowego
+   */
+  friend ostream& operator<< (ostream & str, const Drzewo<T>& drz)
+  {
+	  drz.Wypisz(str, drz.Korzen);
+	  str << endl;
+	  return str;
+  }
+
 };
 
 #endif

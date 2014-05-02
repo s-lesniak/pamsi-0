@@ -31,7 +31,8 @@ T* Drzewo<T>::Dodaj (const T& elem)
   {
 	  if (nowy->elem <= i->elem) {
 		  if (nowy->elem == i->elem) {
-			  return &(i->elem);
+//			  return &(i->elem);
+			  throw logic_error("równy element");
 		  }
 		  if (i->ldziecko)
 			  i = i->ldziecko;
@@ -58,7 +59,41 @@ void Drzewo<T>::Usun(const T& elem)
 {
 	ElemDrzewa<T> *cel = Znajdz(elem);
 	ElemDrzewa<T> *nast = Nast(cel);
-	//...
+
+	if (nast) {
+		ElemDrzewa<T> *stary_ojciec = nast->ojciec;
+		if (stary_ojciec->ldziecko == nast)
+			stary_ojciec->ldziecko = NULL;
+		else
+			stary_ojciec->pdziecko = nast->pdziecko;
+
+		nast->ldziecko = cel->ldziecko;
+		nast->pdziecko = cel->pdziecko;
+
+		ElemDrzewa<T> *nowy_ojciec = cel->ojciec;
+
+		nast->ojciec = nowy_ojciec;
+		if (nowy_ojciec) {
+			if (nowy_ojciec->ldziecko == cel)
+				nowy_ojciec->ldziecko = nast;
+			else
+				nowy_ojciec->pdziecko = nast;
+		}
+		else
+			Korzen = nast;
+	}
+	else {
+		ElemDrzewa<T> *nowy_ojciec = cel->ojciec;
+		if (nowy_ojciec) {
+			if (nowy_ojciec->ldziecko == cel)
+				nowy_ojciec->ldziecko = cel->ldziecko;
+			else
+				nowy_ojciec->pdziecko = cel->ldziecko;
+		}
+		else
+			Korzen = cel->ldziecko;
+	}
+	delete cel;
 }
 
 template <typename T>
