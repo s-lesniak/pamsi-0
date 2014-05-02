@@ -57,8 +57,10 @@ public:
    * elementy tak, by struktura zachowywała charakter drzewa binarnego.
    *
    * @param elem - element do usunięcia
+   * \retval true - element usunięto
+   * \retval false - elementu nie usunięto, bo go nie znaleziono
    */
-  void Usun(const T& elem);
+  bool Usun(const T& elem);
 
   /*! \brief Korzeń drzewa */
   ElemDrzewa<T>* Korzen;

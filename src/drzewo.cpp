@@ -55,9 +55,12 @@ T* Drzewo<T>::Dodaj (const T& elem)
 }
 
 template <typename T>
-void Drzewo<T>::Usun(const T& elem)
+bool Drzewo<T>::Usun(const T& elem)
 {
 	ElemDrzewa<T> *cel = Znajdz(elem);
+	if (!cel)
+		return false;
+
 	ElemDrzewa<T> *nast = Nast(cel);
 
 	if (nast) {
@@ -94,6 +97,8 @@ void Drzewo<T>::Usun(const T& elem)
 			Korzen = cel->ldziecko;
 	}
 	delete cel;
+
+	return true;
 }
 
 template <typename T>

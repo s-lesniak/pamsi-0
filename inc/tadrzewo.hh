@@ -40,6 +40,9 @@ private:
    * @brief Drzewo binarne implementujące właściwą tablicę */
   Drzewo<Para<TypKlucza, TypWartosci> > Tab;
 
+  /*!
+   * \brief Ilość elementów w tablicy
+   */
   unsigned Rozmiar;
 };
 

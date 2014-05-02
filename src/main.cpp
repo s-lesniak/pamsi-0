@@ -11,15 +11,13 @@ using namespace std;
  
 int main ()
 {
-	Drzewo<int> drzewo;
-	drzewo.Dodaj(4);
-	drzewo.Dodaj(1);
-	drzewo.Dodaj(54);
-	cout << drzewo;
+	TADrzewo<string, int> slownik;
 
-	drzewo.Usun(1);
+	slownik["haha"] = 5;
+	slownik["hihi"] = 3;
 
-	cout << drzewo;
+	slownik.Usun("haha");
 
+	cout << slownik["haha"];
 	return 0;
 }

@@ -17,6 +17,17 @@ TypWartosci& TADrzewo<TypKlucza, TypWartosci>::operator []
 	return cel->Wart;
 }
 
+template <typename TypKlucza, typename TypWartosci>
+bool TADrzewo<TypKlucza, TypWartosci>::Usun(const TypKlucza& k)
+{
+	if(Tab.Usun(Para<TypKlucza, TypWartosci> (k))) {
+		Rozmiar--;
+		return true;
+	}
+	else
+		return false;
+}
+
 #include <string>
 
 template class TADrzewo<string, int>;
