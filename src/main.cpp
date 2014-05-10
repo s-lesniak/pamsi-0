@@ -4,20 +4,20 @@
 #include <string>
 #include <iostream>
 #include <cstdlib>
+#include <stdexcept>
 
-#include "tadrzewo.hh"
+#include "tahasz.hh"
 
 using namespace std;
  
 int main ()
 {
-	TADrzewo<string, int> slownik;
+	TAHasz<int, double> slownik(200);
 
-	slownik["haha"] = 5;
-	slownik["hihi"] = 3;
+	slownik[10] = 4.7;
+	slownik[9] = 5.13;
+	cout << slownik.Usun(9) << ' ';
 
-	slownik.Usun("haha");
-
-	cout << slownik["haha"];
+	cout << slownik[9];
 	return 0;
 }

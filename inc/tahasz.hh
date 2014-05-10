@@ -8,12 +8,52 @@
 #ifndef TAHASZ_HH_
 #define TAHASZ_HH_
 
-#include <vector>
 #include <string>
 
 #include "para.hh"
 
 using namespace std;
+
+/*!
+ * \brief Haszowanie liczb całkowitych
+ *
+ * Funkcja dokonuje haszowanie liczb całkowitych za pomocą operacji
+ * modulo.
+ *
+ * @param k - liczba do zhaszowania
+ * @param rozm - ilość dostępnych do wyboru liczb
+ * \return liczba całkowita z zakresu [0, rozm-1]
+ */
+inline unsigned _FunHasz(unsigned long long k, unsigned rozm)
+{ return k % rozm; }
+
+/*!
+ * \brief Haszowanie napisów
+ *
+ * Funkcja dokonuje haszowania napisów przez wymnażanie, z różnymi
+ * wagami, liczb odpowiadających kolejnym znakom w napisie. Dzięki
+ * temu napisom będące palindromami prawdopodobnie zostaną przydzielone
+ * różne liczby. Wynik tej operacji zostanie zhaszowany funkcją
+ * odpowiednią dla liczb całkowitych.
+ *
+ * @param k - wskaźnik na napis do zhaszowania
+ * @param rozm - ilość dostępnych do wyboru liczb
+ * \return liczba całkowita z zakresu [0, rozm-1]
+ */
+unsigned _FunHasz(const char* k, unsigned rozm);
+
+/*!
+ * \brief Haszowanie std::string
+ *
+ * Wywołanie tej funkcji zostanie zamienione na zhaszowanie odpowiedniego
+ * C-stringu.
+ *
+ * @param k - napis do zhaszowania
+ * @param rozm - ilość dostępnych do wyboru liczb
+ * \return liczba całkowita z zakresu [0, rozm-1]
+ */
+inline unsigned _FunHasz(const string &k, unsigned rozm)
+{ return _FunHasz((const char*) k.c_str(), rozm); }
 
 /*!
  * \brief Tablica asocjacyjna zaimplementowana przez tablicę haszującą
@@ -79,7 +119,7 @@ private:
 	 * Każdy element jest wskaźnikiem na właściwą parę klucz-wartość,
 	 * lub na NULL, jeżeli dane miejsce jeszcze nie jest zajęte.
 	 */
-	vector<*(Para<TypKlucza, TypWartosci>)> Tab;
+	Para<TypKlucza, TypWartosci> **Tab;
 
 	/*!
 	 * \brief Funkcja haszująca
@@ -94,9 +134,9 @@ private:
 	 * @param k - klucz, z którego ma zostać wyliczony hasz.
 	 * \return liczba całkowita z zakresu [0, Rozmiar-1]
 	 */
-	unsigned Hasz(const TypKlucza &k);
+	unsigned Hasz(const TypKlucza &k)
+	{ return _FunHasz(k, Rozmiar); }
 };
-
 
 
 #endif /* TAHASZ_HH_ */
