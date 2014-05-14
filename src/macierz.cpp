@@ -8,7 +8,7 @@
 #include "macierz.hh"
 
 template <typename Koszt_t>
-Macierz<Koszt_t>::Macierz(unsigned n)
+Macierz<Koszt_t>::Macierz(unsigned n = 0)
 {
 	Tab.resize(n);
 	for (unsigned i = 0; i < n; i++)
@@ -36,4 +36,16 @@ void Macierz <Koszt_t>::Usun(unsigned n)
 		(Tab[i]).erase((Tab[i]).begin() + n);
 }
 
+template <typename Koszt_t>
+void Macierz<Koszt_t>::Wypisz (ostream & str)
+{
+	for (int i = 0; i < size(); i++) {
+		for (int j = 0; j < size(); j++)
+			str << (*this)(i, j) << '\t';
+
+		str << '\n';
+	}
+}
+
+template class Macierz<int>;
 template class Macierz<double>;

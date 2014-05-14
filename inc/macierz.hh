@@ -8,6 +8,7 @@
 #ifndef MACIERZ_HH_
 #define MACIERZ_HH_
 
+#include <iostream>
 #include <vector>
 
 using namespace std;
@@ -68,6 +69,28 @@ public:
 	 * będzie robić nic.
 	 */
 	void Usun (unsigned n);
+
+	/*! Podaje obecny rozmiar macierzy	 */
+	size_t size() { return Tab.size(); }
+
+	/*!
+	 * \brief Wypisanie na strumień zadanej macierzy.
+	 *
+	 * Każdy z wierszy macierzy będzie wypisany w osobnej linii, a w
+	 * zakresie jednej linii poszczególne liczby zostaną oddzielone znakami
+	 * tabulacji, np.:
+	 * \code
+	 * 0	9	15
+	 * 14	6	1
+	 * 9	3	27
+	 * \endcode
+	 *
+	 * \tparam Koszt_t - typ danych, którym jest wypełniona macierz. Musi
+	 * dać się wypisać na strumień, najlepiej tak, by mieścił się w jednej
+	 * linii.
+	 * @param str - strumień wyjściowy do wypisania macierzy
+	 */
+	void Wypisz(ostream & str);
 
 private:
 	/*!
