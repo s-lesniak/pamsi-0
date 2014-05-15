@@ -33,7 +33,7 @@ public:
 	 *
 	 * \param[in] n - rozmiar tworzonej macierzy
 	 */
-	Macierz(unsigned n = 0);
+	Macierz(unsigned n);
 
 	/*!
 	 * \brief Daje dostęp do konkretnego elementu macierzy
@@ -44,7 +44,8 @@ public:
 	 */
 	Koszt_t& operator() (unsigned i, unsigned j)
 	{ return Tab[i][j]; }
-
+	Koszt_t operator() (unsigned i, unsigned j) const
+	{ return Tab[i][j]; }
 	/*!
 	 * \brief Powiększa macierz kwadratową o określoną wielkość.
 	 *

@@ -5,11 +5,142 @@
  *      \author: szymon
  */
 
+#include <stdexcept>
+
 #include "graf.hh"
 
 using namespace std;
 
+template <typename Wezel_t, typename Koszt_t>
+bool Graf<Wezel_t, Koszt_t>::Dodaj(const Wezel_t& elem)
+{
+	try {
+		Znajdz(elem);
+	}
+	catch (const out_of_range &e) {
+		list<unsigned>::iterator it = Indeks.begin();
+		unsigned poz = ZnajdzMiejsce(elem);
+		for (unsigned i = 0; i < poz; i++)
+			it++;
 
+		Indeks.insert(it, Wezly.size());
+
+		Wezly.push_back(elem);
+		MSas.Powieksz(1);
+
+		return true;
+	}
+
+	return false;
+}
+
+template <typename Wezel_t, typename Koszt_t>
+bool Graf<Wezel_t, Koszt_t>::Dodaj(const Wezel_t& elem1, const Wezel_t &elem2,
+		const Koszt_t& koszt)
+{
+	unsigned i, j;
+	try {
+		i = Znajdz(elem1);
+		j = Znajdz(elem2);
+	}
+	catch (const out_of_range& e) {
+		return false;
+	}
+
+	MSas(i, j) = MSas(j, i) = koszt;
+
+	return true;
+}
+
+template <typename Wezel_t, typename Koszt_t>
+bool Graf<Wezel_t, Koszt_t>::Usun(const Wezel_t &elem)
+{
+	unsigned i;
+	try {
+		i = Znajdz(elem);
+	}
+	catch (const out_of_range &e) {
+		return false;
+	}
+	MSas.Usun(i);
+	Wezly.erase(Wezly.begin() + i);
+	list<unsigned>::iterator to_usun;
+	for (list<unsigned>::iterator it = Indeks.begin(); it != Indeks.end();
+			it++) {
+		if (*it == i)
+			to_usun = it;
+		if (*it > i)
+			(*it)--;
+	}
+	Indeks.erase(to_usun);
+	return true;
+}
+
+template <typename Wezel_t, typename Koszt_t>
+vector<Wezel_t> Graf<Wezel_t, Koszt_t>::Sasiedztwo(const Wezel_t & elem) const
+{
+	vector<Wezel_t> wynik;
+	unsigned n = Znajdz(elem);
+	for (int i = 0; i < Wezly.size(); i++) {
+		if (MSas(i, n))
+			wynik.push_back(Wezly[i]);
+	}
+
+	return wynik;
+}
+
+template <typename Wezel_t, typename Koszt_t>
+unsigned Graf<Wezel_t, Koszt_t>::Znajdz(const Wezel_t & elem) const
+{
+	unsigned l = 0, p = Wezly.size() - 1, sr;
+
+	while (l+1 <= p+1) { // zapobiega problemom przepełnionego licznika
+		sr = (l+p) / 2;
+
+		if (Wezly[PodIndeksem(sr)] == elem)
+			return PodIndeksem(sr);
+		if (Wezly[PodIndeksem(sr)] < elem)
+			l = sr + 1;
+		else
+			p = sr - 1;
+	}
+
+	throw out_of_range("Znajdz()");
+}
+
+template <typename Wezel_t, typename Koszt_t>
+unsigned Graf<Wezel_t, Koszt_t>::PodIndeksem (unsigned k) const
+{
+  list<unsigned>::const_iterator it = Indeks.begin();
+  for (unsigned i = 0; i < k; i++)
+    it++;
+
+  return *it;
+}
+
+template <typename Wezel_t, typename Koszt_t>
+unsigned Graf<Wezel_t, Koszt_t>::ZnajdzMiejsce(const Wezel_t &k) const
+{
+	int l = 0, p = Wezly.size(), sr;
+
+	while (l <= p) {
+		sr = (l+p) / 2;
+
+		if (Wezly[PodIndeksem(sr)] <= k) {
+			if (sr+1 == Wezly.size())
+				return sr+1;
+			else {
+				if (k <= Wezly[PodIndeksem(sr+1)])
+					return sr+1;
+				else
+					l = sr+1;
+			}
+		}
+		else
+			p = sr-1;
+	}
+	return 0;
+}
 
 #include <string>
 
