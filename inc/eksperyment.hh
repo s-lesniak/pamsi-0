@@ -7,11 +7,12 @@
 #include <string>
 #include <vector>
 
-#include "tabliczb.hh"
 #include "wynikbadania.hh"
 #include "zrodlo.hh"
 
 using namespace std;
+
+typedef vector<std::string> TabStr;
 
 /*!
  * @brief Sprawdza możliwość otwarcia pliku
@@ -43,10 +44,8 @@ public:
    * Konstruktor zrealizowany tak, by jego uruchomienie było jedynym
    * koniecznym wywołaniem w funkcji main.
    *
-   * @param[in] PlikWyj - nazwa pliku wyjściowego programu 
-   * @param[in] flaga - określa, czy sortowani w eksperymencie ma być
-   * zoptymalizowane */
-  Eksperyment(string PlikWyj, bool flaga);
+   * @param[in] PlikWyj - nazwa pliku wyjściowego programu */
+  Eksperyment(string PlikWyj);
 
   /*!
    * @brief Wczytanie danych z plików
@@ -83,26 +82,10 @@ public:
    * tak jak w wektorze [Wyniki](@ref Wyniki) */
   string NazwaWyjscia;
 
-  /*!
-   * @brief Flaga optymalizacji 
-   *
-   * Przy ustawieniu na false sortowanie quicksort odbędzie się w bez 
-   * optymalizacji (tj. stały element pivot)
-   * Przy ustawieniu na true element pivot będzie wybrany losowo */
-  bool Optymalizacja;
-
 private:
   /*!
-   * @brief Przetwarzane liczby
-   *
-   * Tablica na liczby, które program ma przetworzyć. */
-  TabLiczb Wejscie;
-
-  /*!
-   * @brief Liczby wzorcowe
-   *
-   * Tablica na liczby, które zostaną porównane ze wzorcowymi. */
-  TabLiczb Wzor;
+   * Tablica na napisy, które zostaną umieszczone w słowniku */
+  TabStr Wejscie;
 
   /*!
    * @brief Tworzy listę zadań
@@ -121,9 +104,9 @@ private:
    * @param[in] nazwa - nazwa pliku
    * @param[out] tab - tablica do której są wczytane dane 
    * @retval true - wczytanie zakończone sukcesem
-   * @retval false - błąd we wczytaniu pliku (nie-liczba) lub niezgodność
+   * @retval false - błąd we wczytaniu pliku lub niezgodność
    * ze schematem */
-  bool WczytajJedenPlik(string nazwa, TabLiczb& tab);
+  bool WczytajJedenPlik(string nazwa, TabStr& tab);
 
   /*!
    * @brief Dokonuje wielokrotnego pomiaru
@@ -148,13 +131,4 @@ private:
   void Zapisz();
 };
 
-/*!
- * @brief Pyta o tryb sortowania
- *
- * Poprzez strumienie cout/cin pyta użytkownika, czy chce sortować z
- * optymalizacją, czy bez
- *
- * @retval true - dla wybrania sortowania z optymalizacją
- * @retval false - dla wybrania sortowania bez optymalizacji */
-bool Zapytaj();
 #endif

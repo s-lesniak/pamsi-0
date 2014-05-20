@@ -142,9 +142,10 @@ public:
 	 *
 	 * @param start - wierzchołek, od którego rozpoczniemy
 	 * przechodzenie
+	 * \param koniec - wierzchołek, do którego chcemy dojść
 	 * @return wektor węzłów uporządkowanych w kolejności przejścia BFS
 	 */
-	vector<Wezel_t> BFS(const Wezel_t & start) const;
+	vector<unsigned> BFS(const Wezel_t & start, const Wezel_t & koniec) const;
 
 	/*!
 	 * \brief Przechodzi graf wgłąb
@@ -157,9 +158,16 @@ public:
 	 *
 	 * @param start -wierzchołek, od którego rozpoczniemy
 	 * przechodzenie
+	 * \param koniec - wierzchołek, do którego chcemy dojść
 	 * @return wektor węzłów uporządkowanych w kolejności przejścia DFS
 	 */
-	vector<Wezel_t> DFS(const Wezel_t & start) const;
+	vector<unsigned> DFS(const Wezel_t & start, const Wezel_t & koniec) const;
+
+	/*!
+	 * Konwertuje wektor z indeksami wierzchołków grafu na wektor z ich
+	 * wartościami
+	 */
+	vector<Wezel_t> ZnajdzWartosci(const vector<unsigned>& zr) const;
 
 private:
 
@@ -230,6 +238,16 @@ private:
 	 * @param[in] k - klucz, któremu szukamy miejsce
 	 * @return numer, pod którym w indeksie znajdzie się żądany klucz */
 	unsigned ZnajdzMiejsce(const Wezel_t &k) const;
+
+	/*!
+	 * \brief Szuka numery sąsiadów węzła
+	 *
+	 * Funkcja działa podobnie do funkcji \ref Sasiedztwo, jednak zamiast
+	 * wartości węzłów podaje ich numery w tablicy węzłów.
+	 * @param k - węzeł do wyszukania
+	 * @return Wektor z numerami sąsiadów, według tablicy węzłów.
+	 */
+	vector<unsigned> NrySasiadow(const Wezel_t &k) const;
 };
 
 

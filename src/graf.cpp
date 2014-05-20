@@ -6,6 +6,7 @@
  */
 
 #include <stdexcept>
+#include <queue>
 
 #include "graf.hh"
 
@@ -85,6 +86,62 @@ vector<Wezel_t> Graf<Wezel_t, Koszt_t>::Sasiedztwo(const Wezel_t & elem) const
 		if (MSas(i, n))
 			wynik.push_back(Wezly[i]);
 	}
+
+	return wynik;
+}
+
+template <typename Wezel_t, typename Koszt_t>
+vector<unsigned> Graf<Wezel_t, Koszt_t>::NrySasiadow
+(const Wezel_t & elem) const
+{
+	vector<unsigned> wynik;
+	unsigned n = Znajdz(elem);
+	for (int i = 0; i < Wezly.size(); i++) {
+		if (MSas(i, n))
+			wynik.push_back(i);
+	}
+
+	return wynik;
+}
+
+template <typename Wezel_t, typename Koszt_t>
+vector<unsigned> Graf<Wezel_t, Koszt_t>::BFS
+(const Wezel_t& start, const Wezel_t& koniec) const
+{
+	unsigned cel = Znajdz(koniec);
+
+	queue<unsigned> kolejka;
+	vector<unsigned> V;
+	kolejka.push(Znajdz(start));
+	V.push_back(Znajdz(start));
+
+	while (!kolejka.empty()) {
+		unsigned i = kolejka.front();
+		kolejka.pop();
+		if (i == cel)
+			return V;
+		vector<unsigned> sasiedzi;
+		for (unsigned j = 0; j < sasiedzi.size(); j++) {
+			if (sasiedzi[j]) {}
+				/// \todo dokończ....
+		}
+	}
+}
+
+template <typename Wezel_t, typename Koszt_t>
+vector<unsigned> Graf<Wezel_t, Koszt_t>::DFS
+(const Wezel_t& start, const Wezel_t& koniec) const
+{
+
+}
+
+template <typename Wezel_t, typename Koszt_t>
+vector<Wezel_t> Graf<Wezel_t, Koszt_t>::ZnajdzWartosci
+(const vector<unsigned>& zr) const
+{
+	vector<Wezel_t> wynik;
+	for (int i = 0; i < zr.size(); i++)
+		wynik.push_back(Wezly[i]);
 
 	return wynik;
 }

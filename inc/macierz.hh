@@ -46,6 +46,7 @@ public:
 	{ return Tab[i][j]; }
 	Koszt_t operator() (unsigned i, unsigned j) const
 	{ return Tab[i][j]; }
+
 	/*!
 	 * \brief Powiększa macierz kwadratową o określoną wielkość.
 	 *
