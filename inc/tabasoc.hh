@@ -29,7 +29,7 @@ template <typename TypKlucza, typename TypWartosci>
 class TabAsoc {
 public:
 
-  TabAsoc(): Rozmiar(0) { }
+  TabAsoc() { }
 
   /*!
    * @brief Usuwa z tablicy zadany klucz z odpowiadającą mu wartością.
@@ -62,7 +62,7 @@ public:
 
   /*!
    * @return Liczba elementów tablicy */
-  unsigned IleElementow() const { return Rozmiar; }
+  unsigned IleElementow() const { return Rozmiar(); }
 
   /*!
    * @brief Sprawdza pustość tablicy 
@@ -82,9 +82,8 @@ public:
 private:
 
   /*!
-   * Określa rozmiar tablicy (użycie bibliotecznej funkcji size() jest
-   * niemożliwe dla szablonów) */
-  unsigned Rozmiar;
+   * Określa rozmiar tablicy */
+  unsigned Rozmiar () const { return Tab.size(); }
 
   /*!
    * @brief Informuje o kolejności danych w tablicy.

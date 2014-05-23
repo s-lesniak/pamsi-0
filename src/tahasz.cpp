@@ -31,6 +31,8 @@ TAHasz<TypKlucza, TypWartosci>::TAHasz(unsigned rozm):
 Rozmiar(rozm), Zajetych(0)
 {
 	Tab = new Para<TypKlucza, TypWartosci>* [rozm];
+	for (unsigned i = 0; i < rozm; i++)
+		Tab[i] = NULL;
 }
 
 template <typename TypKlucza, typename TypWartosci>
@@ -50,7 +52,7 @@ TypWartosci& TAHasz<TypKlucza, TypWartosci>::operator [] (const TypKlucza &k)
 	while (Tab[i%Rozmiar]) {
 		if (Tab[i%Rozmiar]->Klucz == k)
 			return Tab[i%Rozmiar]->Wart;
-		if (2*i > Rozmiar)
+		if (i > 2*Rozmiar)
 			throw out_of_range("pełna tablica");
 
 		i++;
@@ -80,4 +82,5 @@ bool TAHasz<TypKlucza, TypWartosci>::Usun (const TypKlucza &k)
 }
 
 template class TAHasz<string, int>;
+template class TAHasz<string, double>;
 template class TAHasz<int, double>;

@@ -10,29 +10,18 @@ using namespace std;
 /*! 
  * @brief Informacje o źródle pojedynczego badania 
  *
- * Dla poprawnego działania programu należy dostarczyć mu dwa pliki o 
+ * Dla poprawnego działania programu należy dostarczyć mu plik o
  * następującej strukturze:
  * W pierwszym wierszu zapisana jest pewna ilość liczb. W następnych 
- * wierszach pojawiają się, po jednej, liczby całkowite. Ma być ich 
- * dokładnie tyle, ile zapisano w pierwszym wierszu. 
- *
- * Ponadto drugi plik ma zawierać takie liczby, na jakie powinny być 
- * przekształcone liczby z pierwszego pliku. Ma to na celu sprawdzenie
- * prawidłowości działania programu. */
+ * wierszach pojawiają się, napisy. Ma być ich dokładnie tyle, ile
+ * zapisano w pierwszym wierszu. */
 struct Zrodlo {
   /*!
    * @brief Nazwa pliku źródłowego
    *
-   * Z pliku o tej nazwie sczytane zostaną liczby będące źródłem 
+   * Z pliku o tej nazwie sczytane zostaną napisy będące źródłem
    * badania. */
   string PlikWejsciowy;
-
-  /*!
-   * @brief Nazwa pliku wzorcowego
-   *
-   * Liczby z pliku o tej nazwie zostaną porównane z przetworzonymi
-   * liczbami z pierwszego pliku. */
-  string PlikWzorcowy;
 
   /*!
    * @brief Ilość powtórzeń badania

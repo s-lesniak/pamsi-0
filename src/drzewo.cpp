@@ -14,10 +14,10 @@ T* Drzewo<T>::Dodaj (const T& elem)
 {
 	if (puste) {
 		Korzen = new ElemDrzewa<T>;
-		Korzen->elem = elem;
-		puste = false;
-		return &(Korzen->elem);
-	}
+			Korzen->elem = elem;
+			puste = false;
+			return &(Korzen->elem);
+		}
 
   ElemDrzewa<T> *nowy = new ElemDrzewa<T>;
 
@@ -149,4 +149,5 @@ ElemDrzewa<T>* Drzewo<T>::Nast(ElemDrzewa<T> *zr)
 
 template class Drzewo<int>;
 template class Drzewo<Para<string, int> >;
+template class Drzewo<Para<string, double> >;
 template class Drzewo<Para<string, string> >;

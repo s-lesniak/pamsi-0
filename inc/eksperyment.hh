@@ -10,9 +10,15 @@
 #include "wynikbadania.hh"
 #include "zrodlo.hh"
 
+#include "tabasoc.hh"
+#include "tadrzewo.hh"
+#include "tahasz.hh"
+
 using namespace std;
 
 typedef vector<std::string> TabStr;
+
+typedef TAHasz<string, double> BadObiekt;
 
 /*!
  * @brief Sprawdza możliwość otwarcia pliku
@@ -106,7 +112,7 @@ private:
    * @retval true - wczytanie zakończone sukcesem
    * @retval false - błąd we wczytaniu pliku lub niezgodność
    * ze schematem */
-  bool WczytajJedenPlik(string nazwa, TabStr& tab);
+  bool WczytajJedenPlik(const string &nazwa, TabStr& tab);
 
   /*!
    * @brief Dokonuje wielokrotnego pomiaru
@@ -129,6 +135,34 @@ private:
    * w nim dane z pola Wyniki rozdzielone przecinkami. Pierwszy wiersz
    * zajmują nazwy kolumn. */
   void Zapisz();
+
+  /*!
+   * \brief Wywołuje działanie, którego czas chcemy zmierzyć.
+   *
+   * Funkcja wykonuje pojedynczą akcję, której czas wykonywania badamy
+   * (np. czas dostępu do kontenera danych, sortowanie tablicy)
+   * Jednocześnie mierzy ona czas wykonania w dowolny sposób -
+   * niekoniecznie musi być mierzony czas wykonania całej funkcji.
+   *
+   * \param obiekt - wskaźnik na badany obiekt. Może być dowolnego
+   * typu (uwaga na ich zgodność).
+   * \param i - numer wywołania funkcji
+   *
+   * \return czas wywołania pojedynczej akcji (w sekundach) */
+  double BadanaAkcja(BadObiekt* obiekt, unsigned i) const;
+
+  /*!
+   * \brief Wykonuje niezbędne działania wstępne
+   *
+   * Dokonuje wszystkich niezbędnych części eksperymentu, które znajdują
+   * się w czasie pomiędzy wczytaniem plików z wejściowymi informacjami,
+   * a działaniami, których czas mierzymy.
+   * Przykładem jest np. wypełnienia kontenera danych, którego efektywność
+   * (pod względem dostępu do danych) chcemy zmierzyć.
+   *
+   * \return Wskaźnik na nowoutworzony i przygotowany do dalszej części
+   * eksperymentu obiekt */
+  BadObiekt* Przygotuj();
 };
 
 #endif

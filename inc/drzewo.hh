@@ -62,18 +62,6 @@ public:
    */
   bool Usun(const T& elem);
 
-  /*! \brief Korzeń drzewa */
-  ElemDrzewa<T>* Korzen;
-
-private:
-
-  /*! \brief Flaga pustości drzewa
-   *
-   * Powinna być ustawiona na true, gdy drzewo jest puste, a na false,
-   * gdy zawiera jakąś wartość.
-   */
-  bool puste;
-
   /*!
    * \brief Znajduje element drzewa
    *
@@ -85,6 +73,18 @@ private:
    * \retval NULL - elementu nie znaleziono
    */
   ElemDrzewa<T>* Znajdz(const T& elem);
+
+  /*! \brief Korzeń drzewa */
+  ElemDrzewa<T>* Korzen;
+
+private:
+
+  /*! \brief Flaga pustości drzewa
+   *
+   * Powinna być ustawiona na true, gdy drzewo jest puste, a na false,
+   * gdy zawiera jakąś wartość.
+   */
+  bool puste;
 
   /*!
    * \brief Znajduje następny w kolejności element drzewa

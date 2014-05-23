@@ -20,8 +20,7 @@ bool SprawdzNazwe(string nazwa)
     return true;
 }
 
-Eksperyment::Eksperyment(string PlikWyj, bool flaga): 
-  NazwaWyjscia(PlikWyj), Optymalizacja(flaga)
+Eksperyment::Eksperyment(string PlikWyj): NazwaWyjscia(PlikWyj)
 {
   if (!SpiszZadania())
     return;
@@ -36,12 +35,7 @@ Eksperyment::Eksperyment(string PlikWyj, bool flaga):
 
 bool Eksperyment::WczytajPliki (unsigned nr)
 {
-  if (WczytajJedenPlik(Zadania[nr].PlikWejsciowy, Wejscie)) {
-      if (WczytajJedenPlik(Zadania[nr].PlikWzorcowy, Wzor))
-	return true;
-      else return false;
-    }
-  else return false;
+  return (WczytajJedenPlik(Zadania[nr].PlikWejsciowy, Wejscie));
 }
    
 
@@ -60,9 +54,6 @@ bool Eksperyment::SpiszZadania ()
     cout << "Podaj plik źródłowy nr " << (i+1) << ": "; 
     if (!(cin >> Zadania[i].PlikWejsciowy)) return false;
     if (!SprawdzNazwe(Zadania[i].PlikWejsciowy)) return false;
-    cout << "Podaj plik wzorcowy nr " << (i+1) << ": ";
-    if (!(cin >> Zadania[i].PlikWzorcowy)) return false;
-    if (!SprawdzNazwe(Zadania[i].PlikWzorcowy)) return false;
     cout << "Ilość badań pliku nr " << (i+1) << ": ";
     cin >> Zadania[i].IleRazy;
     if (cin.fail()) {
@@ -73,7 +64,7 @@ bool Eksperyment::SpiszZadania ()
   return true;
 }
 
-bool Eksperyment::WczytajJedenPlik(string nazwa, TabLiczb& tab)
+bool Eksperyment::WczytajJedenPlik(const string& nazwa, TabStr& tab)
 {
   ifstream strum(nazwa.c_str());
 
@@ -84,14 +75,14 @@ bool Eksperyment::WczytajJedenPlik(string nazwa, TabLiczb& tab)
   }
   tab.resize(0);
 
-  int num;
-  if (!(strum >> num)) {
-    cerr << "Brak liczb w pliku " << nazwa << "!\n";
+  string napis;
+  if (!(strum >> napis)) {
+    cerr << "Brak napisów w pliku " << nazwa << "!\n";
     return false;
   }
   while (strum.good()) {
-    tab.push_back(num);
-    if (!(strum >> num) && !strum.eof()) {
+    tab.push_back(napis);
+    if (!(strum >> napis) && !strum.eof()) {
       cerr << "Błąd w linii " << tab.size() << " w pliku " << nazwa
 	   << "!\n";
       return false;
@@ -108,25 +99,20 @@ bool Eksperyment::WczytajJedenPlik(string nazwa, TabLiczb& tab)
 
 float Eksperyment::WielokrotnyPomiar(unsigned nr)
 {
-  unsigned ile = Zadania[nr].IleRazy;
-  float wynik = 0.0;
-  timespec przed, po;
+	unsigned ile = Zadania[nr].IleRazy;
+	float wynik = 0.0;
 
-  for (unsigned i = 0; i < ile; i++) {
-    if(!WczytajPliki(nr)) 
-      return -1.0;
-    przed = Teraz();
-    Wejscie.QuickSort(Optymalizacja);
-    po = Teraz();
-    if(!(Wejscie == Wzor)) {
-      cerr << "niezgodność ze wzorem" << endl;
-      return -1.0;
-    }
-    wynik += RoznicaCzasu(przed, po);
-  }
+	if(!WczytajPliki(nr))
+		return -1.0;
 
-  wynik /= ile;
+	BadObiekt *ob = Przygotuj();
+	for (unsigned i = 0; i < ile; i++) {
+		wynik += BadanaAkcja(ob, i);
+	}
 
+	wynik /= ile;
+
+	delete ob;
   return wynik;
 }
 
@@ -134,13 +120,37 @@ void Eksperyment::Zapisz()
 {
   ofstream str;
   str.open(NazwaWyjscia.c_str());
-  str << "Ilość liczb,Ilość próbek,Średni czas\n";
+  str << "Ilość napisów, Ilość badań, Średni czas\n";
   for (unsigned i = 0; i < Wyniki.size(); i++) {
-    str << Wyniki[i].IloscLiczb << ',' << Wyniki[i].IloscDzialan
-	<< ',' << Wyniki[i].SredniCzas << '\n';
+    str << Wyniki[i].IloscLiczb << ", " << Wyniki[i].IloscDzialan
+	<< ", " << Wyniki[i].SredniCzas << '\n';
   }
 
   str.close();
+}
+
+BadObiekt* Eksperyment::Przygotuj()
+{
+	unsigned rozm = Wejscie.size() * 10;
+	BadObiekt* obiekt = new BadObiekt(rozm);
+	for (unsigned i = 0; i < Wejscie.size(); i++)
+		(*obiekt)[Wejscie[i]];
+
+	return obiekt;
+}
+
+double Eksperyment::BadanaAkcja(BadObiekt* obiekt, unsigned i) const
+{
+	timespec przed, po;
+	float wynik = 0;
+	for (unsigned i = 0; i < Wejscie.size(); i++) {
+		przed = Teraz();
+		(*obiekt)[Wejscie[i]] = 3.14;
+		po = Teraz();
+
+		wynik += RoznicaCzasu(przed, po);
+	}
+	return wynik / Wejscie.size();
 }
 
 bool Zapytaj()

@@ -16,7 +16,7 @@ TypWartosci& TabAsoc<TypKlucza, TypWartosci>::operator []
     unsigned gdzie = Znajdz(k);
     return PodNumerem(PodIndeksem(gdzie));
   }
-  catch (const out_of_range& ex) {
+  catch (const out_of_range& ex) {\
     return WstawKlucz(k);
   }
 }
@@ -24,7 +24,7 @@ TypWartosci& TabAsoc<TypKlucza, TypWartosci>::operator []
 template <class TypKlucza, class TypWartosci>
 TypWartosci& TabAsoc<TypKlucza, TypWartosci>::PodNumerem (unsigned i)
 {
-  if (i >= Rozmiar)
+  if (i >= Rozmiar())
     throw out_of_range ("bla");
 
   Para<TypKlucza, TypWartosci>& wynik = Tab[i];
@@ -35,10 +35,10 @@ template <class TypKlucza, class TypWartosci>
 unsigned TabAsoc<TypKlucza, TypWartosci>::Znajdz 
 (const TypKlucza &k) const
 {
-  if (!Rozmiar)
+  if (!Tab.size())
     throw out_of_range("nieee");
 
-  int l = 0, p = Rozmiar - 1, sr;
+  int l = 0, p = Rozmiar() - 1, sr;
   
   while (l <= p) {
     sr = (l+p) / 2;
@@ -63,13 +63,13 @@ TypWartosci& TabAsoc<TypKlucza, TypWartosci>::WstawKlucz
   // znajdujemy iterator odpowiadający miejscu wstawienia nowego 
   // elementu
   list<unsigned>::iterator it = Indeks.begin();
-  if (Rozmiar) {
+  if (Rozmiar()) {
     unsigned poz = ZnajdzMiejsce(k);
     for (unsigned i = 0; i < poz; i++)
       it++;
   }
   
-  Indeks.insert(it, Rozmiar++);
+  Indeks.insert(it, Rozmiar());
   
   Tab.push_back(nowa);
   
@@ -80,13 +80,13 @@ template <class TypKlucza, class TypWartosci>
 unsigned TabAsoc<TypKlucza, TypWartosci>::ZnajdzMiejsce
 (const TypKlucza &k) const
 {
-  int l = 0, p = Rozmiar, sr;
+  int l = 0, p = Rozmiar(), sr;
   
   while (l <= p) {
     sr = (l+p) / 2;
           
     if ((Tab[PodIndeksem(sr)].Klucz) <= k) {
-      if (sr+1 == Rozmiar)
+      if (sr+1 == Rozmiar())
 	return sr+1; 
       else {
 	if (k <= (Tab[PodIndeksem(sr+1)].Klucz))
@@ -118,7 +118,7 @@ void TabAsoc<TypKlucza, TypWartosci>::WyswietlWPorzadku
 {
   str.width(25);
   str << left << "KLUCZ" << "WARTOŚĆ";
-  for (int i = 0; i < Rozmiar; i++) {
+  for (int i = 0; i < Rozmiar(); i++) {
     str << '\n';
     str.width(25);
     str << left << Tab[PodIndeksem(i)].Klucz
