@@ -18,7 +18,7 @@ using namespace std;
 
 typedef vector<std::string> TabStr;
 
-typedef TAHasz<string, double> BadObiekt;
+typedef TabAsoc	<string, double> BadObiekt;
 
 /*!
  * @brief Sprawdza możliwość otwarcia pliku

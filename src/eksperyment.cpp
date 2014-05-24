@@ -99,15 +99,19 @@ bool Eksperyment::WczytajJedenPlik(const string& nazwa, TabStr& tab)
 
 float Eksperyment::WielokrotnyPomiar(unsigned nr)
 {
-	unsigned ile = Zadania[nr].IleRazy;
+	unsigned ile = Zadania[nr].IleRazy, j;
 	float wynik = 0.0;
 
 	if(!WczytajPliki(nr))
 		return -1.0;
 
 	BadObiekt *ob = Przygotuj();
+
+	srand(time(NULL));
+
 	for (unsigned i = 0; i < ile; i++) {
-		wynik += BadanaAkcja(ob, i);
+		j = rand() % Wejscie.size();
+		wynik += BadanaAkcja(ob, j);
 	}
 
 	wynik /= ile;
@@ -131,8 +135,8 @@ void Eksperyment::Zapisz()
 
 BadObiekt* Eksperyment::Przygotuj()
 {
-	unsigned rozm = Wejscie.size() * 10;
-	BadObiekt* obiekt = new BadObiekt(rozm);
+//	unsigned rozm = Wejscie.size() * 10;
+	BadObiekt* obiekt = new BadObiekt;
 	for (unsigned i = 0; i < Wejscie.size(); i++)
 		(*obiekt)[Wejscie[i]];
 
@@ -142,15 +146,10 @@ BadObiekt* Eksperyment::Przygotuj()
 double Eksperyment::BadanaAkcja(BadObiekt* obiekt, unsigned i) const
 {
 	timespec przed, po;
-	float wynik = 0;
-	for (unsigned i = 0; i < Wejscie.size(); i++) {
-		przed = Teraz();
-		(*obiekt)[Wejscie[i]] = 3.14;
-		po = Teraz();
-
-		wynik += RoznicaCzasu(przed, po);
-	}
-	return wynik / Wejscie.size();
+	przed = Teraz();
+	(*obiekt)[Wejscie[i]] = 3.14;
+	po = Teraz();
+	return RoznicaCzasu(przed, po);
 }
 
 bool Zapytaj()
