@@ -1,0 +1,82 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[polish]{babel}
+\usepackage{graphicx}
+\usepackage{mathtools}
+
+%opening
+\title{Badanie różnych implementacji tablic asocjacyjnej pod kątem dostępu
+do jej elementów}
+\author{Szymon Leśniak}
+
+\begin{document}
+
+\maketitle
+
+\section{Wstęp}
+
+\par Tablica asocjacyjna jest strukturą danych, w który zbiera pary danych, 
+niekoniecznie tych samych typów: klucza, który zwykle jest wartością stałą, 
+oraz wartości, dowolnie modyfikowalnej. Tablice asocjacyjne implementowane
+są tak, by minimalizować czas dostępu (modyfikacji lub pobrania) wartości.
+Jest to operacja na tyle popularna, że C++ STL definiuje ją za pomocą operatora
+\verb+[]+ (szablon \verb+std::map+). 
+
+\section{Opis badania i szczegóły implementacji}
+
+\par Do badania przeznaczonych było 5 zestawów niepowtarzających się napisów
+w różnej ilości: 100, 1000, 10000, 50000 i 100000 sztuk. Każdym z zestawów
+zapełniano tablicę asocjacyjną. Mierzony był czas wpisania wartości do losowo
+wybranego elementu tablicy. Operację powtarzano wielokrotnie w celu zniwelowania
+błędów przypadkowych.
+
+\par Badanymi implementacjami były: prosta tablica dynamiczna, drzewo binarne 
+(bez mechanizmów równoważenia długości gałęzi) oraz tablicę haszującą. Funkcja
+haszująca była oparta na operacji modulo. Ostatnia implementacja była badana w 
+trzech wariantach, odpowiadających różnemu zapełnieniu tablicy: 10\%, 50\% i
+90\%. Konieczne było zatem odejście od spotykanego zalecenia, by rozmiar 
+wyrażał się liczbą pierwszą.
+
+\section{Wyniki badania}
+
+\par Wyniki są przedstawione w poniższej tabeli oraz na wykresie (skala 
+log-log):
+
+\begin{center}
+\begin{table}[!h]
+
+\caption{Czasy dostępu do elementów tablicy asocjacyjnej (w sekundach)}
+
+\begin{tabular}{p{0.15\linewidth}|p{0.15\linewidth}|p{0.15\linewidth}|p{0.15\linewidth}|p{0.15\linewidth}|p{0.15\linewidth}}
+\textbf{Ilość próbek} & \textbf{tradycyjna tablica} & \textbf{drzewo binarne} & \textbf{tablica haszująca (zapełnienie 10\%)} & \textbf{tablica haszująca (zapełnienie 50\%)} & \textbf{tablica haszująca (zapełnienie 90\%)}\\
+\hline	
+100 & 2,67\(\cdot 10^{-6}\) & 6,50\(\cdot 10^{-6}\) & 4,41\(\cdot 10^{-7}\) & 5,31\(\cdot 10^{-7}\) & 6,30\(\cdot 10^{-7}\)\\
+1000 & 1,27\(\cdot 10^{-5}\) & 6,82\(\cdot 10^{-6}\) & 4,52\(\cdot 10^{-7}\) & 6,34\(\cdot 10^{-7}\) & 6,14\(\cdot 10^{-7}\)\\
+10000 & 0,000452823 & 7,17\(\cdot 10^{-6}\) & 7,17\(\cdot 10^{-7}\) & 9,45\(\cdot 10^{-7}\) & 8,67\(\cdot 10^{-7}\)\\
+50000 & 0,0126578 & 7,84\(\cdot 10^{-6}\) & 7,84\(\cdot 10^{-7}\) & 6,32\(\cdot 10^{-7}\) & 5,20\(\cdot 10^{-7}\)\\
+100000 &  & 8,29\(\cdot 10^{-6}\) & 8,29\(\cdot 10^{-7}\) & 1,70\(\cdot 10^{-6}\) & 8,26\(\cdot 10^{-7}\)
+\end{tabular}
+\end{table}
+
+\end{center}
+
+\begin{figure}[!h]
+\includegraphics[width=\linewidth]{dane.eps}
+ 
+\end{figure}
+
+\section{Wnioski}
+
+\par Zgodnie z oczekiwaniami zwykła tablica dała najgorszy czas dostępu do danych.
+Dostęp ma złożoność \(O(n)\) i jako taki jest nieakceptowalny dla większych 
+zbiorów danych.
+
+\par Potwierdzona została przewidwana złożoność dostępu \(O(1)\) dla tablicy
+haszującej. Duży rozmiar tablicy przyspiesza nieznacznie średni czas dostępu do
+danych, co wynika z mniejszego prawdopodobieństwa wystąpienia kolizji.
+
+\par Jedynie dla drzewa binarnego zgodność z założeniami teoretycznymi (tj.
+złożoność \(O(\log n)\)) jest widoczna w niewielkim stopniu.
+
+\end{document}
