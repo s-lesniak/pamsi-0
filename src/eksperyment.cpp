@@ -8,6 +8,8 @@
 
 using namespace std;
 
+//extern const float ZAPELNIENIE;
+
 bool SprawdzNazwe(string nazwa)
 {
   ifstream str(nazwa.c_str());
@@ -135,8 +137,8 @@ void Eksperyment::Zapisz()
 
 BadObiekt* Eksperyment::Przygotuj()
 {
-//	unsigned rozm = Wejscie.size() * 10;
-	BadObiekt* obiekt = new BadObiekt;
+  //unsigned rozm = Wejscie.size() / ZAPELNIENIE;
+  BadObiekt* obiekt = new BadObiekt;//(rozm);
 	for (unsigned i = 0; i < Wejscie.size(); i++)
 		(*obiekt)[Wejscie[i]];
 

@@ -6,22 +6,15 @@
 #include <cstdlib>
 #include <stdexcept>
 
-#include "eksperyment.hh"
-#include "graf.hh"
+#include "punkt.hh"
 
 using namespace std;
 
 int main ()
 {
-	char nazwa[20];
-	cout << "Podaj nazwę pliku wyjściowego: ";
-	cin >> nazwa;
+	Punkt kamyk = {"Kamień Pomorski", 53.969722, 14.785833},
+			wro = {"Wrocław", 51.11, 17.022222};
 
-	try {
-		Eksperyment eks(nazwa);
-	}
-	catch (const exception& ex) {
-		cout << ex.what();
-	}
+	cout << kamyk.OdlegloscDo(wro);
 	return 0;
 }

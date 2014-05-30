@@ -18,7 +18,12 @@ using namespace std;
 
 typedef vector<std::string> TabStr;
 
-typedef TabAsoc	<string, double> BadObiekt;
+typedef TADrzewo<string, double> BadObiekt;
+
+/*!
+ * Współczynnik zapełnienia tablicy haszującej z badania
+ */
+const float ZAPELNIENIE = 0.1;
 
 /*!
  * @brief Sprawdza możliwość otwarcia pliku
