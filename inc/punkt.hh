@@ -11,6 +11,7 @@
 #include <iostream>
 #include <string>
 #include <cmath>
+#include <exception>
 
 using namespace std;
 
@@ -24,11 +25,6 @@ const float DEG2RAD = 0.0349065850398866;
  * alternatywnie 60 mil morskich.
  */
 const float DEG2KM = 111.195;
-
-/*!
- * Maksymalna długość nazwy dopuszczona do wpisania operatorem >>.
- */
-const unsigned MAX_DL = 50;
 
 /*!
  * \brief Punkt na kuli ziemskiej
@@ -79,6 +75,15 @@ struct Punkt {
 				(cos(DEG2RAD*szer) * cos(DEG2RAD*cel.szer) * cos(DEG2RAD*rozn))) /
 				DEG2RAD);
 	}
+
+	bool operator < (const Punkt &drugi) const
+	{ return Nazwa < drugi.Nazwa; }
+
+	bool operator <= (const Punkt &drugi) const
+	{ return Nazwa <= drugi.Nazwa; }
+
+	bool operator == (const Punkt &drugi) const
+	{ return Nazwa == drugi.Nazwa; }
 };
 
 /*!
@@ -99,8 +104,7 @@ ostream& operator << (ostream& str, const Punkt &p);
  * Informacje o punkcie muszą się znaleźć w jednym wierszu (tzn. być
  * zakończone znakiem nowej linii. W linii, oddzielone przecinkami bez
  * spacji, mają być zapisane odpowiednio: nazwa, szerokość i długość
- * geograficzna. Maksymalna długość wczytywanej nazwy jest zapisana w
- * stałej MAX_DL.
+ * geograficzna.
  *
  * @param str - strumień, z którego sczytujemy
  * @param p - punkt, który chcemy wyedytować
@@ -108,4 +112,9 @@ ostream& operator << (ostream& str, const Punkt &p);
  */
 istream& operator >> (istream& str, Punkt &p);
 
+struct zla_wspol: public exception {
+
+	const char* what() const throw()
+	{ return "Błędna współrzędna"; }
+};
 #endif /* PUNKT_HH_ */

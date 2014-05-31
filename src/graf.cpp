@@ -7,6 +7,7 @@
 
 #include <stdexcept>
 #include <queue>
+#include <algorithm>
 
 #include "graf.hh"
 
@@ -105,6 +106,19 @@ vector<unsigned> Graf<Wezel_t, Koszt_t>::NrySasiadow
 }
 
 template <typename Wezel_t, typename Koszt_t>
+vector<unsigned> Graf<Wezel_t, Koszt_t>::NrySasiadow
+(unsigned i) const
+{
+	vector<unsigned> wynik;
+	for (int j = 0; i < Wezly.size(); j++) {
+		if (MSas(j, i))
+			wynik.push_back(j);
+	}
+
+	return wynik;
+}
+
+template <typename Wezel_t, typename Koszt_t>
 vector<unsigned> Graf<Wezel_t, Koszt_t>::BFS
 (const Wezel_t& start, const Wezel_t& koniec) const
 {
@@ -120,12 +134,21 @@ vector<unsigned> Graf<Wezel_t, Koszt_t>::BFS
 		kolejka.pop();
 		if (i == cel)
 			return V;
-		vector<unsigned> sasiedzi;
+		vector<unsigned> sasiedzi = NrySasiadow(i);
 		for (unsigned j = 0; j < sasiedzi.size(); j++) {
-			if (sasiedzi[j]) {}
-				/// \todo dokończ....
+			unsigned k = sasiedzi[j];
+			if (!count(V.begin(), V.end(), k) ) {
+				V.push_back(k);
+				kolejka.push(k);
+			}
 		}
 	}
+	vector<unsigned> wynik;
+	while (!kolejka.empty()) {
+		wynik.push_back(kolejka.front());
+		kolejka.pop();
+	}
+	return wynik;
 }
 
 template <typename Wezel_t, typename Koszt_t>
@@ -201,4 +224,7 @@ unsigned Graf<Wezel_t, Koszt_t>::ZnajdzMiejsce(const Wezel_t &k) const
 
 #include <string>
 
+#include "punkt.hh"
+
 template class Graf<string, double>;
+template class Graf<Punkt, double>;

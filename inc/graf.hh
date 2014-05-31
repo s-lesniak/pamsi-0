@@ -248,6 +248,16 @@ private:
 	 * @return Wektor z numerami sąsiadów, według tablicy węzłów.
 	 */
 	vector<unsigned> NrySasiadow(const Wezel_t &k) const;
+
+	/*!
+	 * \brief Szuka numery sąsiadów węzła
+	 *
+	 * Funkcja działa podobnie do funkcji \ref Sasiedztwo, jednak zamiast
+	 * wartości węzłów podaje ich numery w tablicy węzłów.
+	 * @param k - numer węzła w macierzy sąsiedztwa
+	 * @return Wektor z numerami sąsiadów, według tablicy węzłów.
+	 */
+	vector<unsigned> NrySasiadow(unsigned i) const;
 };
 
 

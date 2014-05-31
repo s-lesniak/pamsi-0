@@ -13,8 +13,6 @@
 
 using namespace std;
 
-extern const unsigned MAX_DL;
-
 ostream& operator << (ostream& str, const Punkt &p)
 {
 	str << p.Nazwa << ": " << p.szer << ", " << p.dl << endl;
@@ -31,9 +29,17 @@ istream& operator >> (istream& str, Punkt &p)
 
 	getline(sstr, p.Nazwa, ',');
 
-	sstr >> p.szer;
+	double a;
+	sstr >> a;
+	if ((a < -90) || (a > 90))
+		throw zla_wspol();
+	p.szer = a;
+
 	sstr.ignore();
-	sstr >> p.dl;
+	sstr >> a;
+	if ((a < -180) || (a > 180))
+		throw zla_wspol();
+	p.dl = a;
 
 	return str;
 }
