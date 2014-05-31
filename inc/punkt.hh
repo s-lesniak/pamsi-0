@@ -26,6 +26,11 @@ const float DEG2RAD = 0.0349065850398866;
 const float DEG2KM = 111.195;
 
 /*!
+ * Maksymalna długość nazwy dopuszczona do wpisania operatorem >>.
+ */
+const unsigned MAX_DL = 50;
+
+/*!
  * \brief Punkt na kuli ziemskiej
  *
  * Struktura modeluje punkt na kuli ziemskiej. Opisana jest dwoma
@@ -94,7 +99,8 @@ ostream& operator << (ostream& str, const Punkt &p);
  * Informacje o punkcie muszą się znaleźć w jednym wierszu (tzn. być
  * zakończone znakiem nowej linii. W linii, oddzielone przecinkami bez
  * spacji, mają być zapisane odpowiednio: nazwa, szerokość i długość
- * geograficzna.
+ * geograficzna. Maksymalna długość wczytywanej nazwy jest zapisana w
+ * stałej MAX_DL.
  *
  * @param str - strumień, z którego sczytujemy
  * @param p - punkt, który chcemy wyedytować
