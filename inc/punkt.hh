@@ -35,6 +35,13 @@ const float DEG2KM = 111.195;
 struct Punkt {
 
 	/*!
+	 * Tworzenie obiektu ze stringu jest przydatne wtedy, gdy tworzony
+	 * obiekt będzie wykorzystany tylko do porównań (wartości liczbowe
+	 * współrzędnych są wówczas nieistotne).
+	 */
+	Punkt(const string &str): Nazwa(str), szer(0), dl(0) {}
+
+	/*!
 	 * \brief Charakterystyczna nazwa punktu
 	 */
 	string Nazwa;

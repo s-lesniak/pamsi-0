@@ -4,7 +4,7 @@
 #include <string>
 #include <iostream>
 #include <cstdlib>
-#include <stdexcept>
+#include <exception>
 
 #include "punkt.hh"
 
@@ -12,9 +12,15 @@ using namespace std;
 
 int main ()
 {
-	Punkt kamyk = {"Kamień Pomorski", 53.969722, 14.785833},
-			wro = {"Wrocław", 51.11, 17.022222};
+	Punkt test;
 
-	cout << kamyk.OdlegloscDo(wro);
+	try {
+		cin >> test;
+		cout << test;
+	}
+	catch (const exception &e) {
+		cout << e.what();
+	}
+
 	return 0;
 }

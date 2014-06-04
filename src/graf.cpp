@@ -120,19 +120,17 @@ vector<unsigned> Graf<Wezel_t, Koszt_t>::NrySasiadow
 
 template <typename Wezel_t, typename Koszt_t>
 vector<unsigned> Graf<Wezel_t, Koszt_t>::BFS
-(const Wezel_t& start, const Wezel_t& koniec) const
+(unsigned start, unsigned koniec) const
 {
-	unsigned cel = Znajdz(koniec);
-
 	queue<unsigned> kolejka;
 	vector<unsigned> V;
-	kolejka.push(Znajdz(start));
-	V.push_back(Znajdz(start));
+	kolejka.push(start);
+	V.push_back(start);
 
 	while (!kolejka.empty()) {
 		unsigned i = kolejka.front();
 		kolejka.pop();
-		if (i == cel)
+		if (i == koniec)
 			return V;
 		vector<unsigned> sasiedzi = NrySasiadow(i);
 		for (unsigned j = 0; j < sasiedzi.size(); j++) {
@@ -153,11 +151,17 @@ vector<unsigned> Graf<Wezel_t, Koszt_t>::BFS
 
 template <typename Wezel_t, typename Koszt_t>
 vector<unsigned> Graf<Wezel_t, Koszt_t>::DFS
-(const Wezel_t& start, const Wezel_t& koniec) const
+(unsigned start, unsigned koniec) const
 {
 
 }
 
+template <typename Koszt_t>
+vector<unsigned> Graf<Punkt, Koszt_t>::AStar
+(unsigned start, unsigned koniec) const
+{
+
+}
 template <typename Wezel_t, typename Koszt_t>
 vector<Wezel_t> Graf<Wezel_t, Koszt_t>::ZnajdzWartosci
 (const vector<unsigned>& zr) const
@@ -222,6 +226,20 @@ unsigned Graf<Wezel_t, Koszt_t>::ZnajdzMiejsce(const Wezel_t &k) const
 	return 0;
 }
 
+template <typename Wezel_t, typename Koszt_t>
+Koszt_t Graf<Wezel_t, Koszt_t>::LacznyKoszt(const vector<unsigned>& sciezka)
+{
+	Koszt_t wynik = 0.0;
+
+	for (unsigned i = 1; i < sciezka.size(); i++) {
+		Koszt_t skladowa = Odleglosc(sciezka[i-1], sciezka[i]);
+		if (!skladowa)
+			return -1.0;
+		wynik += skladowa;
+	}
+
+	return wynik;
+}
 #include <string>
 
 #include "punkt.hh"

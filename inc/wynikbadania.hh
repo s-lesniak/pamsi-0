@@ -4,26 +4,22 @@
 #ifndef WYNIKBADANIA_HH
 #define WYNIKBADANIA_HH
 
+#include <string>
+
+using namespace std;
 /*!
  * @brief Wynik badania pojedynczego pliku z liczbami
  *
- * Struktura służy do przekazania informacji nt. wielokrotnego badania
- * zbioru liczb z jednego pliku. */
+ * Struktura służy do przekazania informacji nt. jednokrotnego badania
+ * pojedynczego przejścia grafu. Zawiera on kolejno: początek i koniec
+ * przejścia grafu, oraz parami zebrane: czas wykonania oraz łączny koszt
+ * przejścia, kolejno alogrytmami: BFS, DFS i A*. */
 struct WynikBadania {
-  /*!
-   * @brief Ilość liczb, jaka znajdowała się w badanym pliku */
-  unsigned IloscLiczb;
+	string Start, Stop;
 
-  /*!
-   * @brief Ilość razy, jaką badano wczytaną bazę liczb */
-  unsigned IloscDzialan;
-
-  /*!
-   * @brief Średni wynik
-   *
-   * Średni czas, w jakim na zbiorze liczb wykonano zadaną operację. 
-   * Podany w sekundach */
-  float SredniCzas;
+	double BFS_czas, BFS_koszt,
+	DFS_czas, DFS_koszt,
+	A_czas, A_koszt;
 };
 
 #endif

@@ -12,6 +12,7 @@
 #include <list>
 
 #include "macierz.hh"
+#include "punkt.hh"
 
 using namespace std;
 
@@ -107,16 +108,26 @@ public:
 	{ return Dodaj(elem1, elem2, 0); }
 
 	/*!
-	 * \brief Sprawdza istnienie połączenia pomiędzy węzłami
+	 * \brief Pokazuje odległość bezpośrednieego połączenia
 	 *
 	 * @param elem1 - pierwszy element do połączenia
 	 * @param elem2 - drugi element do połączenia
-	 * @retval true - elementy istnieją i są połączone
-	 * \retval false - jeden z elementów nie istnieje lub oba istnieją,
-	 * a nie są połączone
+	 * @return Odległość pomiędzy zadanymi elementami (0 dla elementów
+	 * niepołączonych)
 	 */
-	bool CzyPolaczone(const Wezel_t & elem1, const Wezel_t & elem2) const
+	Koszt_t Odleglosc(const Wezel_t & elem1, const Wezel_t & elem2) const
 	{ return MSas(Znajdz(elem1), Znajdz(elem2)); }
+
+	/*!
+	 * \brief Pokazuje odległość bezpośrednieego połączenia
+	 *
+	 * @param elem1 - nr pierwszego elementu do połączenia
+	 * @param elem2 - nr drugiego elementu do połączenia
+	 * @return Odległość pomiędzy zadanymi elementami (0 dla elementów
+	 * niepołączonych)
+	 */
+	Koszt_t Odleglosc(unsigned elem1, unsigned elem2) const
+	{ return MSas(elem1, elem2); }
 
 	/*!
 	 * \brief Szuka bezpośrednich sąsiadów danego węzła
@@ -140,12 +151,15 @@ public:
 	 * "poziomu", algorytm rozpoczyna szukanie sąsiadów wśród przed
 	 * chwilą wypisanych węzłów.
 	 *
-	 * @param start - wierzchołek, od którego rozpoczniemy
+	 * @param start - nr wierzchołka, od którego rozpoczniemy
 	 * przechodzenie
-	 * \param koniec - wierzchołek, do którego chcemy dojść
+	 * \param koniec - nr wierzchołka, do którego chcemy dojść
 	 * @return wektor węzłów uporządkowanych w kolejności przejścia BFS
 	 */
-	vector<unsigned> BFS(const Wezel_t & start, const Wezel_t & koniec) const;
+	vector<unsigned> BFS(unsigned start, unsigned koniec) const;
+
+	vector<unsigned> BFS(const Wezel_t & start, const Wezel_t & koniec) const
+		{ return BFS(Znajdz(start), Znajdz(koniec)); }
 
 	/*!
 	 * \brief Przechodzi graf wgłąb
@@ -156,18 +170,86 @@ public:
 	 * do dotarcia do węzła bez nowych (niezapisanych dotychczas)
 	 * sąsiadów. Następnie funkcja wraca do wierzchołka wyżej.
 	 *
-	 * @param start -wierzchołek, od którego rozpoczniemy
+	 * @param start - nr wierzchołka, od którego rozpoczniemy
 	 * przechodzenie
-	 * \param koniec - wierzchołek, do którego chcemy dojść
+	 * \param koniec - nr wierzchołka, do którego chcemy dojść
 	 * @return wektor węzłów uporządkowanych w kolejności przejścia DFS
 	 */
-	vector<unsigned> DFS(const Wezel_t & start, const Wezel_t & koniec) const;
+	vector<unsigned> DFS(unsigned start, unsigned koniec) const;
+
+	vector<unsigned> DFS(const Wezel_t & start, const Wezel_t & koniec) const
+		{ return DFS(Znajdz(start), Znajdz(koniec)); }
+
+	/*!
+	 * \brief Przejście grafu alogrytmem A*
+	 *
+	 * Implementacja efektywnego algorytmu wyszukiwania najkrótszej ścieżki
+	 * w grafie. Oparty jest na istnieniu heurystyki (dodatkowej funkcji
+	 * szacującej) odległości między dowolnymi elementami grafu. Jest to
+	 * powód, dla którego algorytm jest zdefiniowany tylko dla węzłów tylko
+	 * jednego typu danych.
+	 *
+	 * @param start - nr wierzchołka, od którego rozpoczniemy
+	 * przechodzenie
+	 * \param koniec - nr wierzchołka, do którego chcemy dojść
+	 * @return wektor węzłów uporządkowanych w kolejności przejścia A*
+	 */
+	vector<unsigned> AStar(unsigned start, unsigned koniec);
+
+	vector <unsigned> AStar(const Punkt &start, const Wezel_t &koniec) const
+		{ return BFS(Znajdz(start), Znajdz(koniec)); }
 
 	/*!
 	 * Konwertuje wektor z indeksami wierzchołków grafu na wektor z ich
 	 * wartościami
 	 */
 	vector<Wezel_t> ZnajdzWartosci(const vector<unsigned>& zr) const;
+
+	/*!
+	 * \brief Szuka indeksu zadanego elementu
+	 *
+	 * Funkcja szuka zadanego parametrem węzła w grafie. Jeżeli go nie
+	 * znajdzie, rzuca wyjątek, w przeciwnym razie podaje odpowiadający
+	 * węzłowi numer kolumny/wiersza w macierzy sąsiedztwa.
+	 *
+	 * @param elem - element do znalezienia
+	 * \return indeks znalezionego elementu (w wektorze węzłów lub macierzy
+	 * sąsiedztwa)
+	 */
+	unsigned Znajdz(const Wezel_t& elem) const;
+
+	/*!
+	 * \brief Wczytuje wierzchołki z pliku CSV
+	 *
+	 * Funkcja pobiera od użytkownika nazwę pliku z wierzchołkami grafu.
+	 * Powinien zachowywać strukturę CSV, gdzie kolejne kolumny będą oznaczać:
+	 * nazwę wierzchołka, szerokość i długość geograficzną.
+	 * Dla przypomnienia: szerokość może być północa lub południowa (zakres
+	 * [-90; 90], a  długość - zachodnia lub wschodnia ([-180; 180]).
+	 */
+	void WczytajWierzcholki();
+
+	/*!
+	 * \brief Wczytuje informacje o krawędziach grafu
+	 *
+	 * Funkcja pobiera od użytkownika nazwę pliku z krawędziami grafu.
+	 * Powinien zachowywać strukturę CSV, gdzie kolejne kolumny to: nazwy
+	 * dwóch łączonych wierzchołków, koszt połączenia między nimi.
+	 */
+	void WczytajKrawedzie();
+
+	/*!
+	 * \brief Liczy łączny koszt przejścia w grafie
+	 *
+	 * Funkcja bierze wektor opisujący ścieżkę w grafie i sumuje wartości
+	 * krawędzi odpowiadającym jego elementom.
+	 *
+	 * @param sciezka - wektor opisujący ścieżkę, którą chcemy zliczać
+	 * @return Łączny koszt przejścia po zadanej ścieżce.
+	 * \retval -1.0 - Zadany wektor nie podaje ścieżki przejścia (istnieją
+	 * elementy niepołączone bezpośrednio)
+	 */
+	Koszt_t LacznyKoszt(const vector<unsigned>& sciezka);
 
 private:
 
@@ -205,19 +287,6 @@ private:
 	 * pierwszy, drugi itd.
 	 */
 	list <unsigned> Indeks;
-
-	/*!
-	 * \brief Szuka indeksu zadanego elementu
-	 *
-	 * Funkcja szuka zadanego parametrem węzła w grafie. Jeżeli go nie
-	 * znajdzie, rzuca wyjątek, w przeciwnym razie podaje odpowiadający
-	 * węzłowi numer kolumny/wiersza w macierzy sąsiedztwa.
-	 *
-	 * @param elem - element do znalezienia
-	 * \return indeks znalezionego elementu (w wektorze węzłów lub macierzy
-	 * sąsiedztwa)
-	 */
-	unsigned Znajdz(const Wezel_t& elem) const;
 
 	/*!
 	 * @brief Mając numer w indeksie, odszukuje numer w nieposortowanej

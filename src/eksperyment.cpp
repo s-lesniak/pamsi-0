@@ -24,22 +24,46 @@ bool SprawdzNazwe(string nazwa)
 
 Eksperyment::Eksperyment(string PlikWyj): NazwaWyjscia(PlikWyj)
 {
-  if (!SpiszZadania())
-    return;
+//  if (!SpiszZadania())
+//    return;
+//
+//  for (unsigned int i = 0; i < Zadania.size(); i++) {
+//    float sr = WielokrotnyPomiar(i);
+//    WynikBadania elem = {Wejscie.size(), Zadania[i].IleRazy, sr};
+//    Wyniki.push_back(elem);
+//  }
+//  Zapisz();
+	Mapa.WczytajWierzcholki();
+	Mapa.WczytajKrawedzie();
 
-  for (unsigned int i = 0; i < Zadania.size(); i++) {
-    float sr = WielokrotnyPomiar(i);    
-    WynikBadania elem = {Wejscie.size(), Zadania[i].IleRazy, sr};
-    Wyniki.push_back(elem);
-  }
-  Zapisz();
-}
+	SpiszZadania();
 
-bool Eksperyment::WczytajPliki (unsigned nr)
-{
-  return (WczytajJedenPlik(Zadania[nr].PlikWejsciowy, Wejscie));
+	for (unsigned i = 0; i < Zadania.size(); i++) {
+		unsigned start = Mapa.Znajdz(Zadania[i].Start),
+				koniec = Mapa.Znajdz(Zadania[i].Koniec);
+
+		timespec pocz = Teraz();
+		vector<unsigned> wynik_bfs =
+				Mapa.BFS(start, koniec);
+		timespec po_bfs = Teraz();
+		vector<unsigned> wynik_dfs =
+				Mapa.DFS(start, koniec);
+		timespec po_dfs = Teraz();
+		vector<unsigned> wynik_a =
+				Mapa.AStar(start, koniec);
+		timespec po_a = Teraz();
+
+		float czas_bfs = RoznicaCzasu(pocz, po_bfs),
+				czas_dfs = RoznicaCzasu(po_bfs, po_dfs),
+				czas_a = RoznicaCzasu(po_dfs, po_a);
+
+		WynikBadania elem = {Zadania[i].Start, Zadania[i].Koniec,
+				czas_bfs, Mapa.LacznyKoszt(wynik_bfs),
+				czas_dfs, Mapa.LacznyKoszt(wynik_dfs),
+				czas_a, Mapa.LacznyKoszt(wynik_a)};
+		Wyniki.push_back(elem);
+		};
 }
-   
 
 bool Eksperyment::SpiszZadania ()
 {
@@ -66,92 +90,20 @@ bool Eksperyment::SpiszZadania ()
   return true;
 }
 
-bool Eksperyment::WczytajJedenPlik(const string& nazwa, TabStr& tab)
-{
-  ifstream strum(nazwa.c_str());
-
-  unsigned rozm;
-  if (!(strum >> rozm)) {
-    cerr << "Błąd w linii 1 pliku " << nazwa << "!\n";
-    return false;
-  }
-  tab.resize(0);
-
-  string napis;
-  if (!(strum >> napis)) {
-    cerr << "Brak napisów w pliku " << nazwa << "!\n";
-    return false;
-  }
-  while (strum.good()) {
-    tab.push_back(napis);
-    if (!(strum >> napis) && !strum.eof()) {
-      cerr << "Błąd w linii " << tab.size() << " w pliku " << nazwa
-	   << "!\n";
-      return false;
-    }
-  }
-
-  if (tab.size() == rozm)
-    return true;
-  else {
-    cerr << "Błędna ilość liczb w pliku " << nazwa << "!\n";
-    return false;
-  }
-}
-
-float Eksperyment::WielokrotnyPomiar(unsigned nr)
-{
-	unsigned ile = Zadania[nr].IleRazy, j;
-	float wynik = 0.0;
-
-	if(!WczytajPliki(nr))
-		return -1.0;
-
-	BadObiekt *ob = Przygotuj();
-
-	srand(time(NULL));
-
-	for (unsigned i = 0; i < ile; i++) {
-		j = rand() % Wejscie.size();
-		wynik += BadanaAkcja(ob, j);
-	}
-
-	wynik /= ile;
-
-	delete ob;
-  return wynik;
-}
-
 void Eksperyment::Zapisz()
 {
   ofstream str;
   str.open(NazwaWyjscia.c_str());
-  str << "Ilość napisów, Ilość badań, Średni czas\n";
+  str << "Punkt początkowy,Punkt końcowy,Czas BFS,Koszt BFS,Czas DFS,"
+		  << "Koszt DFS,Czas A*,Koszt A*\n";
   for (unsigned i = 0; i < Wyniki.size(); i++) {
-    str << Wyniki[i].IloscLiczb << ", " << Wyniki[i].IloscDzialan
-	<< ", " << Wyniki[i].SredniCzas << '\n';
+    str << Wyniki[i].Start << "," << Wyniki[i].Stop << ", "
+    		<< Wyniki[i].BFS_czas << ',' << Wyniki[i].BFS_koszt << ','
+    		<< Wyniki[i].DFS_czas << ',' << Wyniki[i].DFS_koszt << ','
+    		<< Wyniki[i].A_czas << ',' << Wyniki[i].A_koszt << '\n';
   }
 
   str.close();
-}
-
-BadObiekt* Eksperyment::Przygotuj()
-{
-  //unsigned rozm = Wejscie.size() / ZAPELNIENIE;
-  BadObiekt* obiekt = new BadObiekt;//(rozm);
-	for (unsigned i = 0; i < Wejscie.size(); i++)
-		(*obiekt)[Wejscie[i]];
-
-	return obiekt;
-}
-
-double Eksperyment::BadanaAkcja(BadObiekt* obiekt, unsigned i) const
-{
-	timespec przed, po;
-	przed = Teraz();
-	(*obiekt)[Wejscie[i]] = 3.14;
-	po = Teraz();
-	return RoznicaCzasu(przed, po);
 }
 
 bool Zapytaj()

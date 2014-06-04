@@ -9,21 +9,12 @@
 
 #include "wynikbadania.hh"
 #include "zrodlo.hh"
-
-#include "tabasoc.hh"
-#include "tadrzewo.hh"
-#include "tahasz.hh"
+#include "graf.hh"
+#include "punkt.hh"
 
 using namespace std;
 
-typedef vector<std::string> TabStr;
-
-typedef TADrzewo<string, double> BadObiekt;
-
-/*!
- * Współczynnik zapełnienia tablicy haszującej z badania
- */
-const float ZAPELNIENIE = 0.1;
+typedef Graf<Punkt, double> BadObiekt;
 
 /*!
  * @brief Sprawdza możliwość otwarcia pliku
@@ -93,10 +84,12 @@ public:
    * tak jak w wektorze [Wyniki](@ref Wyniki) */
   string NazwaWyjscia;
 
-private:
   /*!
-   * Tablica na napisy, które zostaną umieszczone w słowniku */
-  TabStr Wejscie;
+   * \brief Badany graf
+   */
+  Graf<Punkt, double> Mapa;
+
+private:
 
   /*!
    * @brief Tworzy listę zadań
@@ -109,52 +102,12 @@ private:
   bool SpiszZadania();
 
   /*!
-   * @brief Zapisuje do tablicy dane z jednego pliku
-   *
-   * Plik musi być zgodny ze schematem z opisu struktury [Zrodlo](@ref Zrodlo)
-   * @param[in] nazwa - nazwa pliku
-   * @param[out] tab - tablica do której są wczytane dane 
-   * @retval true - wczytanie zakończone sukcesem
-   * @retval false - błąd we wczytaniu pliku lub niezgodność
-   * ze schematem */
-  bool WczytajJedenPlik(const string &nazwa, TabStr& tab);
-
-  /*!
-   * @brief Dokonuje wielokrotnego pomiaru
-   *
-   * Funkcja dokonuje wielokrotnego wywołania funkcji Wejscie.RazyDwa()
-   * i mierzy czas jej wykonania. Następnie zostaje dokonane porównanie
-   * wyniku z tablicą Wzor. Ilość pomiarów jest brana z pola IleRazy
-   * odpowiedniego elementu Zadania.
-   *
-   * @param[in] nr - numer indeksu w polu Zadania, z którego wzięta 
-   * zostanie liczba pomiarów
-   * @retval -1.0 - dla niezgodności ze wzorcem 
-   * @return średni czas pomiaru. */
-  float WielokrotnyPomiar(unsigned nr);
-
-  /*!
    * @brief Zapisuje wyniki w pliku CSV
    *
    * Funkcja tworzy plik o zadanej w polu NazwaWyjscia nazwie i zapisuje\
    * w nim dane z pola Wyniki rozdzielone przecinkami. Pierwszy wiersz
    * zajmują nazwy kolumn. */
   void Zapisz();
-
-  /*!
-   * \brief Wywołuje działanie, którego czas chcemy zmierzyć.
-   *
-   * Funkcja wykonuje pojedynczą akcję, której czas wykonywania badamy
-   * (np. czas dostępu do kontenera danych, sortowanie tablicy)
-   * Jednocześnie mierzy ona czas wykonania w dowolny sposób -
-   * niekoniecznie musi być mierzony czas wykonania całej funkcji.
-   *
-   * \param obiekt - wskaźnik na badany obiekt. Może być dowolnego
-   * typu (uwaga na ich zgodność).
-   * \param i - numer wywołania funkcji
-   *
-   * \return czas wywołania pojedynczej akcji (w sekundach) */
-  double BadanaAkcja(BadObiekt* obiekt, unsigned i) const;
 
   /*!
    * \brief Wykonuje niezbędne działania wstępne
@@ -168,6 +121,15 @@ private:
    * \return Wskaźnik na nowoutworzony i przygotowany do dalszej części
    * eksperymentu obiekt */
   BadObiekt* Przygotuj();
+
+  /*!
+   * Struktura łączy dwie informacje z badania: średni czas wykonania
+   * oraz koszt znaleznionej trasy.
+   */
+  struct Wynik {
+	  float sr_czas;
+	  double koszt;
+  };
 };
 
 #endif
