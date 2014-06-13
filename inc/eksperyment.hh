@@ -96,10 +96,8 @@ private:
    *
    * Pyta użytkownika o ilość badań oraz nazwy plików wejściowych oraz
    * zapisuje uzyskane dane. Sprawdza możliwość otwarcia plików o nazwach
-   * podanych przez użytkownika. 
-   * @retval true - poprawne dzialanie
-   * @retval false - wprowadzono jakąś niewłaściwą wartość */
-  bool SpiszZadania();
+   * podanych przez użytkownika.  */
+  void SpiszZadania();
 
   /*!
    * @brief Zapisuje wyniki w pliku CSV

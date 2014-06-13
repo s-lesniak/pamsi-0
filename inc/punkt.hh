@@ -33,6 +33,7 @@ const float DEG2KM = 111.195;
  * współrzędnymi geograficznymi, nadana jest mu nazwa.
  */
 struct Punkt {
+	Punkt(): Nazwa(), szer(0), dl(0) {}
 
 	/*!
 	 * Tworzenie obiektu ze stringu jest przydatne wtedy, gdy tworzony

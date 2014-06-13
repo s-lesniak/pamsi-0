@@ -194,10 +194,10 @@ public:
 	 * \param koniec - nr wierzchołka, do którego chcemy dojść
 	 * @return wektor węzłów uporządkowanych w kolejności przejścia A*
 	 */
-	vector<unsigned> AStar(unsigned start, unsigned koniec);
+	vector<unsigned> AStar(unsigned start, unsigned koniec) const;
 
-	vector <unsigned> AStar(const Punkt &start, const Wezel_t &koniec) const
-		{ return BFS(Znajdz(start), Znajdz(koniec)); }
+	vector <unsigned> AStar(const Wezel_t &start, const Wezel_t &koniec) const
+		{ return AStar(Znajdz(start), Znajdz(koniec)); }
 
 	/*!
 	 * Konwertuje wektor z indeksami wierzchołków grafu na wektor z ich
@@ -251,7 +251,7 @@ public:
 	 */
 	Koszt_t LacznyKoszt(const vector<unsigned>& sciezka);
 
-private:
+//private:
 
 	/*!
 	 * \brief Tablica węzłów istniejących w grafie
@@ -328,6 +328,5 @@ private:
 	 */
 	vector<unsigned> NrySasiadow(unsigned i) const;
 };
-
 
 #endif /* GRAF_HH_ */

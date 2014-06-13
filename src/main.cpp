@@ -5,22 +5,26 @@
 #include <iostream>
 #include <cstdlib>
 #include <exception>
+#include <limits>
 
-#include "punkt.hh"
+#include "eksperyment.hh"
 
 using namespace std;
 
 int main ()
 {
-	Punkt test;
-
+	string wyj;
+	cout << "Podaj nazwę pliku wyjściowego: ";
+	cin >> wyj;
 	try {
-		cin >> test;
-		cout << test;
+		Eksperyment ten_jedyny(wyj);
 	}
-	catch (const exception &e) {
-		cout << e.what();
+	catch (const exception& e) {
+		cerr << e.what();
 	}
-
+//
+//	string a;
+//	getline (cin, a);
+//	cout << a << endl;
 	return 0;
 }

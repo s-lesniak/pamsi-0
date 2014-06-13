@@ -8,6 +8,8 @@
 #include <stdexcept>
 #include <queue>
 #include <algorithm>
+#include <fstream>
+#include <sstream>
 
 #include "graf.hh"
 
@@ -16,6 +18,12 @@ using namespace std;
 template <typename Wezel_t, typename Koszt_t>
 bool Graf<Wezel_t, Koszt_t>::Dodaj(const Wezel_t& elem)
 {
+	if (!Wezly.size()) {
+		Wezly.push_back(elem);
+		MSas.Powieksz(1);
+		Indeks.insert(Indeks.begin(), Wezly.size()-1);
+		return true;
+	}
 	try {
 		Znajdz(elem);
 	}
@@ -25,7 +33,7 @@ bool Graf<Wezel_t, Koszt_t>::Dodaj(const Wezel_t& elem)
 		for (unsigned i = 0; i < poz; i++)
 			it++;
 
-		Indeks.insert(it, Wezly.size());
+		Indeks.insert(it, Wezly.size()-1);
 
 		Wezly.push_back(elem);
 		MSas.Powieksz(1);
@@ -156,12 +164,13 @@ vector<unsigned> Graf<Wezel_t, Koszt_t>::DFS
 
 }
 
-template <typename Koszt_t>
-vector<unsigned> Graf<Punkt, Koszt_t>::AStar
+template <typename Wezel_t, typename Koszt_t>
+vector<unsigned> Graf<Wezel_t, Koszt_t>::AStar
 (unsigned start, unsigned koniec) const
 {
 
 }
+
 template <typename Wezel_t, typename Koszt_t>
 vector<Wezel_t> Graf<Wezel_t, Koszt_t>::ZnajdzWartosci
 (const vector<unsigned>& zr) const
@@ -240,9 +249,50 @@ Koszt_t Graf<Wezel_t, Koszt_t>::LacznyKoszt(const vector<unsigned>& sciezka)
 
 	return wynik;
 }
+
+template <typename Wezel_t, typename Koszt_t>
+void Graf<Wezel_t, Koszt_t>::WczytajWierzcholki()
+{
+	ifstream str;
+	string nazwa_pliku;
+	while (!str.is_open()) {
+		cout << "Podaj nazwę pliku z wierzchołkami: ";
+		cin >> nazwa_pliku;
+		str.open(nazwa_pliku.c_str());
+	}
+
+	while (str.good()) {
+		Punkt nowy;
+		str >> nowy;
+		Dodaj(nowy);
+	}
+}
+
+template <typename Wezel_t, typename Koszt_t>
+void Graf<Wezel_t, Koszt_t>::WczytajKrawedzie()
+{
+	ifstream str;
+	string nazwa_pliku;
+	while (!str.is_open()) {
+		cout << "Podaj nazwę pliku z krawędziami: ";
+		cin >> nazwa_pliku;
+		str.open(nazwa_pliku.c_str());
+	}
+
+	string linijka, start, koniec;
+	getline(str, linijka);
+	istringstream sstr(linijka);
+	getline(sstr, start, ',');
+	getline(sstr, koniec, ',');
+
+	Koszt_t waga;
+	sstr >> waga;
+
+	Dodaj(start, koniec, waga);
+}
 #include <string>
 
 #include "punkt.hh"
 
-template class Graf<string, double>;
 template class Graf<Punkt, double>;
+//template class Graf<string, double>;

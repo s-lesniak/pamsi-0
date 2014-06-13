@@ -2,6 +2,8 @@
  * @brief Definicje metod klasy Eksperyment */
 #include <iostream>
 #include <fstream>
+#include <exception>
+#include <limits>
 
 #include "eksperyment.hh"
 #include "czas.hh"
@@ -36,6 +38,9 @@ Eksperyment::Eksperyment(string PlikWyj): NazwaWyjscia(PlikWyj)
 	Mapa.WczytajWierzcholki();
 	Mapa.WczytajKrawedzie();
 
+	for (unsigned i = 0; i < Mapa.Wezly.size(); i++)
+		cout << Mapa.Wezly[i];
+
 	SpiszZadania();
 
 	for (unsigned i = 0; i < Zadania.size(); i++) {
@@ -65,29 +70,43 @@ Eksperyment::Eksperyment(string PlikWyj): NazwaWyjscia(PlikWyj)
 		};
 }
 
-bool Eksperyment::SpiszZadania ()
+void Eksperyment::SpiszZadania()
 {
-  unsigned n;
-  cout << "Podaj liczbę plików wejściowych: ";
-  cin >> n;
-  if (cin.fail()) {
-    cerr << "To nie jest liczba" << endl;
-    return false;
-  }
-  Zadania.resize(n);
+	unsigned n;
+	cout << "Podaj liczbę tras do znalezienia: ";
+	while (!(cin >> n)) {
+		cout << "Nieprawidłowa liczba, podaj ją ponownie: ";
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	}
 
-  for (unsigned i = 0; i < n; i++) {
-    cout << "Podaj plik źródłowy nr " << (i+1) << ": "; 
-    if (!(cin >> Zadania[i].PlikWejsciowy)) return false;
-    if (!SprawdzNazwe(Zadania[i].PlikWejsciowy)) return false;
-    cout << "Ilość badań pliku nr " << (i+1) << ": ";
-    cin >> Zadania[i].IleRazy;
-    if (cin.fail()) {
-      cerr << "To nie jest liczba" << endl;
-      return false;
-    }
-  }
-  return true;
+	Zadania.resize(n);
+
+	for (unsigned i = 0; i < n; i++) {
+		cout << "Podaj punkt startowy nr " << (i+1) << ": ";
+		while (1) {
+			string nazwa;
+//			getline(cin, nazwa);
+			cin >> nazwa;
+			try {
+				Mapa.Znajdz(nazwa);
+				Zadania[i].Start = nazwa;
+				break;
+			}
+			catch (const exception &e)
+			{ cerr << "Nie ma punktu o nazwie " << nazwa << endl; }
+		}
+		cout << "Podaj punkt końcowy nr " << (i+1) << ": ";
+		while (1) {
+			getline(cin, Zadania[i].Koniec);
+			try {
+				Mapa.Znajdz(Zadania[i].Koniec);
+				break;
+			}
+			catch (const exception &e)
+			{ cerr << "Nie ma punktu o nazwie " << Zadania[i].Koniec; }
+		}
+	}
 }
 
 void Eksperyment::Zapisz()
@@ -104,24 +123,4 @@ void Eksperyment::Zapisz()
   }
 
   str.close();
-}
-
-bool Zapytaj()
-{
-  cout << "Czy chcesz sortować z optymalizacją? (t/n) ";
-  char c;
-  while(1) {
-    cin >> c;
-    switch(c) {
-    case 't': 
-    case 'T':
-      return true;
-    case 'n':
-    case 'N':
-      return false;
-    default:
-      break;
-    }
-  }
-  return false;
 }
