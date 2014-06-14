@@ -327,6 +327,19 @@ public:
 	 * @return Wektor z numerami sąsiadów, według tablicy węzłów.
 	 */
 	vector<unsigned> NrySasiadow(unsigned i) const;
+
+	/*!
+	 * \brief Wypisuje na stumień znalezioną ścieżkę
+	 *
+	 * Na żądanym strumieniu zostaną wypisane nazwy punktów (znalezione z
+	 * pomocą odpowiadających im numerów w tablicy \ref Wezly). Pomiędzy
+	 * nimi wypisana zostanie odległość między węzłami, zgodnie ze schematem:
+	 * A --(15 km)--> B --(82.1 km)--> C
+	 *
+	 * @param sciezka wektor opisujący ścieżkę, którą chcemy wypisać
+	 * @param str - strumień, na którym mają się znaleźć informacje.
+	 */
+	void PokazTrase(const vector<unsigned>& sciezka, ostream& str = cout);
 };
 
 #endif /* GRAF_HH_ */

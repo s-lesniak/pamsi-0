@@ -26,20 +26,14 @@ bool SprawdzNazwe(string nazwa)
 
 Eksperyment::Eksperyment(string PlikWyj): NazwaWyjscia(PlikWyj)
 {
-//  if (!SpiszZadania())
-//    return;
-//
-//  for (unsigned int i = 0; i < Zadania.size(); i++) {
-//    float sr = WielokrotnyPomiar(i);
-//    WynikBadania elem = {Wejscie.size(), Zadania[i].IleRazy, sr};
-//    Wyniki.push_back(elem);
-//  }
-//  Zapisz();
 	Mapa.WczytajWierzcholki();
-	Mapa.WczytajKrawedzie();
 
 	for (unsigned i = 0; i < Mapa.Wezly.size(); i++)
-		cout << Mapa.Wezly[i];
+		cout << Mapa.Wezly[Mapa.PodIndeksem(i)];
+
+	Mapa.WczytajKrawedzie();
+
+	Mapa.MSas.Wypisz(cout);
 
 	SpiszZadania();
 
@@ -51,12 +45,14 @@ Eksperyment::Eksperyment(string PlikWyj): NazwaWyjscia(PlikWyj)
 		vector<unsigned> wynik_bfs =
 				Mapa.BFS(start, koniec);
 		timespec po_bfs = Teraz();
-		vector<unsigned> wynik_dfs =
-				Mapa.DFS(start, koniec);
+//		vector<unsigned> wynik_dfs =
+//				Mapa.DFS(start, koniec);
 		timespec po_dfs = Teraz();
-		vector<unsigned> wynik_a =
-				Mapa.AStar(start, koniec);
+//		vector<unsigned> wynik_a =
+//				Mapa.AStar(start, koniec);
 		timespec po_a = Teraz();
+
+		Mapa.PokazTrase(wynik_bfs, cout);
 
 		float czas_bfs = RoznicaCzasu(pocz, po_bfs),
 				czas_dfs = RoznicaCzasu(po_bfs, po_dfs),
@@ -64,10 +60,12 @@ Eksperyment::Eksperyment(string PlikWyj): NazwaWyjscia(PlikWyj)
 
 		WynikBadania elem = {Zadania[i].Start, Zadania[i].Koniec,
 				czas_bfs, Mapa.LacznyKoszt(wynik_bfs),
-				czas_dfs, Mapa.LacznyKoszt(wynik_dfs),
-				czas_a, Mapa.LacznyKoszt(wynik_a)};
+//				czas_dfs, Mapa.LacznyKoszt(wynik_dfs),
+//				czas_a, Mapa.LacznyKoszt(wynik_a)};
+				0, 0, 0, 0};
 		Wyniki.push_back(elem);
-		};
+		}
+	Zapisz();
 }
 
 void Eksperyment::SpiszZadania()
@@ -81,13 +79,14 @@ void Eksperyment::SpiszZadania()
 	}
 
 	Zadania.resize(n);
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
 	for (unsigned i = 0; i < n; i++) {
 		cout << "Podaj punkt startowy nr " << (i+1) << ": ";
 		while (1) {
 			string nazwa;
-//			getline(cin, nazwa);
-			cin >> nazwa;
+			getline(cin, nazwa);
+//			cin >> noskipws >> nazwa;
 			try {
 				Mapa.Znajdz(nazwa);
 				Zadania[i].Start = nazwa;
@@ -104,7 +103,8 @@ void Eksperyment::SpiszZadania()
 				break;
 			}
 			catch (const exception &e)
-			{ cerr << "Nie ma punktu o nazwie " << Zadania[i].Koniec; }
+			{ cerr << "Nie ma punktu o nazwie " << Zadania[i].Koniec
+				<< endl; }
 		}
 	}
 }
@@ -116,7 +116,7 @@ void Eksperyment::Zapisz()
   str << "Punkt początkowy,Punkt końcowy,Czas BFS,Koszt BFS,Czas DFS,"
 		  << "Koszt DFS,Czas A*,Koszt A*\n";
   for (unsigned i = 0; i < Wyniki.size(); i++) {
-    str << Wyniki[i].Start << "," << Wyniki[i].Stop << ", "
+    str << Wyniki[i].Start << "," << Wyniki[i].Stop << ','
     		<< Wyniki[i].BFS_czas << ',' << Wyniki[i].BFS_koszt << ','
     		<< Wyniki[i].DFS_czas << ',' << Wyniki[i].DFS_koszt << ','
     		<< Wyniki[i].A_czas << ',' << Wyniki[i].A_koszt << '\n';

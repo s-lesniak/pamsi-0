@@ -8,6 +8,7 @@
 #include <stdexcept>
 #include <queue>
 #include <algorithm>
+#include <map>
 #include <fstream>
 #include <sstream>
 
@@ -33,7 +34,8 @@ bool Graf<Wezel_t, Koszt_t>::Dodaj(const Wezel_t& elem)
 		for (unsigned i = 0; i < poz; i++)
 			it++;
 
-		Indeks.insert(it, Wezly.size()-1);
+//		Indeks.insert(it, Wezly.size()-1);
+		Indeks.insert(it, Wezly.size());
 
 		Wezly.push_back(elem);
 		MSas.Powieksz(1);
@@ -118,7 +120,7 @@ vector<unsigned> Graf<Wezel_t, Koszt_t>::NrySasiadow
 (unsigned i) const
 {
 	vector<unsigned> wynik;
-	for (int j = 0; i < Wezly.size(); j++) {
+	for (int j = 0; j < Wezly.size(); j++) {
 		if (MSas(j, i))
 			wynik.push_back(j);
 	}
@@ -131,29 +133,35 @@ vector<unsigned> Graf<Wezel_t, Koszt_t>::BFS
 (unsigned start, unsigned koniec) const
 {
 	queue<unsigned> kolejka;
-	vector<unsigned> V;
+	vector<unsigned> V;  // spis odwiedzonych węzłów
+	map<unsigned, unsigned> ojcowie; /* dla każdego odwiedzonego węzła
+	 	 	 	 	 	 	 	 	  * zapisuje, skąd do niego przyszliśmy */
+	unsigned i;
 	kolejka.push(start);
 	V.push_back(start);
 
 	while (!kolejka.empty()) {
-		unsigned i = kolejka.front();
+		i = kolejka.front();
 		kolejka.pop();
 		if (i == koniec)
-			return V;
+			break;
 		vector<unsigned> sasiedzi = NrySasiadow(i);
 		for (unsigned j = 0; j < sasiedzi.size(); j++) {
 			unsigned k = sasiedzi[j];
 			if (!count(V.begin(), V.end(), k) ) {
 				V.push_back(k);
 				kolejka.push(k);
+				ojcowie[k] = i;
 			}
 		}
 	}
 	vector<unsigned> wynik;
-	while (!kolejka.empty()) {
-		wynik.push_back(kolejka.front());
-		kolejka.pop();
-	}
+	do {
+		wynik.push_back(i);
+		i = ojcowie[i];
+	} while (i != start);
+	wynik.push_back(start);
+
 	return wynik;
 }
 
@@ -266,6 +274,8 @@ void Graf<Wezel_t, Koszt_t>::WczytajWierzcholki()
 		str >> nowy;
 		Dodaj(nowy);
 	}
+	Punkt pusty;
+	Usun(pusty);
 }
 
 template <typename Wezel_t, typename Koszt_t>
@@ -280,16 +290,31 @@ void Graf<Wezel_t, Koszt_t>::WczytajKrawedzie()
 	}
 
 	string linijka, start, koniec;
-	getline(str, linijka);
-	istringstream sstr(linijka);
-	getline(sstr, start, ',');
-	getline(sstr, koniec, ',');
+	while (str.good()) {
+		getline(str, linijka);
+		istringstream sstr(linijka);
+		getline(sstr, start, ',');
+		getline(sstr, koniec, ',');
 
-	Koszt_t waga;
-	sstr >> waga;
+		Koszt_t waga;
+		sstr >> waga;
 
-	Dodaj(start, koniec, waga);
+		Dodaj(start, koniec, waga);
+	}
 }
+
+template <typename Wezel_t, typename Koszt_t>
+void Graf<Wezel_t, Koszt_t>::PokazTrase
+(const vector<unsigned> &sciezka, ostream &str)
+{
+	cout << endl << Wezly[sciezka.back()].Nazwa;
+	for (unsigned i = sciezka.size()-2; i < sciezka.size(); i--)
+		cout << " --(" << Odleglosc(sciezka[i+1], sciezka[i]) << " km)--> "
+		<< Wezly[sciezka[i]].Nazwa;
+
+	cout << endl;
+}
+
 #include <string>
 
 #include "punkt.hh"
