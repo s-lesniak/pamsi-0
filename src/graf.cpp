@@ -9,6 +9,7 @@
 #include <queue>
 #include <algorithm>
 #include <map>
+#include <stack>
 #include <fstream>
 #include <sstream>
 
@@ -169,7 +170,39 @@ template <typename Wezel_t, typename Koszt_t>
 vector<unsigned> Graf<Wezel_t, Koszt_t>::DFS
 (unsigned start, unsigned koniec) const
 {
+	stack<unsigned> stos;
+	vector<unsigned> V; // odwiedzone węzły
+	map<unsigned, unsigned> ojcowie; /* dla każdego odwiedzonego węzła
+	  	  	  	  	  	  	  	  	  * zapisuje, skąd do niego przyszliśmy */
+	unsigned i;
 
+	stos.push(start);
+	V.push_back(start);
+
+	while(!stos.empty()) {
+		i = stos.top();
+		stos.pop();
+		if (i == koniec)
+			break;
+		vector<unsigned> sasiedzi = NrySasiadow(i);
+		for (unsigned j = 0; j < sasiedzi.size(); j++) {
+			unsigned k = sasiedzi[j];
+			if (!count(V.begin(), V.end(), k) ) {
+				V.push_back(k);
+				stos.push(k);
+				ojcowie[k] = i;
+			}
+		}
+	}
+
+	vector<unsigned> wynik;
+	do {
+		wynik.push_back(i);
+		i = ojcowie[i];
+	} while (i != start);
+	wynik.push_back(start);
+
+	return wynik;
 }
 
 template <typename Wezel_t, typename Koszt_t>
