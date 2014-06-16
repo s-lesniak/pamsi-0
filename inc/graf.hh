@@ -38,7 +38,7 @@ public:
 	/*!
 	 * Tworzy graf bez żadnych wierzchołków
 	 */
-	Graf(): Wezly(), MSas(0), Indeks() {}
+	Graf(): Wezly(), MSas(0), Indeks() { licznik = 0; }
 
 	/*!
 	 * Tworzy graf z jednym wierzchołkiem startowym.
@@ -251,6 +251,8 @@ public:
 	 */
 	Koszt_t LacznyKoszt(const vector<unsigned>& sciezka);
 
+	long int Licznik() { return licznik; }
+
 	/*!
 	 * \brief Struktura wewnętrzna przejścia A*
 	 *
@@ -272,7 +274,20 @@ public:
 		{ return nr < dr.nr; }
 	};
 
-//private:
+	/*!
+	 * \brief Wypisuje na stumień znalezioną ścieżkę
+	 *
+	 * Na żądanym strumieniu zostaną wypisane nazwy punktów (znalezione z
+	 * pomocą odpowiadających im numerów w tablicy \ref Wezly). Pomiędzy
+	 * nimi wypisana zostanie odległość między węzłami, zgodnie ze schematem:
+	 * A --(15 km)--> B --(82.1 km)--> C
+	 *
+	 * @param sciezka wektor opisujący ścieżkę, którą chcemy wypisać
+	 * @param str - strumień, na którym mają się znaleźć informacje.
+	 */
+	void PokazTrase(const vector<unsigned>& sciezka, ostream& str = cout);
+
+private:
 
 	/*!
 	 * \brief Tablica węzłów istniejących w grafie
@@ -350,17 +365,10 @@ public:
 	vector<unsigned> NrySasiadow(unsigned i) const;
 
 	/*!
-	 * \brief Wypisuje na stumień znalezioną ścieżkę
-	 *
-	 * Na żądanym strumieniu zostaną wypisane nazwy punktów (znalezione z
-	 * pomocą odpowiadających im numerów w tablicy \ref Wezly). Pomiędzy
-	 * nimi wypisana zostanie odległość między węzłami, zgodnie ze schematem:
-	 * A --(15 km)--> B --(82.1 km)--> C
-	 *
-	 * @param sciezka wektor opisujący ścieżkę, którą chcemy wypisać
-	 * @param str - strumień, na którym mają się znaleźć informacje.
+	 * Zmienna zliczająca operacje, jakie są dokonywane wewnątrz grafu
+	 * podczas ich przechodzenia
 	 */
-	void PokazTrase(const vector<unsigned>& sciezka, ostream& str = cout);
+	static long licznik;
 };
 
 #endif /* GRAF_HH_ */
