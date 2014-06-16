@@ -11,15 +11,12 @@ using namespace std;
  * @brief Wynik badania pojedynczego pliku z liczbami
  *
  * Struktura służy do przekazania informacji nt. jednokrotnego badania
- * pojedynczego przejścia grafu. Zawiera on kolejno: początek i koniec
- * przejścia grafu, oraz parami zebrane: czas wykonania oraz łączny koszt
- * przejścia, kolejno alogrytmami: BFS, DFS i A*. */
+ * pełnego przejścia grafu. Zawiera on kolejno: początek przejścia grafu,
+ * oraz czas wykonania oraz łączny koszt znalezionej  */
 struct WynikBadania {
-	string Start, Stop;
+	string Start;
 
-	double BFS_czas, BFS_koszt,
-	DFS_czas, DFS_koszt,
-	A_czas, A_koszt;
+	double czas, koszt;
 };
 
 #endif

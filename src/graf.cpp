@@ -141,6 +141,7 @@ vector<unsigned> Graf<Wezel_t, Koszt_t>::BFS
 	unsigned i;
 	kolejka.push(start);
 	V.push_back(start);
+	int l = 1;
 
 	while (!kolejka.empty()) {
 		i = kolejka.front();
@@ -152,7 +153,7 @@ vector<unsigned> Graf<Wezel_t, Koszt_t>::BFS
 			unsigned k = sasiedzi[j];
 			if (!count(V.begin(), V.end(), k) ) {
 				V.push_back(k);
-				kolejka.push(k);
+				kolejka.push(k); l++;
 				ojcowie[k] = i;
 			}
 		}
@@ -164,6 +165,7 @@ vector<unsigned> Graf<Wezel_t, Koszt_t>::BFS
 	} while (i != start);
 	wynik.push_back(start);
 
+	cerr << l;
 	return wynik;
 }
 
@@ -172,10 +174,11 @@ vector<unsigned> Graf<Wezel_t, Koszt_t>::DFS
 (unsigned start, unsigned koniec) const
 {
 	stack<unsigned> stos;
-	vector<unsigned> V; // odwiedzone węzły
-	map<unsigned, unsigned> ojcowie; /* dla każdego odwiedzonego węzła
+	vector<unsigned> V; // V węzły
+	map<unsigned, unsigned> ojcowie; /* dla każdego Vgo węzła
 	  	  	  	  	  	  	  	  	  * zapisuje, skąd do niego przyszliśmy */
 	unsigned i;
+	int l = 1;
 
 	stos.push(start);
 	V.push_back(start);
@@ -188,7 +191,7 @@ vector<unsigned> Graf<Wezel_t, Koszt_t>::DFS
 		for (unsigned j = 0; j < sasiedzi.size(); j++) {
 			unsigned k = sasiedzi[j];
 			if (!count(V.begin(), V.end(), k) ) {
-				V.push_back(k);
+				V.push_back(k); l++;
 				stos.push(k);
 				ojcowie[k] = i;
 			}
@@ -202,6 +205,7 @@ vector<unsigned> Graf<Wezel_t, Koszt_t>::DFS
 	} while (i != start);
 	wynik.push_back(start);
 
+	cerr << ' ' << l;
 	return wynik;
 }
 
@@ -209,15 +213,16 @@ template <typename Wezel_t, typename Koszt_t>
 vector<unsigned> Graf<Wezel_t, Koszt_t>::AStar
 (unsigned start, unsigned koniec) const
 {
-	set<unsigned> odwiedzone;
+	vector<unsigned> V;
 	set<AStar_elem> badane;
 	map<unsigned, unsigned> ojcowie;
+	int l = 1;
 
-	odwiedzone.insert(start);
+	V.push_back(start);
 	vector<unsigned> sasiedzi = NrySasiadow(start);
 	for (unsigned j = 0; j < sasiedzi.size(); j++) {
 		AStar_elem n_elem (sasiedzi[j], Odleglosc(sasiedzi[j], start));
-		badane.insert(n_elem);
+		badane.insert(n_elem); l++;
 		if (!ojcowie.count(n_elem.nr))
 			ojcowie[n_elem.nr] = start;
 	}
@@ -238,14 +243,14 @@ vector<unsigned> Graf<Wezel_t, Koszt_t>::AStar
 			break;
 
 		badane.erase(i);
-		odwiedzone.insert(i.nr);
+		V.push_back(i.nr);
 		sasiedzi = NrySasiadow(i.nr);
 
 		for (unsigned j = 0; j < sasiedzi.size(); j++) {
 			AStar_elem n_elem(sasiedzi[j], i.koszt +
 					Odleglosc(sasiedzi[j], i.nr));
 			if (!ojcowie.count(n_elem.nr)) {
-				badane.insert(n_elem);
+				badane.insert(n_elem); l++;
 				ojcowie[n_elem.nr] = i.nr;
 			}
 		}
@@ -258,6 +263,7 @@ vector<unsigned> Graf<Wezel_t, Koszt_t>::AStar
 	} while (i.nr != start);
 	wynik.push_back(start);
 
+	cerr << ' ' << l << endl;
 	return wynik;
 }
 
@@ -363,26 +369,13 @@ void Graf<Wezel_t, Koszt_t>::WczytajWierzcholki()
 template <typename Wezel_t, typename Koszt_t>
 void Graf<Wezel_t, Koszt_t>::WczytajKrawedzie()
 {
-	ifstream str;
-	string nazwa_pliku;
-	while (!str.is_open()) {
-		cout << "Podaj nazwę pliku z krawędziami: ";
-		cin >> nazwa_pliku;
-		str.open(nazwa_pliku.c_str());
+	for (unsigned i = 0; i+1 < Wezly.size(); i++) {
+		Punkt biez = Wezly[i];
+		for (unsigned j = i+1; j < Wezly.size(); j++) {
+			Dodaj(Wezly[i], Wezly[j], Wezly[i].OdlegloscDo(Wezly[j]));
+		}
 	}
-
-	string linijka, start, koniec;
-	while (str.good()) {
-		getline(str, linijka);
-		istringstream sstr(linijka);
-		getline(sstr, start, ',');
-		getline(sstr, koniec, ',');
-
-		Koszt_t waga;
-		sstr >> waga;
-
-		Dodaj(start, koniec, waga);
-	}
+	MSas.Wypisz(cout);
 }
 
 template <typename Wezel_t, typename Koszt_t>
