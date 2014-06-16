@@ -38,7 +38,7 @@ public:
 	/*!
 	 * Tworzy graf bez żadnych wierzchołków
 	 */
-	Graf(): Wezly(), MSas(0), Indeks() { licznik = 0; }
+	Graf(): Wezly(), MSas(0), Indeks() { }
 
 	/*!
 	 * Tworzy graf z jednym wierzchołkiem startowym.
@@ -251,8 +251,6 @@ public:
 	 */
 	Koszt_t LacznyKoszt(const vector<unsigned>& sciezka);
 
-	long int Licznik() { return licznik; }
-
 	/*!
 	 * \brief Struktura wewnętrzna przejścia A*
 	 *
@@ -363,12 +361,6 @@ private:
 	 * @return Wektor z numerami sąsiadów, według tablicy węzłów.
 	 */
 	vector<unsigned> NrySasiadow(unsigned i) const;
-
-	/*!
-	 * Zmienna zliczająca operacje, jakie są dokonywane wewnątrz grafu
-	 * podczas ich przechodzenia
-	 */
-	static long licznik;
 };
 
 #endif /* GRAF_HH_ */
