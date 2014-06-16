@@ -10,6 +10,7 @@
 #include <algorithm>
 #include <map>
 #include <stack>
+#include <set>
 #include <fstream>
 #include <sstream>
 
@@ -209,7 +210,31 @@ template <typename Wezel_t, typename Koszt_t>
 vector<unsigned> Graf<Wezel_t, Koszt_t>::AStar
 (unsigned start, unsigned koniec) const
 {
+	set<unsigned> odwiedzone;
+	set<AStar_elem> badane;
+	map<unsigned, unsigned> ojcowie;
 
+	odwiedzone.insert(start);
+	vector<unsigned> sasiedzi = NrySasiadow(start);
+	for (unsigned i = 0; i < sasiedzi.size(); i++) {
+		AStar_elem n_para (sasiedzi[i], Odleglosc(sasiedzi[i], start));
+		badane.insert(n_para);
+	}
+	AStar_elem i;
+	while(!badane.empty()) {
+		i = *badane.begin();
+		for (typename set<AStar_elem>::iterator it=badane.begin();
+				it!=badane.end(); ++it) {
+			AStar_elem biez = *it; // bieżący element obsługiwany przez pętlę
+
+			// szukamy chwilowego minimum funkcji f(x) = g(x) + h(x)
+			Koszt_t min = i.koszt + Wezly[i.nr].OdlegloscDo(Wezly[koniec]);
+			Koszt_t kand = biez.koszt +
+					Wezly[biez.nr].OdlegloscDo(Wezly[koniec]);
+			i = (kand < min) ? biez : i;
+		}
+		// TODO  coś
+	}
 }
 
 template <typename Wezel_t, typename Koszt_t>

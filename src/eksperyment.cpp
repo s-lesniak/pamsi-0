@@ -48,8 +48,8 @@ Eksperyment::Eksperyment(string PlikWyj): NazwaWyjscia(PlikWyj)
 		vector<unsigned> wynik_dfs =
 				Mapa.DFS(start, koniec);
 		timespec po_dfs = Teraz();
-//		vector<unsigned> wynik_a =
-//				Mapa.AStar(start, koniec);
+		vector<unsigned> wynik_a =
+				Mapa.AStar(start, koniec);
 		timespec po_a = Teraz();
 
 		cout << "Trasa nr " << i << " wg BFS: ";
@@ -64,8 +64,7 @@ Eksperyment::Eksperyment(string PlikWyj): NazwaWyjscia(PlikWyj)
 		WynikBadania elem = {Zadania[i].Start, Zadania[i].Koniec,
 				czas_bfs, Mapa.LacznyKoszt(wynik_bfs),
 				czas_dfs, Mapa.LacznyKoszt(wynik_dfs),
-//				czas_a, Mapa.LacznyKoszt(wynik_a)};
-				0, 0};
+				czas_a, Mapa.LacznyKoszt(wynik_a)};
 		Wyniki.push_back(elem);
 		}
 	Zapisz();

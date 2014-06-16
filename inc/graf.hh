@@ -251,6 +251,27 @@ public:
 	 */
 	Koszt_t LacznyKoszt(const vector<unsigned>& sciezka);
 
+	/*!
+	 * \brief Struktura wewnętrzna przejścia A*
+	 *
+	 * Celem zaspokojenia wymagań algorytmu A*, oprócz samego numeru węzła
+	 * pojawia się tu także koszt przejścia do zadanego węzła, licząc od
+	 * wybranego punktu startowego.
+	 */
+	struct AStar_elem {
+		/*! Numer węzła */
+		unsigned nr;
+
+		/*! Koszt przejścia z węzła startowego w przejściu A* */
+		Koszt_t koszt;
+
+		AStar_elem(unsigned nr = 0, Koszt_t koszt = 0): nr(nr), koszt(koszt)
+		{ }
+
+		bool operator < (const AStar_elem& dr) const
+		{ return nr < dr.nr; }
+	};
+
 //private:
 
 	/*!

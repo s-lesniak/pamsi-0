@@ -76,7 +76,7 @@ struct Punkt {
 	 * @return Długość najkrótszej drogi między punktami na kuli, w
 	 * kilometrach.
 	 */
-	double OdlegloscDo(const Punkt &cel)
+	double OdlegloscDo(const Punkt &cel) const
 	{
 		float rozn = dl - cel.dl;
 		return DEG2KM * (acos((sin(DEG2RAD*szer) * sin(DEG2RAD*cel.szer)) +
