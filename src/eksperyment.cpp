@@ -28,12 +28,7 @@ Eksperyment::Eksperyment(string PlikWyj): NazwaWyjscia(PlikWyj)
 {
 	Mapa.WczytajWierzcholki();
 
-	for (unsigned i = 0; i < Mapa.Wezly.size(); i++)
-		cout << Mapa.Wezly[Mapa.PodIndeksem(i)];
-
 	Mapa.WczytajKrawedzie();
-
-	Mapa.MSas.Wypisz(cout);
 
 	SpiszZadania();
 
@@ -52,10 +47,12 @@ Eksperyment::Eksperyment(string PlikWyj): NazwaWyjscia(PlikWyj)
 				Mapa.AStar(start, koniec);
 		timespec po_a = Teraz();
 
-		cout << "Trasa nr " << i << " wg BFS: ";
+		cout << "Trasa nr " << i+1 << " wg BFS: ";
 		Mapa.PokazTrase(wynik_bfs, cout);
-		cout << "Trasa nr " << i << " wg DFS: ";
+		cout << "Trasa nr " << i+1 << " wg DFS: ";
 		Mapa.PokazTrase(wynik_dfs, cout);
+		cout << "Trasa nr " << i+1 << " wg A*: ";
+		Mapa.PokazTrase(wynik_a, cout);
 
 		float czas_bfs = RoznicaCzasu(pocz, po_bfs),
 				czas_dfs = RoznicaCzasu(po_bfs, po_dfs),

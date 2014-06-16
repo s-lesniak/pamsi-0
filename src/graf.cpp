@@ -216,9 +216,11 @@ vector<unsigned> Graf<Wezel_t, Koszt_t>::AStar
 
 	odwiedzone.insert(start);
 	vector<unsigned> sasiedzi = NrySasiadow(start);
-	for (unsigned i = 0; i < sasiedzi.size(); i++) {
-		AStar_elem n_para (sasiedzi[i], Odleglosc(sasiedzi[i], start));
-		badane.insert(n_para);
+	for (unsigned j = 0; j < sasiedzi.size(); j++) {
+		AStar_elem n_elem (sasiedzi[j], Odleglosc(sasiedzi[j], start));
+		badane.insert(n_elem);
+		if (!ojcowie.count(n_elem.nr))
+			ojcowie[n_elem.nr] = start;
 	}
 	AStar_elem i;
 	while(!badane.empty()) {
@@ -226,15 +228,38 @@ vector<unsigned> Graf<Wezel_t, Koszt_t>::AStar
 		for (typename set<AStar_elem>::iterator it=badane.begin();
 				it!=badane.end(); ++it) {
 			AStar_elem biez = *it; // bieżący element obsługiwany przez pętlę
-
 			// szukamy chwilowego minimum funkcji f(x) = g(x) + h(x)
 			Koszt_t min = i.koszt + Wezly[i.nr].OdlegloscDo(Wezly[koniec]);
 			Koszt_t kand = biez.koszt +
 					Wezly[biez.nr].OdlegloscDo(Wezly[koniec]);
 			i = (kand < min) ? biez : i;
 		}
-		// TODO  coś
+
+		if (i.nr == koniec)
+			break;
+
+		badane.erase(i);
+		odwiedzone.insert(i.nr);
+		sasiedzi = NrySasiadow(i.nr);
+
+		for (unsigned j = 0; j < sasiedzi.size(); j++) {
+			AStar_elem n_elem(sasiedzi[j], i.koszt +
+					Odleglosc(sasiedzi[j], i.nr));
+			if (!ojcowie.count(n_elem.nr)) {
+				badane.insert(n_elem);
+				ojcowie[n_elem.nr] = i.nr;
+			}
+		}
 	}
+
+	vector<unsigned> wynik;
+	do {
+		wynik.push_back(i.nr);
+		i = ojcowie[i.nr];
+	} while (i.nr != start);
+	wynik.push_back(start);
+
+	return wynik;
 }
 
 template <typename Wezel_t, typename Koszt_t>
