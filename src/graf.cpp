@@ -142,7 +142,11 @@ vector<unsigned> Graf<Wezel_t, Koszt_t>::BFS
 	unsigned i;
 	kolejka.push(start);
 	V.push_back(start);
+<<<<<<< HEAD
 	int l = 1;
+=======
+	licznik++;
+>>>>>>> origin/master
 
 	while (!kolejka.empty()) {
 		i = kolejka.front();
@@ -154,7 +158,12 @@ vector<unsigned> Graf<Wezel_t, Koszt_t>::BFS
 			unsigned k = sasiedzi[j];
 			if (!count(V.begin(), V.end(), k) ) {
 				V.push_back(k);
+<<<<<<< HEAD
 				kolejka.push(k); l++;
+=======
+				kolejka.push(k);
+				licznik++;
+>>>>>>> origin/master
 				ojcowie[k] = i;
 			}
 		}
@@ -183,6 +192,11 @@ vector<unsigned> Graf<Wezel_t, Koszt_t>::DFS
 
 	stos.push(start);
 	V.push_back(start);
+<<<<<<< HEAD
+=======
+	licznik++;
+
+>>>>>>> origin/master
 	while(!stos.empty()) {
 		i = stos.top();
 		stos.pop();
@@ -194,6 +208,7 @@ vector<unsigned> Graf<Wezel_t, Koszt_t>::DFS
 			if (!count(V.begin(), V.end(), k) ) {
 				V.push_back(k); l++;
 				stos.push(k);
+				licznik++;
 				ojcowie[k] = i;
 			}
 		}
@@ -219,11 +234,21 @@ vector<unsigned> Graf<Wezel_t, Koszt_t>::AStar
 	map<unsigned, unsigned> ojcowie;
 	int l = 1;
 
+<<<<<<< HEAD
 	V.push_back(start);
 	vector<unsigned> sasiedzi = NrySasiadow(start);
 	for (unsigned j = 0; j < sasiedzi.size(); j++) {
 		AStar_elem n_elem (sasiedzi[j], Odleglosc(sasiedzi[j], start));
 		badane.insert(n_elem); l++;
+=======
+	odwiedzone.insert(start);
+	licznik++;
+	vector<unsigned> sasiedzi = NrySasiadow(start);
+	for (unsigned j = 0; j < sasiedzi.size(); j++) {
+		AStar_elem n_elem (sasiedzi[j], Odleglosc(sasiedzi[j], start));
+		badane.insert(n_elem);
+		licznik++;
+>>>>>>> origin/master
 		if (!ojcowie.count(n_elem.nr))
 			ojcowie[n_elem.nr] = start;
 	}
@@ -251,7 +276,12 @@ vector<unsigned> Graf<Wezel_t, Koszt_t>::AStar
 			AStar_elem n_elem(sasiedzi[j], i.koszt +
 					Odleglosc(sasiedzi[j], i.nr));
 			if (!ojcowie.count(n_elem.nr)) {
+<<<<<<< HEAD
 				badane.insert(n_elem); l++;
+=======
+				badane.insert(n_elem);
+				licznik++;
+>>>>>>> origin/master
 				ojcowie[n_elem.nr] = i.nr;
 			}
 		}
