@@ -1,0 +1,42 @@
+Podaj nazwę pliku wyjściowego: Podaj nazwę pliku z wierzchołkami: Podaj nazwę pliku z krawędziami: Podaj liczbę tras do znalezienia: Podaj punkt startowy nr 1: Podaj punkt końcowy nr 1: Podaj punkt startowy nr 2: Podaj punkt końcowy nr 2: Podaj punkt startowy nr 3: Podaj punkt końcowy nr 3: Podaj punkt startowy nr 4: Podaj punkt końcowy nr 4: Podaj punkt startowy nr 5: Podaj punkt końcowy nr 5: Podaj punkt startowy nr 6: Podaj punkt końcowy nr 6: Podaj punkt startowy nr 7: Podaj punkt końcowy nr 7: Trasa nr 1 wg BFS: 
+Kamień Pomorski --(51.7 km)--> Goleniów --(37.8 km)--> Szczecin --(111 km)--> Gorzów Wielkopolski --(170 km)--> Poznań --(161 km)--> Toruń --(210 km)--> Warszawa --(169 km)--> Lublin --(168 km)--> Rzeszów --(115 km)--> Ustrzyki Dolne
+Trasa nr 1 wg DFS: 
+Kamień Pomorski --(51.7 km)--> Goleniów --(25 km)--> Nowogard --(96.7 km)--> Koszalin --(141 km)--> Piła --(89 km)--> Bydgoszcz --(45 km)--> Toruń --(179 km)--> Łódź --(112 km)--> Kalisz --(89.2 km)--> Oleśnica --(30 km)--> Namysłów --(54.5 km)--> Opole --(114 km)--> Katowice --(80 km)--> Kraków --(108 km)--> Zakopane --(265 km)--> Ustrzyki Dolne
+Trasa nr 1 wg A*: 
+Kamień Pomorski --(51.7 km)--> Goleniów --(37.8 km)--> Szczecin --(111 km)--> Gorzów Wielkopolski --(119 km)--> Zielona Góra --(82.3 km)--> Lubin --(40.9 km)--> Środa Śląska --(45.4 km)--> Kobierzyce --(33.5 km)--> Oława --(17 km)--> Brzeg --(48 km)--> Opole --(114 km)--> Katowice --(80 km)--> Kraków --(108 km)--> Zakopane --(265 km)--> Ustrzyki Dolne
+Trasa nr 2 wg BFS: 
+Szczecin --(111 km)--> Gorzów Wielkopolski --(170 km)--> Poznań --(161 km)--> Toruń --(210 km)--> Warszawa --(169 km)--> Lublin
+Trasa nr 2 wg DFS: 
+Szczecin --(37.8 km)--> Goleniów --(25 km)--> Nowogard --(96.7 km)--> Koszalin --(75 km)--> Ustka --(127 km)--> Gdynia --(21.6 km)--> Gdańsk --(170 km)--> Toruń --(161 km)--> Poznań --(143 km)--> Trzebnica --(19.9 km)--> Długołęka --(21 km)--> Łany --(14.4 km)--> Jelcz-Laskowice --(40.3 km)--> Namysłów --(54.5 km)--> Opole --(97 km)--> Częstochowa --(132 km)--> Kielce --(176 km)--> Lublin
+Trasa nr 2 wg A*: 
+Szczecin --(111 km)--> Gorzów Wielkopolski --(170 km)--> Poznań --(143 km)--> Kalisz --(112 km)--> Łódź --(136 km)--> Radom --(116 km)--> Lublin
+Trasa nr 3 wg BFS: 
+Suwałki --(196 km)--> Olsztyn --(176 km)--> Toruń --(161 km)--> Poznań --(155 km)--> Zielona Góra --(148 km)--> Jelenia Góra
+Trasa nr 3 wg DFS: 
+Suwałki --(279 km)--> Warszawa --(210 km)--> Toruń --(45 km)--> Bydgoszcz --(89 km)--> Piła --(173 km)--> Szczecin --(111 km)--> Gorzów Wielkopolski --(119 km)--> Zielona Góra --(148 km)--> Jelenia Góra
+Trasa nr 3 wg A*: 
+Suwałki --(279 km)--> Warszawa --(128 km)--> Łódź --(112 km)--> Kalisz --(89.2 km)--> Oleśnica --(13.8 km)--> Długołęka --(17.4 km)--> Wrocław --(32.8 km)--> Środa Śląska --(38.6 km)--> Legnica --(58.3 km)--> Jelenia Góra
+Trasa nr 4 wg BFS: 
+Hel --(74 km)--> Gdynia --(21.6 km)--> Gdańsk --(136 km)--> Olsztyn --(238 km)--> Białystok --(252 km)--> Lublin --(168 km)--> Rzeszów --(176 km)--> Kraków --(108 km)--> Zakopane
+Trasa nr 4 wg DFS: 
+Hel --(74 km)--> Gdynia --(21.6 km)--> Gdańsk --(170 km)--> Toruń --(45 km)--> Bydgoszcz --(89 km)--> Piła --(173 km)--> Szczecin --(111 km)--> Gorzów Wielkopolski --(119 km)--> Zielona Góra --(82.3 km)--> Lubin --(40.9 km)--> Środa Śląska --(45.4 km)--> Kobierzyce --(33.5 km)--> Oława --(10.9 km)--> Jelcz-Laskowice --(40.3 km)--> Namysłów --(54.5 km)--> Opole --(97 km)--> Częstochowa --(132 km)--> Kielce --(115 km)--> Kraków --(108 km)--> Zakopane
+Trasa nr 4 wg A*: 
+Hel --(74 km)--> Gdynia --(21.6 km)--> Gdańsk --(170 km)--> Toruń --(179 km)--> Łódź --(124 km)--> Częstochowa --(73 km)--> Katowice --(80 km)--> Kraków --(108 km)--> Zakopane
+Trasa nr 5 wg BFS: 
+Radom --(102 km)--> Warszawa --(210 km)--> Toruń --(161 km)--> Poznań --(102 km)--> Piła
+Trasa nr 5 wg DFS: 
+Radom --(136 km)--> Łódź --(112 km)--> Kalisz --(89.2 km)--> Oleśnica --(30 km)--> Namysłów --(40.3 km)--> Jelcz-Laskowice --(10.9 km)--> Oława --(33.5 km)--> Kobierzyce --(45.4 km)--> Środa Śląska --(40.9 km)--> Lubin --(82.3 km)--> Zielona Góra --(119 km)--> Gorzów Wielkopolski --(111 km)--> Szczecin --(173 km)--> Piła
+Trasa nr 5 wg A*: 
+Radom --(102 km)--> Warszawa --(210 km)--> Toruń --(45 km)--> Bydgoszcz --(89 km)--> Piła
+Trasa nr 6 wg BFS: 
+Międzyzdroje --(18.3 km)--> Wolin --(43.8 km)--> Goleniów --(37.8 km)--> Szczecin --(111 km)--> Gorzów Wielkopolski --(170 km)--> Poznań --(161 km)--> Toruń --(210 km)--> Warszawa --(102 km)--> Radom
+Trasa nr 6 wg DFS: 
+Międzyzdroje --(27 km)--> Dziwnów --(42.7 km)--> Gryfice --(32.8 km)--> Nowogard --(25 km)--> Goleniów --(37.8 km)--> Szczecin --(173 km)--> Piła --(89 km)--> Bydgoszcz --(45 km)--> Toruń --(179 km)--> Łódź --(136 km)--> Radom
+Trasa nr 6 wg A*: 
+Międzyzdroje --(18.3 km)--> Wolin --(43.8 km)--> Goleniów --(37.8 km)--> Szczecin --(111 km)--> Gorzów Wielkopolski --(170 km)--> Poznań --(143 km)--> Kalisz --(112 km)--> Łódź --(136 km)--> Radom
+Trasa nr 7 wg BFS: 
+Legnica --(58.3 km)--> Jelenia Góra --(148 km)--> Zielona Góra --(119 km)--> Gorzów Wielkopolski --(111 km)--> Szczecin --(41.2 km)--> Pasewalk --(47.1 km)--> Anklam --(49.3 km)--> Świnoujście
+Trasa nr 7 wg DFS: 
+Legnica --(25 km)--> Lubin --(57.4 km)--> Oborniki Śląskie --(11.9 km)--> Trzebnica --(19.9 km)--> Długołęka --(21 km)--> Łany --(14.4 km)--> Jelcz-Laskowice --(40.3 km)--> Namysłów --(54.5 km)--> Opole --(97 km)--> Częstochowa --(124 km)--> Łódź --(179 km)--> Toruń --(45 km)--> Bydgoszcz --(89 km)--> Piła --(173 km)--> Szczecin --(15.9 km)--> Police --(84 km)--> Anklam --(49.3 km)--> Świnoujście
+Trasa nr 7 wg A*: 
+Legnica --(25 km)--> Lubin --(82.3 km)--> Zielona Góra --(119 km)--> Gorzów Wielkopolski --(111 km)--> Szczecin --(15.9 km)--> Police --(84 km)--> Anklam --(49.3 km)--> Świnoujście
