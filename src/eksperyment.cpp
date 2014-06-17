@@ -30,20 +30,20 @@ Eksperyment::Eksperyment(string PlikWyj): NazwaWyjscia(PlikWyj)
 	SpiszZadania();
 
 	for (unsigned i = 0; i < Zadania.size(); i++) {
-		unsigned start = Mapa.Znajdz(Zadania[i].Start),
-				koniec = Mapa.Znajdz(Zadania[i].Koniec);
+		unsigned start = Mapa.Znajdz(Zadania[i].Start);
 
 		timespec pocz = Teraz();
-//		vector<unsigned> wynik_tsp = Mapa.TSP(start);
+		vector<unsigned> wynik_tsp = Mapa.TSP_NN(start);
 		timespec kon = Teraz();
 
 		cout << "Trasa nr " << i+1 << ": ";
+		Mapa.PokazTrase(wynik_tsp);
 
 		float czas = RoznicaCzasu(pocz, kon);
 
-//		WynikBadania elem = {Zadania[i].Start, czas,
-//				Mapa.LacznyKoszt(wynik_tsp)};
-//		Wyniki.push_back(elem);
+		WynikBadania elem = {Zadania[i].Start, czas,
+				Mapa.LacznyKoszt(wynik_tsp)};
+		Wyniki.push_back(elem);
 		}
 	Zapisz();
 }
@@ -75,17 +75,6 @@ void Eksperyment::SpiszZadania()
 			catch (const exception &e)
 			{ cerr << "Nie ma punktu o nazwie " << nazwa << endl; }
 		}
-		cout << "Podaj punkt końcowy nr " << (i+1) << ": ";
-		while (1) {
-			getline(cin, Zadania[i].Koniec);
-			try {
-				Mapa.Znajdz(Zadania[i].Koniec);
-				break;
-			}
-			catch (const exception &e)
-			{ cerr << "Nie ma punktu o nazwie " << Zadania[i].Koniec
-				<< endl; }
-		}
 	}
 }
 
@@ -93,13 +82,10 @@ void Eksperyment::Zapisz()
 {
   ofstream str;
   str.open(NazwaWyjscia.c_str());
-  str << "Punkt początkowy,Punkt końcowy,Czas BFS,Koszt BFS,Czas DFS,"
-		  << "Koszt DFS,Czas A*,Koszt A*\n";
+  str << "Punkt początkowy,Punkt końcowy,Czas,Koszt,\n";
   for (unsigned i = 0; i < Wyniki.size(); i++) {
-//    str << Wyniki[i].Start << "," << Wyniki[i].Stop << ','
-//    		<< Wyniki[i].BFS_czas << ',' << Wyniki[i].BFS_koszt << ','
-//    		<< Wyniki[i].DFS_czas << ',' << Wyniki[i].DFS_koszt << ','
-//    		<< Wyniki[i].A_czas << ',' << Wyniki[i].A_koszt << '\n';
+    str << Wyniki[i].Start << "," << Wyniki[i].czas<< ','
+    		<< Wyniki[i].koszt << '\n';
   }
 
   str.close();

@@ -19,9 +19,9 @@ struct Zrodlo {
 	string Start;
 
 	/*!
-	 * Nazwa punktu końcowego
+	 * Ilość powtórzeń badania
 	 */
-	string Koniec;
+	unsigned ile;
 };
 
 #endif

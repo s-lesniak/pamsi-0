@@ -66,8 +66,8 @@ public:
    * @brief Spis "zadań" do wykonania przez program 
    *
    * "Zadanie" jest zapisane jako struktura typu [Zrodlo](@ref Zrodlo),
-   * z nazwami dwóch plików (wejściowego i wzorcowego) oraz liczbą
-   * powtórzeń badania. */
+   * z nazwą wierzchołka, od którego zaczynamy, i ewentualnie ilości powtórzeń
+   * badania. */
   vector<Zrodlo> Zadania;
 
   /*!

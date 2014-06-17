@@ -200,6 +200,35 @@ public:
 		{ return AStar(Znajdz(start), Znajdz(koniec)); }
 
 	/*!
+	 * \brief Aproksymuje rozwiązanie problemu komiwojażera
+	 *
+	 * Funkcja przechodzi wszystkie elementy grafu pełnego z wykorzystaniem
+	 * algorytmu najbliższego sąsiada (ang. Nearest Neighbor), tzn. każdorazowo
+	 * szuka najbliższego nieodwiedzonego dotychczas węzła.
+	 *
+	 * @param start - nr wierzchołka, od którego rozpoczęte zostanie przejście
+	 * @return wektor węzłów uporządkowanych w kolejności ww. przejścia
+	 */
+	vector<unsigned> TSP_NN(unsigned start) const;
+
+	vector<unsigned> TSP_NN(const Wezel_t &start) const
+		{ return TSP_NN(Znajdz(start)); }
+
+	/*!
+	 * \brief Daje "antyrozwiązanie" problemu komiwojażera
+	 *
+	 * Funkcja każdokrotnie szuka losowy z dotychczas niezwiedzonych wierzchołków.
+	 * Jest zamierzona jako przykład skrajnie nieefektywnego rozwiązaniu TSP, i
+	 * przeznaczona do wielokrotnego wywołania i uśrednienia wyników.
+	 * @param start - nr wierzchołka, od którego rozpoczęte zostanie przejście
+	 * @return wektor węzłów uporządkowanych w kolejności ww. przejścia
+	 */
+	vector<unsigned> TSP_rand(unsigned start) const;
+
+	vector<unsigned> TSP_rand(const Wezel_t &start) const
+		{ return TSP_rand(Znajdz(start)); }
+
+	/*!
 	 * Konwertuje wektor z indeksami wierzchołków grafu na wektor z ich
 	 * wartościami
 	 */

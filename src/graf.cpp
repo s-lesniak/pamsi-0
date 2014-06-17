@@ -13,6 +13,7 @@
 #include <set>
 #include <fstream>
 #include <sstream>
+#include <cstdlib>
 
 #include "graf.hh"
 
@@ -268,6 +269,57 @@ vector<unsigned> Graf<Wezel_t, Koszt_t>::AStar
 }
 
 template <typename Wezel_t, typename Koszt_t>
+vector<unsigned> Graf<Wezel_t, Koszt_t>::TSP_NN(unsigned start) const
+{
+	vector<unsigned> kopia(Wezly.size());
+	for (unsigned i = 0; i < Wezly.size(); i++) kopia[i] = i;
+
+	vector<unsigned> wynik;
+	unsigned i = start;
+
+	while (kopia.size()) {
+		wynik.push_back(i);
+		kopia.erase(find(kopia.begin(), kopia.end(), i));
+
+//		i = kopia.front();
+		i = kopia[0];
+		Koszt_t min, biez;
+		for (unsigned j = 0; j < kopia.size(); j++) {
+			if (kopia[j] == start)
+				break;
+			min = Odleglosc(wynik.back(), i);
+			biez = Odleglosc(wynik.back(), kopia[j]);
+			i = (biez < min) ? kopia[j] : i;
+		}
+	}
+	wynik.push_back(start);
+
+	return wynik;
+}
+
+template <typename Wezel_t, typename Koszt_t>
+vector<unsigned> Graf<Wezel_t, Koszt_t>::TSP_rand(unsigned start) const
+{
+	vector<unsigned> kopia(Wezly.size());
+	for (unsigned i = 0; i < Wezly.size(); i++) kopia[i] = i;
+
+	vector<unsigned> wynik;
+	srand(time(NULL));
+
+	wynik.push_back(kopia[start]);
+	kopia.erase(kopia.begin() + start);
+
+	while(unsigned i = kopia.size()) {
+		i = rand() % kopia.size();
+		wynik.push_back(kopia[i]);
+		kopia.erase(kopia.begin()+i);
+	}
+
+	wynik.push_back(start);
+	return wynik;
+
+}
+template <typename Wezel_t, typename Koszt_t>
 vector<Wezel_t> Graf<Wezel_t, Koszt_t>::ZnajdzWartosci
 (const vector<unsigned>& zr) const
 {
@@ -375,7 +427,6 @@ void Graf<Wezel_t, Koszt_t>::WczytajKrawedzie()
 			Dodaj(Wezly[i], Wezly[j], Wezly[i].OdlegloscDo(Wezly[j]));
 		}
 	}
-	MSas.Wypisz(cout);
 }
 
 template <typename Wezel_t, typename Koszt_t>
